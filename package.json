@@ -1,0 +1,27 @@
+{
+	"name": "darts-scorer-v2",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"test": "turbo run test"
+	},
+	"author": "jta",
+	"license": "ISC",
+	"workspaces": ["packages/**"],
+	"description": "",
+	"packageManager": "pnpm@9.0.6",
+	"dependencies": {
+		"express": "^4.21.2",
+		"typescript": "^5.5.2",
+		"zod": "3.23.7"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.10.5"
+	}
+}

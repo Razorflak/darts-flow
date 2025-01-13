@@ -1,0 +1,32 @@
+{
+	"name": "@dartsScorer/back-end",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"scripts": {
+		"test": "test",
+		"dev": "tsx watch src"
+	},
+	"author": "jta",
+	"license": "ISC",
+	"description": "",
+	"packageManager": "pnpm@9.0.6",
+	"dependencies": {
+		"@dartsScorer/models": "workspace:*",
+		"cors": "^2.8.5",
+		"express": "^4.21.2",
+		"express-ws": "^5.0.2",
+		"typescript": "^5.5.2",
+		"zod": "3.23.7"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@dartsScorer/biome-config": "workspace:*",
+		"@dartsScorer/models": "workspace:*",
+		"@dartsScorer/typescript-config": "workspace:*",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.0",
+		"@types/express-ws": "^3.0.5",
+		"@types/node": "^22.10.5"
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"name": "@dartsScorer/ws",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"scripts": {
+		"test": "test"
+	},
+	"author": "jta",
+	"license": "ISC",
+	"description": "",
+	"packageManager": "pnpm@9.0.6",
+	"dependencies": {},
+	"devDependencies": {
+		"typescript": "^5.5.2",
+		"@biomejs/biome": "^1.9.4",
+		"@dartsScorer/biome-config": "workspace:*",
+		"@dartsScorer/models": "workspace:*",
+		"@dartsScorer/typescript-config": "workspace:*",
+		"@types/express-ws": "^3.0.5",
+		"@types/node": "^22.10.5"
+	}
+}

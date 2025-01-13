@@ -1,0 +1,21 @@
+{
+	"name": "@dartsScorer/models",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "",
+	"main": "src/index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@dartsScorer/biome-config": "workspace:*",
+		"@dartsScorer/typescript-config": "workspace:*"
+	}
+}
