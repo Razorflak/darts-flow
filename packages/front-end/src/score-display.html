@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <script type="module" src="./score-display.ts"></script>
+    <link rel="stylesheet" type="text/css" href="./score-display.css" />
+  </head>
+  <body onload="onPageLoad()">
+    <div class="mainContainer">
+      <div class="header">
+        <span id="nbrMancheGagnante">5 manches gagnantes</span>
+        <span id="setNeeded" class="manche">Sets</span>
+        <span class="manche">Manches</span>
+      </div>
+
+      <div id="divInfoJoueur">
+        <div class="rowh">
+          <div id="f1" class="playingPlayer"></div>
+          <span id="player1Name" class="infoGame name"></span>
+          <span id="player1Set" class="infoGame manche">1</span>
+          <span id="player1Leg" class="infoGame manche">1</span>
+          <span id="player1Score" class="infoGame score">501</span>
+          <div id="r1" class="playingPlayer"></div>
+          <div
+            id="player1LastScore"
+            class="lastestScoreDisplay lastestScoreDisplayHide"
+          >
+            0
+          </div>
+        </div>
+        <div class="rowh">
+          <div id="f2" class="playingPlayer"></div>
+          <span id="player2Name" class="infoGame name"></span>
+          <span id="player2Set" class="infoGame manche">1</span>
+          <span id="player2Leg" class="infoGame manche">1</span>
+          <span id="player2Score" class="infoGame score">501</span>
+          <div id="r2" class="playingPlayer"></div>
+          <div
+            id="player2LastScore"
+            class="lastestScoreDisplay lastestScoreDisplayHide"
+          >
+            0
+          </div>
+        </div>
+      </div>
+      <div></div>
+      <span id="stadeCompetition">QUART DE FINAL</span>
+    </div>
+  </body>
+</html>

@@ -99,7 +99,7 @@ window.onPlayerStart = onPlayerStart
 export function sendMatchData(match: Match) {
 	const params = JSON.stringify(match, null, 3)
 	fetch(`${getApiBaseUrl()}/match/${match.id}`, {
-		method: "PATCH",
+		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
 		},

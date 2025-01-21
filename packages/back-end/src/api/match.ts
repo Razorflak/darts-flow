@@ -1,7 +1,7 @@
 import express, { Router } from "express"
 import cors from "cors"
 import type { Request, Response } from "express"
-import type { Match, Throw } from "@dartsScorer/models"
+import type { Match } from "@dartsScorer/models"
 import {
 	existsSync,
 	mkdirSync,
@@ -10,17 +10,14 @@ import {
 	writeFileSync,
 } from "node:fs"
 import { getMostRecentFile } from "../lib/file/file.js"
+import { matchUpdate } from "@dartsScorer/ws"
 
-const apiRouter = Router()
+const apiMatchRouter = Router()
 
-apiRouter.use(express.json())
-apiRouter.use(cors())
+apiMatchRouter.use(express.json())
+apiMatchRouter.use(cors())
 
-apiRouter.get("/", (req: Request, res: Response) => {
-	res.json({ message: "Bienvenue à la racine de l'API" })
-})
-
-apiRouter.post("/match", (req: Request, res: Response) => {
+apiMatchRouter.post("/", (req: Request, res: Response) => {
 	const match: Match = req.body
 	try {
 		mkdirSync("./matches")
@@ -29,10 +26,11 @@ apiRouter.post("/match", (req: Request, res: Response) => {
 		throw new Error("Match already exist")
 	}
 	writeFileSync(`./matches/${match.id}.json`, JSON.stringify(match, null, 3))
+	matchUpdate(match)
 	res.sendStatus(200)
 })
 
-apiRouter.patch("/match/:id", (req: Request, res: Response) => {
+apiMatchRouter.put("/:id", (req: Request, res: Response) => {
 	const gameId = req.params.id
 	const match: Match = req.body
 	if (gameId !== match.id) {
@@ -42,22 +40,11 @@ apiRouter.patch("/match/:id", (req: Request, res: Response) => {
 		mkdirSync("./matches")
 	} catch {}
 	writeFileSync(`./matches/${match.id}.json`, JSON.stringify(match, null, 3))
+	matchUpdate(match)
 	res.sendStatus(200)
 })
 
-apiRouter.get("/match/:id?", (req: Request, res: Response) => {
-	const gameId = req.params.id
-	const mostRecentFile = getMostRecentFile("./matches")
-	if (!mostRecentFile) {
-		throw new Error("match folder is empty")
-	}
-	const matchString = gameId
-		? readFileSync(`./matches/${gameId}.json`).toString()
-		: readFileSync(`./matches/${mostRecentFile}`).toString()
-	res.send(JSON.parse(matchString))
-})
-
-apiRouter.get("/matches", (req: Request, res: Response) => {
+apiMatchRouter.get("/matches", (req: Request, res: Response) => {
 	const matchFileList = readdirSync("./matches")
 	const games: Match[] = matchFileList.map((file) => {
 		const matchString = readFileSync(`./matches/${file}`).toString()
@@ -66,4 +53,17 @@ apiRouter.get("/matches", (req: Request, res: Response) => {
 	res.send(games)
 })
 
-export default apiRouter
+apiMatchRouter.get("/:id?", (req: Request, res: Response) => {
+	const gameId = req.params.id === "null" ? null : req.params.id
+	const mostRecentFile = getMostRecentFile("./matches")
+	if (!mostRecentFile) {
+		throw new Error("match folder is empty")
+	}
+	const matchString = gameId
+		? readFileSync(`./matches/${gameId}.json`).toString()
+		: readFileSync(`./matches/${mostRecentFile}`).toString()
+	const match: Match = JSON.parse(matchString)
+	res.send(match)
+})
+
+export default apiMatchRouter

@@ -9,7 +9,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@dartsScorer/match-utils": "workspace:*"
+		"@dartsScorer/match-utils": "workspace:*",
+		"@dartsScorer/ws": "workspace:*"
 	},
 	"devDependencies": {
 		"@dartsScorer/models": "workspace:*",

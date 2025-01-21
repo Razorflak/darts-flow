@@ -5,7 +5,6 @@ export const getApiBaseUrl = (): string => {
 }
 
 export const getFrontBaseUrl = (): string => {
-	const apiBaseUrl =
-		import.meta.env.VITE_API_URL || "http://172.25.171.152:5173"
+	const apiBaseUrl = "http://172.25.171.152:5173"
 	return apiBaseUrl
 }

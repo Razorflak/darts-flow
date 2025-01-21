@@ -18,6 +18,7 @@
 		"@dartsScorer/models": "workspace:*",
 		"@dartsScorer/typescript-config": "workspace:*",
 		"@types/express-ws": "^3.0.5",
-		"@types/node": "^22.10.5"
+		"@types/node": "^22.10.5",
+		"@types/ws": "^8.5.13"
 	}
 }

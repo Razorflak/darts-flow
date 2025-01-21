@@ -37,8 +37,6 @@ async function onCreateGame() {
 		tournamentStage,
 		setNeededToWin,
 	)
-	console.log(match)
-	console.log(`${window.location.origin}/api`)
 	const url = `${getApiBaseUrl()}/match`
 	await fetch(url, {
 		method: "POST",
@@ -107,7 +105,7 @@ function onTournoiChange() {
 window.onTournoiChange = onTournoiChange
 
 async function loadAllActiveGame() {
-	const url = `${getApiBaseUrl()}/matches?isActive=true`
+	const url = `${getApiBaseUrl()}/match/matches?isActive=true`
 	const matches = (await (await fetch(url)).json()) as Match[]
 	function generateGameTableHTML(matches: Match[]): string {
 		let htmlContent = `

@@ -1,21 +1,17 @@
 import express from "express"
-import type { Request, Response } from "express"
 import expressWs from "express-ws"
-import apiRouter from "./api/match.js"
+import apiMatchRouter from "./api/match.js"
+import { addWsToStore, addWsMessageListerner } from "@dartsScorer/ws"
 
-const { app, getWss, applyTo } = expressWs(express())
+const { app } = expressWs(express())
 
 const port = 3000
 
-app.use("/api", apiRouter)
-app.ws("/", (ws, req, next) => {
-	ws.on("open", () => {
-		console.log(`ouverture du websocket depuis: ${req.ip}`)
-	})
-
-	ws.on("message", (data) => {
-		console.log("ws input", data)
-	})
+app.use("/api/match", apiMatchRouter)
+app.ws("/api/ws", (ws, req, next) => {
+	console.log(`ouverture du websocket depuis: ${req.ip}`)
+	addWsToStore(ws, req.ip || "unknow ip")
+	addWsMessageListerner(ws)
 })
 
 app.listen(port, "0.0.0.0", () => {
