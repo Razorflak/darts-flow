@@ -1,19 +1,32 @@
 import type { WebSocket } from "ws"
 import { addWsMessageListerner } from "./ws-message-router.js"
 import { sendMessage, type WsMessage } from "./index.js"
+import { randomUUID } from "node:crypto"
+import { setPingPongGame } from "./ping-pong.js"
+import { connectedClientUpdate } from "./update-connected-clients.js"
 
-const wsStore = new Map<string, WebSocket>()
+export type Client = { ws: WebSocket; screen: string; ip: string; id: string }
 
-export const addWsToStore = (ws: WebSocket, ip: string) => {
-	wsStore.set(ip, ws)
-	addWsMessageListerner(ws, ip)
+const wsStore = new Map<string, Client>()
+
+export const addWsToStore = (ws: WebSocket, ip: string, screen: string) => {
+	const id = randomUUID()
+	wsStore.set(id, { ws, screen, ip, id })
+	addWsMessageListerner(ws, id)
+	connectedClientUpdate(Array.from(wsStore.values()))
+	setPingPongGame(ws, () => {
+		ws.close()
+		wsStore.delete(id)
+		connectedClientUpdate(Array.from(wsStore.values()))
+	})
 }
 
-export const sendWsMessageByIp = (ip: string, wsMessage: WsMessage) => {
-	const ws = wsStore.get(ip)
+export const sendWsMessageById = (id: string, wsMessage: WsMessage) => {
+	const ws = wsStore.get(id)
 	if (!ws) {
-		throw new Error("WS not found")
+		console.error("WS not found")
+		return
 	}
-	console.log("sendto", ip, wsMessage)
-	sendMessage(ws, wsMessage)
+	console.log("sendto", id, wsMessage)
+	sendMessage(ws.ws, wsMessage)
 }

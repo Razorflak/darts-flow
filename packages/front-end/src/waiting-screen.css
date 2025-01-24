@@ -1,0 +1,61 @@
+@import "tailwindcss";
+body,
+html {
+  margin: 0;
+  height: 100%;
+  touch-action: manipulation;
+  font-family: RobotoBold;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f4f6; /* gris clair */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-gray-700 {
+  color: #4b5563;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.spinner {
+  margin: 0 auto; /* Centre le spinner horizontalement */
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb; /* gris clair */
+  border-top: 4px solid #3b82f6; /* bleu */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden {
+  display: none;
+}

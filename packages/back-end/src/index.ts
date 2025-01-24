@@ -9,8 +9,13 @@ const port = 3000
 
 app.use("/api/match", apiMatchRouter)
 app.ws("/api/ws", (ws, req, next) => {
+	const queryParams = req.query
+	const screen = queryParams.screen
+	if (!screen) {
+		next(new Error("Need to set 'screen' in the query params"))
+	}
 	console.log(`ouverture du websocket depuis: ${req.ip}`)
-	addWsToStore(ws, req.ip || "unknow ip")
+	addWsToStore(ws, req.ip || "unknow ip", screen as string)
 })
 
 app.listen(port, "0.0.0.0", () => {

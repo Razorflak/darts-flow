@@ -44,7 +44,7 @@ export const getInputValue = <T extends string | number | boolean>(
 export const getHtmlElementById = (id: string) => {
 	const htmlElement = document.getElementById(id)
 	if (!htmlElement) {
-		throw new Error("Html element not found")
+		throw new Error(`Html element not found: ${id}`)
 	}
 	return htmlElement
 }

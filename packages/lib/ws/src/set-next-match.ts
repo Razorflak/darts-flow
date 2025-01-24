@@ -1,15 +1,15 @@
 import type { Match } from "@dartsScorer/models"
-import { sendWsMessageById, UPDATE_COMMANDS } from "./index.js"
+import { COMMANDS, sendWsMessageById, UPDATE_COMMANDS } from "./index.js"
 
 type WebsocketMatchUpdateSuscriber = {
 	matchId: string
-	id: string
+	ip: string
 }
 
 const matchUpdateSuscribers: WebsocketMatchUpdateSuscriber[] = []
 
-export const addMatchUpdateSuscriber = (id: string, matchId: string) => {
-	matchUpdateSuscribers.push({ matchId, id })
+export const addMatchUpdateSuscriber = (ip: string, matchId: string) => {
+	matchUpdateSuscribers.push({ matchId, ip })
 }
 
 export const matchUpdate = (match: Match) => {
@@ -17,11 +17,10 @@ export const matchUpdate = (match: Match) => {
 		(ws) => ws.matchId === match.id || ws.matchId === "all",
 	)
 	for (const sub of subscribersToSend) {
-		sendWsMessageById(sub.id, {
+		sendWsMessageById(sub.ip, {
 			id: crypto.randomUUID(),
 			command: UPDATE_COMMANDS.matchUpdate,
 			data: match,
-			type: "update",
 		})
 	}
 }

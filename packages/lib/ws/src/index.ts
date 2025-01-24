@@ -1,18 +1,35 @@
 import type { Match } from "@dartsScorer/models"
 import type { UUID } from "node:crypto"
 import type { WebSocket } from "ws"
-export const COMMANDS = {
+import type { Client } from "./ws-store.js"
+
+export const SUB_COMMANDS = {
 	subMatchUpdate: "subMatchUpdate",
+	subConnectedClient: "subConnectedClient",
+} as const
+
+export const UPDATE_COMMANDS = {
+	matchUpdate: "matchUpdate",
+	connectedClientListUpdated: "connectedClientListUpdated",
+} as const
+
+export const ADMIN_COMMANDS = {
+	setNextMatch: "setNextMatch",
+} as const
+
+export const COMMANDS = {
 	ping: "ping",
 	pong: "pong",
-	matchUpdate: "matchUpdate",
 	setNextMatch: "setNextMatch",
 	ok: "ok",
 } as const
 
 type CommandDataMap = {
-	[COMMANDS.subMatchUpdate]: string | "all"
-	[COMMANDS.matchUpdate]: Match
+	[SUB_COMMANDS.subMatchUpdate]: string | "all"
+	[SUB_COMMANDS.subConnectedClient]: null
+	[UPDATE_COMMANDS.connectedClientListUpdated]: Client[]
+	[UPDATE_COMMANDS.matchUpdate]: Match
+	[ADMIN_COMMANDS.setNextMatch]: Match
 	[COMMANDS.ok]: "OK"
 	[COMMANDS.ping]: null
 	[COMMANDS.pong]: null
@@ -20,11 +37,20 @@ type CommandDataMap = {
 
 export type WsMessage = {
 	[K in keyof CommandDataMap]: {
+		type: "update" | "admin" | "sub"
 		command: K
 		id: UUID
 		data: CommandDataMap[K]
 	}
 }[keyof CommandDataMap]
+export type WsAdminMessage = {
+	[K in keyof CommandDataMap]: {
+		type: "update" | "admin" | "sub"
+		command: K
+		id: UUID
+		data: CommandDataMap[K]
+	}
+}[keyof CommandDataMap] & { destinationIp: string }
 
 export const sendMessage = (ws: WebSocket, message: WsMessage) => {
 	ws.send(JSON.stringify(message))

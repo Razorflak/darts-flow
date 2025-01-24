@@ -2,9 +2,11 @@ import { createMatch, createTeam } from "@dartsScorer/match-utils"
 import type { Match, Team } from "@dartsScorer/models"
 import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
-import { getInputValue } from "./lib/utils/html"
+import { getHtmlElementById, getInputValue } from "./lib/utils/html"
 
 compatibilityUUID()
+
+let admintIframe = true
 
 async function onCreateGame() {
 	const tournament = getInputValue<string>("inputCompetion")
@@ -45,7 +47,10 @@ async function onCreateGame() {
 		},
 		body: JSON.stringify(match),
 	})
-
+	if (admintIframe) {
+		window.parent.postMessage({ command: "matchCreated", match })
+		return
+	}
 	window.location.href = `${getFrontBaseUrl()}/scorer-client.html?id=${match.id}`
 }
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
@@ -56,11 +61,8 @@ function OnResetFields() {
 	for (let t = 0; t < 2; t++) {
 		for (let p = 0; p < 2; p++) {
 			const idElemen = `player${p + 1}Team${t + 1}`
-			;(document.getElementById(`${idElemen}Nom`) as HTMLInputElement).value =
-				""
-			;(
-				document.getElementById(`${idElemen}Prenom`) as HTMLInputElement
-			).value = ""
+			;(getHtmlElementById(`${idElemen}Nom`) as HTMLInputElement).value = ""
+			;(getHtmlElementById(`${idElemen}Prenom`) as HTMLInputElement).value = ""
 		}
 	}
 }
@@ -69,16 +71,10 @@ window.OnResetFields = OnResetFields
 
 function onTournoiChange() {
 	const tournoi = getInputValue<string>("inputCompetion")
-	const label1 = document.getElementById("labelEquipe1")
-	const label2 = document.getElementById("labelEquipe2")
-	if (!label1 || !label2) {
-		throw new Error("label missing")
-	}
-	const divSecondPlayer1 = document.getElementById("player2Team1")
-	const divSecondPlayer2 = document.getElementById("player2Team2")
-	if (!divSecondPlayer1 || !divSecondPlayer2) {
-		throw new Error("Missing second players boxes")
-	}
+	const label1 = getHtmlElementById("labelEquipe1")
+	const label2 = getHtmlElementById("labelEquipe2")
+	const divSecondPlayer1 = getHtmlElementById("player2Team1")
+	const divSecondPlayer2 = getHtmlElementById("player2Team2")
 
 	const setDivVisible = (div: HTMLElement) => {
 		div.style.visibility = ""
@@ -136,7 +132,7 @@ async function loadAllActiveGame() {
 
 		return htmlContent
 	}
-	const parentDiv = document.getElementById("divCurrentGames")
+	const parentDiv = getHtmlElementById("divCurrentGames")
 	if (!parentDiv) {
 		throw new Error("Parent div missing")
 	}
@@ -147,8 +143,12 @@ async function loadAllActiveGame() {
 window.loadAllActiveGame = loadAllActiveGame
 
 function onPageLoad() {
+	const searchParams = new URLSearchParams(window.location.search)
+	admintIframe = searchParams.get("admint-iframe") === "true"
 	onTournoiChange()
-	loadAllActiveGame()
+	if (!admintIframe) {
+		loadAllActiveGame()
+	}
 }
 
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html

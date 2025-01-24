@@ -99,7 +99,7 @@ function onMatchUpdate(match: Match) {
 
 function onPageLoad() {
 	const apiUrl = getApiBaseUrl()
-	const url = `${apiUrl}/ws`
+	const url = `${apiUrl}/ws?screen=score-display`
 	const socket = new WebSocket(url)
 	socket.onopen = (event) => {
 		console.log("Socket opened", event)
@@ -107,14 +107,24 @@ function onPageLoad() {
 			command: "subMatchUpdate",
 			data: "all",
 			id: crypto.randomUUID(),
+			type: "sub",
 		}
 		socket.send(JSON.stringify(subMatchMessage))
 	}
 	socket.onmessage = (event) => {
-		console.log(event)
-		const message: WsMessage = JSON.parse(event.data)
+		console.log("message", event)
+		const message: WsMessage = JSON.parse(event.data as string)
 		if (message.command === "matchUpdate") {
 			onMatchUpdate(message.data)
+		}
+		if (message.command === "ping") {
+			const response: WsMessage = {
+				command: "pong",
+				data: null,
+				id: crypto.randomUUID(),
+				type: "sub",
+			}
+			socket.send(JSON.stringify(response))
 		}
 	}
 

@@ -1,29 +1,62 @@
 import type { Match } from "@dartsScorer/models"
-import { getApiBaseUrl } from "./lib/requester/utils"
-import { getCurrentLeg, getLastThrowByTeam } from "@dartsScorer/match-utils"
+import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
-import type { WsMessage } from "@dartsScorer/ws"
+import type { WsAdminMessage, WsMessage } from "@dartsScorer/ws"
+import { getHtmlElementById } from "./lib/utils/html"
 
 compatibilityUUID()
 
+const waitingSection = getHtmlElementById("waitingSection")
+const nextMatchSection = getHtmlElementById("nextMatchSection")
+const goButton = getHtmlElementById("goButton") as HTMLButtonElement
+function showWaitingSection() {
+	if (waitingSection && nextMatchSection) {
+		waitingSection.classList.remove("hidden")
+		nextMatchSection.classList.add("hidden")
+	}
+}
+
+function showNextMatchSection() {
+	if (waitingSection && nextMatchSection) {
+		nextMatchSection.classList.remove("hidden")
+		waitingSection.classList.add("hidden")
+	}
+}
+
+function onSetMatch(match: Match) {
+	showNextMatchSection()
+	getHtmlElementById("player1").innerText = match.teams[0].displayName
+	getHtmlElementById("player2").innerText = match.teams[1].displayName
+	const matchURL = `${getFrontBaseUrl()}/scorer-client.html?id=${match.id}`
+	goButton.disabled = false
+	goButton.onclick = () => {
+		window.location.href = matchURL
+	}
+}
+
 function onPageLoad() {
+	showWaitingSection()
 	const apiUrl = getApiBaseUrl()
-	const url = `${apiUrl}/ws`
+	const url = `${apiUrl}/ws?screen=waiting-screen`
 	const socket = new WebSocket(url)
+	console.log("open socket", url)
 	socket.onopen = (event) => {
 		console.log("Socket opened", event)
-		const subMatchMessage: WsMessage = {
-			command: "subMatchUpdate",
-			data: "all",
-			id: crypto.randomUUID(),
-		}
-		socket.send(JSON.stringify(subMatchMessage))
 	}
 	socket.onmessage = (event) => {
 		console.log(event)
-		const message: WsMessage = JSON.parse(event.data)
-		if (message.command === "matchUpdate") {
-			onMatchUpdate(message.data)
+		const message: WsMessage | WsAdminMessage = JSON.parse(event.data)
+		if (message.command === "ping") {
+			const response: WsMessage = {
+				command: "pong",
+				data: null,
+				id: crypto.randomUUID(),
+				type: "sub",
+			}
+			socket.send(JSON.stringify(response))
+		}
+		if (message.command === "setNextMatch") {
+			onSetMatch(message.data)
 		}
 	}
 

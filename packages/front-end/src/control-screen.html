@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="control-screen.css" />
+    <script type="module" src="./control-screen.ts"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Écran de contrôle</title>
+  </head>
+  <body class="p-4 space-y-8 bg-gray-100" onload="onPageLoad()">
+    <!-- Section: Liste des clients -->
+    <section
+      id="clientListSection"
+      class="p-4 bg-white shadow rounded-lg space-y-4"
+    >
+      <h2 class="text-xl font-bold text-gray-800">Clients connectés</h2>
+      <ul id="clientList" class="space-y-2"></ul>
+      <div class="mt-4">
+        <label for="selectedId" class="block text-gray-600 font-medium"
+          >ID client sélectionnée :</label
+        >
+        <input
+          type="text"
+          id="selectedIp"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          readonly
+        />
+      </div>
+    </section>
+
+    <!-- Section: Création de match -->
+    <section id="createMatchSection" class="p-4 bg-white shadow rounded-lg">
+      <h2 class="text-xl font-bold text-gray-800">Création de match</h2>
+      <iframe
+        src="create-game.html?admint-iframe=true"
+        width="100%"
+        height="500px"
+        frameborder="0"
+      ></iframe>
+
+      <!-- Contenu à définir -->
+    </section>
+
+    <!-- Section: SetMatchToWaitingScreen -->
+    <section
+      id="setMatchSection"
+      class="p-4 bg-white shadow rounded-lg space-y-4"
+    >
+      <h2 class="text-xl font-bold text-gray-800">
+        Définir le match pour l'écran
+      </h2>
+      <div>
+        <label for="matchId" class="block text-gray-600 font-medium"
+          >ID du match :</label
+        >
+        <input
+          type="text"
+          id="matchId"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+      <button
+        id="setMatchButton"
+        class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600"
+      >
+        Envoyer
+      </button>
+    </section>
+    <section id="currentGames"></section>
+  </body>
+</html>

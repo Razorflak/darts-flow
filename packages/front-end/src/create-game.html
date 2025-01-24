@@ -8,223 +8,186 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta charset="utf-8" />
-    <title>Darts scorer</title>
+    <title>Darts Scorer</title>
   </head>
-  <body class=".container-lg" width="100%" height="100%" onload="onPageLoad()">
-    <div class="container-fluid">
-      <label class="labelInputInfo" id="labelCompetition" for="inputCompetion"
-        >Compétition</label
-      >
-      <select
-        class="form-control form-control-lg"
-        id="inputCompetion"
-        type="text"
-        onchange="onTournoiChange()"
-      >
-        <option>Simple Hommes</option>
-        <option>Simple Femmes</option>
-        <option>Simple Juniors</option>
-        <option>Simple Vétéran</option>
-        <option>Double mixte</option>
-        <option>Double féminin</option>
-        <option>Tournois par équipes</option>
-      </select>
-    </div>
-    <div class="container-fluid">
-      <label class="labelInputInfo" for="nbrManche"
-        >Stade de la compétition</label
-      >
-      <select class="form-control form-control-lg" id="inputStade" type="text">
-        <option>Phase de poule</option>
-        <option>32e de finale</option>
-        <option>16e de finale</option>
-        <option>8e de finale</option>
-        <option>1/4 de finale</option>
-        <option>1/2 de finale</option>
-        <option>Finale</option>
-      </select>
-    </div>
-    <div class="container-fluid">
-      <label class="labelInputInfo" id="labelNbrManche" for="nbrManche"
-        >Nombre de manche(s) gagnate(s)</label
-      >
-      <input
-        class="form-control form-control-lg"
-        type="number"
-        id="nbrManche"
-        min="1"
-        value="1"
-      />
-    </div>
-    <div class="container-fluid">
-      <label class="labelInputInfo" id="labelNbrSet" for="nbrSet"
-        >Nombre de sets gagant(s)</label
-      >
-      <input
-        class="form-control form-control-lg"
-        type="number"
-        id="nbrSet"
-        min="1"
-        value="1"
-      />
-    </div>
-    <div class="container-fluid">
-      <label class="labelInputInfo" id="labelInit1001" for="init1001"
-        >1001 ?</label
-      >
-      <input
-        class="form-control form-control-lg"
-        type="checkbox"
-        id="init1001"
-      />
-    </div>
+  <body class="min-h-screen bg-gray-100 p-4" onload="onPageLoad()">
+    <div class="space-y-4">
+      <div>
+        <label
+          for="inputCompetion"
+          class="block text-sm font-medium text-gray-700"
+          >Compétition</label
+        >
+        <select
+          id="inputCompetion"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          onchange="onTournoiChange()"
+        >
+          <option>Simple Hommes</option>
+          <option>Simple Femmes</option>
+          <option>Simple Juniors</option>
+          <option>Simple Vétéran</option>
+          <option>Double mixte</option>
+          <option>Double féminin</option>
+          <option>Tournois par équipes</option>
+        </select>
+      </div>
 
-    <div id="player1Team1" class="container-fluid">
-      <label id="labelEquipe1" class="labelInputInfo" for="basic-url"
-        >Equipe 1</label
-      >
-      <div class="row no-gutters">
-        <div class="col align-self-start">
-          <div class="input-group mb-3">
-            <input
-              id="player1Team1Prenom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Prénom"
-              aria-label="Prénom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player1Team1Nom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Nom"
-              aria-label="Nom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+      <div>
+        <label for="inputStade" class="block text-sm font-medium text-gray-700"
+          >Stade de la compétition</label
+        >
+        <select
+          id="inputStade"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        >
+          <option>Phase de poule</option>
+          <option>32e de finale</option>
+          <option>16e de finale</option>
+          <option>8e de finale</option>
+          <option>1/4 de finale</option>
+          <option>1/2 de finale</option>
+          <option>Finale</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="nbrManche" class="block text-sm font-medium text-gray-700"
+          >Nombre de manche(s) gagnante(s)</label
+        >
+        <input
+          id="nbrManche"
+          type="number"
+          min="1"
+          value="1"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label for="nbrSet" class="block text-sm font-medium text-gray-700"
+          >Nombre de sets gagnant(s)</label
+        >
+        <input
+          id="nbrSet"
+          type="number"
+          min="1"
+          value="1"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        />
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <label for="init1001" class="text-sm font-medium text-gray-700"
+          >1001 ?</label
+        >
+        <input
+          id="init1001"
+          type="checkbox"
+          class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label
+          id="labelEquipe1"
+          for="player1Team1Prenom"
+          class="block text-sm font-medium text-gray-700"
+          >Equipe 1</label
+        >
+        <div class="grid grid-cols-2 gap-4 mt-1">
+          <input
+            id="player1Team1Prenom"
+            type="text"
+            placeholder="Prénom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <input
+            id="player1Team1Nom"
+            type="text"
+            placeholder="Nom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
         </div>
       </div>
-    </div>
-    <div id="player2Team1" class="container-fluid player2">
-      <div class="row no-gutters">
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player2Team1Prenom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Prénom"
-              aria-label="Prénom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player2Team1Nom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Nom"
-              aria-label="Nom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+
+      <div id="player2Team1">
+        <div class="grid grid-cols-2 gap-4">
+          <input
+            id="player2Team1Prenom"
+            type="text"
+            placeholder="Prénom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <input
+            id="player2Team1Nom"
+            type="text"
+            placeholder="Nom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
         </div>
       </div>
-    </div>
-    <div id="player1Team2" class="container-fluid">
-      <label id="labelEquipe2" class="labelInputInfo" for="basic-url"
-        >Equipe 2</label
-      >
-      <div class="row no-gutters">
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player1Team2Prenom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Prénom"
-              aria-label="Prénom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player1Team2Nom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Nom"
-              aria-label="Nom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+
+      <div>
+        <label
+          id="labelEquipe2"
+          for="player1Team2Prenom"
+          class="block text-sm font-medium text-gray-700"
+          >Equipe 2</label
+        >
+        <div class="grid grid-cols-2 gap-4 mt-1">
+          <input
+            id="player1Team2Prenom"
+            type="text"
+            placeholder="Prénom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <input
+            id="player1Team2Nom"
+            type="text"
+            placeholder="Nom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
         </div>
       </div>
-    </div>
-    <div id="player2Team2" class="container-fluid player2">
-      <div class="row no-gutters">
-        <div class="col">
-          <div class="input-group mb-3">
-            <input
-              id="player2Team2Prenom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Prénom"
-              aria-label="Prénom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </div>
-        <div class="col no-gutters">
-          <div class="input-group mb-3">
-            <input
-              id="player2Team2Nom"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Nom"
-              aria-label="Nom"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+
+      <div>
+        <div class="grid grid-cols-2 gap-4" id="player2Team2">
+          <input
+            id="player2Team2Prenom"
+            type="text"
+            placeholder="Prénom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <input
+            id="player2Team2Nom"
+            type="text"
+            placeholder="Nom"
+            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
         </div>
       </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
-          <div class="input-group mb-3">
-            <button
-              type="button"
-              id="bntValid"
-              class="btn btn-success mb-1 btn-block"
-              onclick="onCreateGame()"
-            >
-              GO !
-            </button>
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-group mb-3">
-            <button
-              type="button"
-              id="bntValid"
-              class="btn btn-danger ml-auto btn-block"
-              onclick="OnResetFields()"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+
+      <div class="flex justify-between space-x-4">
+        <button
+          type="button"
+          id="bntValid"
+          class="w-full py-2 px-4 bg-green-600 text-white font-medium rounded-md shadow-sm hover:bg-green-700"
+          onclick="onCreateGame()"
+        >
+          GO !
+        </button>
+        <button
+          type="button"
+          id="bntReset"
+          class="w-full py-2 px-4 bg-red-600 text-white font-medium rounded-md shadow-sm hover:bg-red-700"
+          onclick="OnResetFields()"
+        >
+          Reset
+        </button>
       </div>
+
+      <div id="divCurrentGames" class="mt-4"></div>
     </div>
-    <div id="divCurrentGames"></div>
   </body>
 </html>
