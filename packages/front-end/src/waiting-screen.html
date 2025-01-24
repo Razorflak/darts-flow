@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <script type="module" src="./score-display.ts"></script>
+    <link rel="stylesheet" type="text/css" href="./score-display.css" />
+  </head>
+  <body onload="onPageLoad()">
+    <div class="mainContainer">
+      <div id="waitingNextMatch">
+        <span>En attente du prochain match</span>
+      </div>
+      <div id="nextMatchReady">
+        <span>Prochain match</span>
+        <span id="matchPlayers">-</span>
+        <button onclick="goToLoadedGame()" type="">GO !</button>
+      </div>
+    </div>
+  </body>
+</html>

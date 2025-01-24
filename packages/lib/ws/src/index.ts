@@ -6,6 +6,7 @@ export const COMMANDS = {
 	ping: "ping",
 	pong: "pong",
 	matchUpdate: "matchUpdate",
+	setNextMatch: "setNextMatch",
 	ok: "ok",
 } as const
 

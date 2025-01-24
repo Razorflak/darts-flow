@@ -6,12 +6,13 @@ import {
 	type WsMessage,
 } from "./index.js"
 
-export const addWsMessageListerner = (ws: WebSocket) => {
+export const addWsMessageListerner = (ws: WebSocket, ip: string) => {
+	console.log("addlistener", ip)
 	ws.on("message", (data) => {
 		const wsMessage: WsMessage = JSON.parse(data as unknown as string)
 		switch (wsMessage.command) {
 			case COMMANDS.subMatchUpdate:
-				addMatchUpdateSuscriber(wsMessage.data, ws)
+				addMatchUpdateSuscriber(ip, wsMessage.data)
 				sendMessage(ws, { id: wsMessage.id, command: "ok", data: "OK" })
 				break
 			case COMMANDS.ping:

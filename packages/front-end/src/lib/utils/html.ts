@@ -40,3 +40,11 @@ export const getInputValue = <T extends string | number | boolean>(
 
 	throw new Error(`Element with id "${id}" is neither an input nor a select.`)
 }
+
+export const getHtmlElementById = (id: string) => {
+	const htmlElement = document.getElementById(id)
+	if (!htmlElement) {
+		throw new Error("Html element not found")
+	}
+	return htmlElement
+}

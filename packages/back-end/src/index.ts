@@ -11,7 +11,6 @@ app.use("/api/match", apiMatchRouter)
 app.ws("/api/ws", (ws, req, next) => {
 	console.log(`ouverture du websocket depuis: ${req.ip}`)
 	addWsToStore(ws, req.ip || "unknow ip")
-	addWsMessageListerner(ws)
 })
 
 app.listen(port, "0.0.0.0", () => {
