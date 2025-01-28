@@ -107,9 +107,6 @@ importers:
       tailwindcss:
         specifier: ^4.0.0
         version: 4.0.0
-      ws:
-        specifier: ^8.18.0
-        version: 8.18.0
     devDependencies:
       '@dartsScorer/biome-config':
         specifier: workspace:*
@@ -117,9 +114,6 @@ importers:
       '@dartsScorer/models':
         specifier: workspace:*
         version: link:../shared/models
-      '@types/ws':
-        specifier: ^8.5.13
-        version: 8.5.13
       prettier:
         specifier: 3.4.2
         version: 3.4.2
