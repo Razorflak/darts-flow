@@ -1,4 +1,5 @@
-import { sendWsMessageById, UPDATE_COMMANDS, type Client } from "./index.js"
+import { UPDATE_COMMANDS, type Client } from "@dartsScorer/shared-ws"
+import { sendWsMessageById } from "./index.js"
 
 type ConnectClientUpdateSuscriber = {
 	id: string
@@ -16,7 +17,6 @@ export const connectedClientUpdate = (clients: Client[]) => {
 			id: crypto.randomUUID(),
 			command: UPDATE_COMMANDS.connectedClientListUpdated,
 			data: clients.filter((client) => client.id !== sub.id),
-			type: "update",
 		})
 	}
 }

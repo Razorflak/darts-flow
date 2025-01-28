@@ -1,5 +1,5 @@
 import type { Match } from "@dartsScorer/models"
-import { getApiBaseUrl } from "./lib/requester/utils"
+import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import {
 	changeActiveTeam,
 	getActiveTeam,
@@ -164,6 +164,9 @@ function onValiderNbrDarts(nbrDarts: number) {
 	onClr()
 	matchDataToDOM(match)
 	sendMatchData(match)
+	if (match.isOver) {
+		window.location.href = `${getFrontBaseUrl()}/waiting-screen.html`
+	}
 }
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
 window.onValiderNbrDarts = onValiderNbrDarts

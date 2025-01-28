@@ -1,6 +1,7 @@
 import type { WebSocket } from "ws"
-import { sendMessage, type WsMessage } from "./index.js"
+import { sendMessage } from "./index.js"
 import { randomUUID } from "node:crypto"
+import type { WsMessage } from "@dartsScorer/shared-ws"
 
 const BASE_INTERVAL = 2000
 export const setPingPongGame = (ws: WebSocket, onGameOver: () => void) => {
@@ -12,9 +13,7 @@ export const setPingPongGame = (ws: WebSocket, onGameOver: () => void) => {
 		setTimeout(() => {
 			sendMessage(ws, {
 				command: "ping",
-				type: "sub",
 				id: randomUUID(),
-				data: null,
 			})
 		}, BASE_INTERVAL)
 	}

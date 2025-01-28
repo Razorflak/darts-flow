@@ -1,16 +1,18 @@
 import type { Client, WsMessage } from "@dartsScorer/ws"
 import { getApiBaseUrl } from "./lib/requester/utils"
 import { getHtmlElementById } from "./lib/utils/html"
-import { Match } from "@dartsScorer/models"
+import type { Match } from "@dartsScorer/models"
+import { compatibilityUUID } from "./lib/utils/crypto"
 
-// Récupération des éléments
+compatibilityUUID()
+
 const clientList = getHtmlElementById("clientList")
 const selectedIdInput = getHtmlElementById("selectedIp") as HTMLInputElement
-const setMatchButton = getHtmlElementById("setMatchButton")
-const matchIdInput = getHtmlElementById("matchId") as HTMLInputElement
 
 // Liste des clients connectés (Exemple de données, récupérées dynamiquement)
 let clients: Client[] = []
+let matches: Match[] = []
+let socket: WebSocket
 
 // Fonction pour mettre à jour la liste des clients
 function updateClientList() {
@@ -27,31 +29,6 @@ function updateClientList() {
 	}
 }
 
-// Fonction pour envoyer un message via WebSocket
-function sendMatchToWaitingScreen() {
-	const ip = selectedIdInput.value
-	const matchId = matchIdInput.value
-
-	if (!ip || !matchId) {
-		return
-	}
-
-	// Exemple de WebSocket (à remplacer par ton propre code)
-	const ws = new WebSocket(`ws://${ip}:8080`)
-	ws.onopen = () => {
-		ws.send(JSON.stringify({ action: "setMatch", matchId }))
-		alert(`Match ID "${matchId}" envoyé à ${ip}`)
-		ws.close()
-	}
-
-	ws.onerror = () => {
-		alert("Erreur : Impossible de se connecter au WebSocket.")
-	}
-}
-
-// Événement pour le bouton "Envoyer"
-setMatchButton.onclick = sendMatchToWaitingScreen
-
 window.addEventListener("message", () => {
 	loadAllActiveGame()
 })
@@ -65,24 +42,38 @@ function generateRow(match: Match) {
       <td class="border border-gray-300 px-4 py-2">${match.competitionStage} - ${match.competition}</td>
       <td class="border border-gray-300 px-4 py-2">
         <button 
-          class="btn-reprendre bg-blue-500 text-white font-semibold py-1 px-3 rounded hover:bg-blue-700 transition duration-200"
+          class="btn-next-match bg-blue-500 text-white font-semibold py-1 px-3 rounded hover:bg-blue-700 transition duration-200"
           data-match-id="${match.id}"
         >
-          Reprendre scorage
+          Next Match
         </button>
       </td>
     </tr>`
 }
 
+function sendMatchToWaitingScreen(match: Match) {
+	const clienId = selectedIdInput.value
+	const wsMessage: WsMessage = {
+		id: crypto.randomUUID(),
+		command: "setNextMatch",
+		destinationId: clienId,
+		data: match,
+	}
+	console.log("message send", wsMessage)
+	socket.send(JSON.stringify(wsMessage))
+}
+
 function attachButtonListeners(): void {
-	const buttons = document.querySelectorAll<HTMLButtonElement>(".btn-reprendre")
+	const buttons =
+		document.querySelectorAll<HTMLButtonElement>(".btn-next-match")
 	for (const button of buttons) {
 		button.addEventListener("click", (event) => {
 			const target = event.target as HTMLButtonElement | null
 			if (target) {
 				const matchId = target.getAttribute("data-match-id")
 				if (matchId) {
-					console.log(`ID du match : ${matchId}`)
+					const match = matches.find((m) => m.id === matchId)
+					sendMatchToWaitingScreen(match as Match)
 				}
 			}
 		})
@@ -111,31 +102,26 @@ function generateTable(matches: Match[]) {
 
 async function loadAllActiveGame() {
 	const url = `${getApiBaseUrl()}/match/matches?isActive=true`
-	const matches = (await (await fetch(url)).json()) as Match[]
-	function generateGameTableHTML(matches: Match[]): string {
-		const htmlContent = generateTable(matches)
-		return htmlContent
-	}
+	matches = (await (await fetch(url)).json()) as Match[]
 	const parentDiv = getHtmlElementById("currentGames")
 	if (!parentDiv) {
 		throw new Error("Parent div missing")
 	}
 
-	parentDiv.innerHTML = generateGameTableHTML(matches)
+	parentDiv.innerHTML = generateTable(matches)
 	attachButtonListeners()
 }
 
 function onPageLoad() {
 	const apiUrl = getApiBaseUrl()
 	const url = `${apiUrl}/ws?screen=score-display`
-	const socket = new WebSocket(url)
+	socket = new WebSocket(url)
 	socket.onopen = (event) => {
 		console.log("Socket opened", event)
 		const subMatchMessage: WsMessage = {
 			command: "subConnectedClient",
 			data: null,
 			id: crypto.randomUUID(),
-			type: "sub",
 		}
 		socket.send(JSON.stringify(subMatchMessage))
 	}
@@ -151,7 +137,6 @@ function onPageLoad() {
 				command: "pong",
 				data: null,
 				id: crypto.randomUUID(),
-				type: "sub",
 			}
 			socket.send(JSON.stringify(response))
 		}

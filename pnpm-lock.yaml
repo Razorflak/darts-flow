@@ -35,7 +35,7 @@ importers:
     dependencies:
       '@dartsScorer/models':
         specifier: workspace:*
-        version: link:../models
+        version: link:../shared/models
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -64,12 +64,15 @@ importers:
       '@dartsScorer/biome-config':
         specifier: workspace:*
         version: link:../config/biome-config
+      '@dartsScorer/match-utils':
+        specifier: workspace:*
+        version: link:../shared/match-utils
+      '@dartsScorer/shared-ws':
+        specifier: workspace:*
+        version: link:../shared/ws
       '@dartsScorer/typescript-config':
         specifier: workspace:*
         version: link:../config/typescript-config
-      '@dartsScorer/ws':
-        specifier: workspace:*
-        version: link:../lib/ws
       '@types/cors':
         specifier: ^2.8.17
         version: 2.8.17
@@ -94,10 +97,10 @@ importers:
     dependencies:
       '@dartsScorer/match-utils':
         specifier: workspace:*
-        version: link:../lib/match-utils
-      '@dartsScorer/ws':
+        version: link:../shared/match-utils
+      '@dartsScorer/shared-ws':
         specifier: workspace:*
-        version: link:../lib/ws
+        version: link:../shared/ws
       '@tailwindcss/vite':
         specifier: ^4.0.0
         version: 4.0.0(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.29.1)(tsx@4.19.2))
@@ -113,7 +116,7 @@ importers:
         version: link:../config/biome-config
       '@dartsScorer/models':
         specifier: workspace:*
-        version: link:../models
+        version: link:../shared/models
       '@types/ws':
         specifier: ^8.5.13
         version: 8.5.13
@@ -127,11 +130,11 @@ importers:
         specifier: ^6.0.5
         version: 6.0.7(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.29.1)(tsx@4.19.2)
 
-  packages/lib/match-utils:
+  packages/shared/match-utils:
     dependencies:
       '@dartsScorer/models':
         specifier: workspace:*
-        version: link:../../models
+        version: link:../models
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -146,34 +149,7 @@ importers:
         specifier: ^22.10.5
         version: 22.10.5
 
-  packages/lib/ws:
-    devDependencies:
-      '@biomejs/biome':
-        specifier: ^1.9.4
-        version: 1.9.4
-      '@dartsScorer/biome-config':
-        specifier: workspace:*
-        version: link:../../config/biome-config
-      '@dartsScorer/models':
-        specifier: workspace:*
-        version: link:../../models
-      '@dartsScorer/typescript-config':
-        specifier: workspace:*
-        version: link:../../config/typescript-config
-      '@types/express-ws':
-        specifier: ^3.0.5
-        version: 3.0.5
-      '@types/node':
-        specifier: ^22.10.5
-        version: 22.10.5
-      '@types/ws':
-        specifier: ^8.5.13
-        version: 8.5.13
-      typescript:
-        specifier: ^5.5.2
-        version: 5.6.3
-
-  packages/models:
+  packages/shared/models:
     dependencies:
       zod:
         specifier: ^3.24.1
@@ -184,10 +160,28 @@ importers:
         version: 1.9.4
       '@dartsScorer/biome-config':
         specifier: workspace:*
-        version: link:../config/biome-config
+        version: link:../../config/biome-config
       '@dartsScorer/typescript-config':
         specifier: workspace:*
-        version: link:../config/typescript-config
+        version: link:../../config/typescript-config
+
+  packages/shared/ws:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@dartsScorer/biome-config':
+        specifier: workspace:*
+        version: link:../../config/biome-config
+      '@dartsScorer/match-utils':
+        specifier: workspace:*
+        version: link:../match-utils
+      '@dartsScorer/models':
+        specifier: workspace:*
+        version: link:../models
+      '@dartsScorer/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
 
 packages:
 

@@ -1,5 +1,5 @@
 {
   "extends": "@dartsScorer/typescript-config/tsconfig.json",
-  "include": ["."],
+  "include": [".", "../ws/src/files"],
   "exclude": ["dist", "build", "node_modules"]
 }

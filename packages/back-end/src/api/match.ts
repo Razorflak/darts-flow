@@ -10,7 +10,8 @@ import {
 	writeFileSync,
 } from "node:fs"
 import { getMostRecentFile } from "../lib/file/file.js"
-import { matchUpdate } from "@dartsScorer/ws"
+import { matchUpdate, moveMatchFileToArchiveFolder } from "@dartsScorer/ws"
+import { ACTIVE_FOLDER } from "@dartsScorer/ws"
 
 const apiMatchRouter = Router()
 
@@ -20,12 +21,15 @@ apiMatchRouter.use(cors())
 apiMatchRouter.post("/", (req: Request, res: Response) => {
 	const match: Match = req.body
 	try {
-		mkdirSync("./matches")
+		mkdirSync(ACTIVE_FOLDER)
 	} catch {}
-	if (existsSync(`./matches/${match.id}.json`)) {
+	if (existsSync(`${ACTIVE_FOLDER}/${match.id}.json`)) {
 		throw new Error("Match already exist")
 	}
-	writeFileSync(`./matches/${match.id}.json`, JSON.stringify(match, null, 3))
+	writeFileSync(
+		`${ACTIVE_FOLDER}/${match.id}.json`,
+		JSON.stringify(match, null, 3),
+	)
 	matchUpdate(match)
 	res.sendStatus(200)
 })
@@ -37,17 +41,23 @@ apiMatchRouter.put("/:id", (req: Request, res: Response) => {
 		throw new Error("Match ids does not match")
 	}
 	try {
-		mkdirSync("./matches")
+		mkdirSync(ACTIVE_FOLDER)
 	} catch {}
-	writeFileSync(`./matches/${match.id}.json`, JSON.stringify(match, null, 3))
+	writeFileSync(
+		`${ACTIVE_FOLDER}/${match.id}.json`,
+		JSON.stringify(match, null, 3),
+	)
 	matchUpdate(match)
+	if (match.isOver) {
+		moveMatchFileToArchiveFolder(match.id)
+	}
 	res.sendStatus(200)
 })
 
 apiMatchRouter.get("/matches", (req: Request, res: Response) => {
-	const matchFileList = readdirSync("./matches")
+	const matchFileList = readdirSync(ACTIVE_FOLDER)
 	const games: Match[] = matchFileList.map((file) => {
-		const matchString = readFileSync(`./matches/${file}`).toString()
+		const matchString = readFileSync(`${ACTIVE_FOLDER}/${file}`).toString()
 		return JSON.parse(matchString)
 	})
 	res.send(games)
@@ -55,13 +65,13 @@ apiMatchRouter.get("/matches", (req: Request, res: Response) => {
 
 apiMatchRouter.get("/:id?", (req: Request, res: Response) => {
 	const gameId = req.params.id === "null" ? null : req.params.id
-	const mostRecentFile = getMostRecentFile("./matches")
+	const mostRecentFile = getMostRecentFile(ACTIVE_FOLDER)
 	if (!mostRecentFile) {
 		throw new Error("match folder is empty")
 	}
 	const matchString = gameId
-		? readFileSync(`./matches/${gameId}.json`).toString()
-		: readFileSync(`./matches/${mostRecentFile}`).toString()
+		? readFileSync(`${ACTIVE_FOLDER}/${gameId}.json`).toString()
+		: readFileSync(`${ACTIVE_FOLDER}/${mostRecentFile}`).toString()
 	const match: Match = JSON.parse(matchString)
 	res.send(match)
 })

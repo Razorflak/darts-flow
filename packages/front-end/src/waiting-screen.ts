@@ -1,7 +1,7 @@
 import type { Match } from "@dartsScorer/models"
 import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
-import type { WsAdminMessage, WsMessage } from "@dartsScorer/ws"
+import type { WsMessage } from "@dartsScorer/ws"
 import { getHtmlElementById } from "./lib/utils/html"
 
 compatibilityUUID()
@@ -45,13 +45,11 @@ function onPageLoad() {
 	}
 	socket.onmessage = (event) => {
 		console.log(event)
-		const message: WsMessage | WsAdminMessage = JSON.parse(event.data)
+		const message: WsMessage = JSON.parse(event.data)
 		if (message.command === "ping") {
 			const response: WsMessage = {
 				command: "pong",
-				data: null,
 				id: crypto.randomUUID(),
-				type: "sub",
 			}
 			socket.send(JSON.stringify(response))
 		}

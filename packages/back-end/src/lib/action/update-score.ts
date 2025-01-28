@@ -1,5 +1,6 @@
 import type { Match } from "@dartsScorer/models"
-import { sendWsMessageById, UPDATE_COMMANDS } from "./index.js"
+import { sendWsMessageById } from "./index.js"
+import { UPDATE_COMMANDS } from "@dartsScorer/shared-ws"
 
 type WebsocketMatchUpdateSuscriber = {
 	matchId: string

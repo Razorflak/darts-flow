@@ -47,3 +47,7 @@ export const handleLegOver = (match: Match): Match => {
 	})
 	return match
 }
+
+export const getAllLeg = (match: Match): Leg[] => {
+	return match.sets.flatMap((set) => set.legs)
+}

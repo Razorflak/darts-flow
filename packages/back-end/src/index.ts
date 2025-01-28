@@ -1,13 +1,15 @@
 import express from "express"
 import expressWs from "express-ws"
 import apiMatchRouter from "./api/match.js"
-import { addWsToStore, addWsMessageListerner } from "@dartsScorer/ws"
+import apiMatchArchiveRouter from "./api/match-archive.js"
+import { addWsToStore } from "./lib/action/ws-store.js"
 
 const { app } = expressWs(express())
 
 const port = 3000
 
 app.use("/api/match", apiMatchRouter)
+app.use("/api/match-archive", apiMatchArchiveRouter)
 app.ws("/api/ws", (ws, req, next) => {
 	const queryParams = req.query
 	const screen = queryParams.screen

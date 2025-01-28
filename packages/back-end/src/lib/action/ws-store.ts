@@ -1,11 +1,9 @@
 import type { WebSocket } from "ws"
 import { addWsMessageListerner } from "./ws-message-router.js"
-import { sendMessage, type WsMessage } from "./index.js"
 import { randomUUID } from "node:crypto"
 import { setPingPongGame } from "./ping-pong.js"
 import { connectedClientUpdate } from "./update-connected-clients.js"
-
-export type Client = { ws: WebSocket; screen: string; ip: string; id: string }
+import type { Client, WsMessage } from "@dartsScorer/shared-ws"
 
 const wsStore = new Map<string, Client>()
 
@@ -29,4 +27,8 @@ export const sendWsMessageById = (id: string, wsMessage: WsMessage) => {
 	}
 	console.log("sendto", id, wsMessage)
 	sendMessage(ws.ws, wsMessage)
+}
+
+export const sendMessage = (ws: WebSocket, message: WsMessage) => {
+	ws.send(JSON.stringify(message))
 }

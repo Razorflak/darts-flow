@@ -1,26 +1,26 @@
 {
-  "name": "@dartsScorer/front-end",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --host",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@dartsScorer/match-utils": "workspace:*",
-    "@dartsScorer/ws": "workspace:*",
-    "@tailwindcss/vite": "^4.0.0",
-    "tailwindcss": "^4.0.0",
-    "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "@dartsScorer/biome-config": "workspace:*",
-    "@dartsScorer/models": "workspace:*",
-    "prettier": "3.4.2",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.5",
-    "@types/ws": "^8.5.13"
-  }
+	"name": "@dartsScorer/front-end",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --host",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@dartsScorer/match-utils": "workspace:*",
+		"@dartsScorer/shared-ws": "workspace:*",
+		"@tailwindcss/vite": "^4.0.0",
+		"tailwindcss": "^4.0.0",
+		"ws": "^8.18.0"
+	},
+	"devDependencies": {
+		"@dartsScorer/biome-config": "workspace:*",
+		"@dartsScorer/models": "workspace:*",
+		"prettier": "3.4.2",
+		"typescript": "~5.6.2",
+		"vite": "^6.0.5",
+		"@types/ws": "^8.5.13"
+	}
 }

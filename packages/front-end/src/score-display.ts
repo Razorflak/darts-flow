@@ -99,6 +99,7 @@ function onMatchUpdate(match: Match) {
 
 function onPageLoad() {
 	const apiUrl = getApiBaseUrl()
+	console.log(apiUrl)
 	const url = `${apiUrl}/ws?screen=score-display`
 	const socket = new WebSocket(url)
 	socket.onopen = (event) => {
@@ -107,7 +108,6 @@ function onPageLoad() {
 			command: "subMatchUpdate",
 			data: "all",
 			id: crypto.randomUUID(),
-			type: "sub",
 		}
 		socket.send(JSON.stringify(subMatchMessage))
 	}
@@ -122,7 +122,6 @@ function onPageLoad() {
 				command: "pong",
 				data: null,
 				id: crypto.randomUUID(),
-				type: "sub",
 			}
 			socket.send(JSON.stringify(response))
 		}

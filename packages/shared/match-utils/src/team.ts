@@ -26,7 +26,7 @@ export const createTeam = (
 			id: crypto.randomUUID(),
 			name: player.name,
 			fistName: player.firstName,
-			displayName: `${player.firstName} ${player.name.at(0)}`,
+			displayName: `${player.firstName} ${player.name ? player.name.at(0) : ""}`,
 		}
 	})
 	return {
