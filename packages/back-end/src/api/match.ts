@@ -10,8 +10,11 @@ import {
 	writeFileSync,
 } from "node:fs"
 import { getMostRecentFile } from "../lib/file/file.js"
-import { matchUpdate, moveMatchFileToArchiveFolder } from "@dartsScorer/ws"
-import { ACTIVE_FOLDER } from "@dartsScorer/ws"
+import {
+	ACTIVE_FOLDER,
+	matchUpdate,
+	moveMatchFileToArchiveFolder,
+} from "../lib/action/index.js"
 
 const apiMatchRouter = Router()
 

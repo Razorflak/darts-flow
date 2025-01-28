@@ -1,8 +1,8 @@
 import type { Match } from "@dartsScorer/models"
 import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
-import type { WsMessage } from "@dartsScorer/ws"
 import { getHtmlElementById } from "./lib/utils/html"
+import type { WsMessage } from "@dartsScorer/shared-ws"
 
 compatibilityUUID()
 

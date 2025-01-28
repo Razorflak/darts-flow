@@ -1,22 +1,21 @@
 {
 	"name": "@dartsScorer/match-utils",
-	"type": "module",
 	"version": "1.0.0",
+	"type": "module",
+	"description": "",
 	"main": "src/index.ts",
 	"scripts": {
-		"test": "test"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "jta",
+	"keywords": [],
+	"author": "",
 	"license": "ISC",
-	"description": "",
-	"packageManager": "pnpm@9.0.6",
 	"dependencies": {
 		"@dartsScorer/models": "workspace:*"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@dartsScorer/biome-config": "workspace:*",
-		"@dartsScorer/typescript-config": "workspace:*",
-		"@types/node": "^22.10.5"
+		"@dartsScorer/typescript-config": "workspace:*"
 	}
 }

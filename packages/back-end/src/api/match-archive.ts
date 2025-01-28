@@ -4,7 +4,7 @@ import type { Request, Response } from "express"
 import type { Match } from "@dartsScorer/models"
 import { readdirSync, readFileSync } from "node:fs"
 import { getMostRecentFile } from "../lib/file/file.js"
-import { ARCHIVE_FOLDER } from "@dartsScorer/ws"
+import { ARCHIVE_FOLDER } from "../lib/action/index.js"
 
 const apiMatchArchiveRouter = Router()
 

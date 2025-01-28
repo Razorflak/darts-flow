@@ -22,7 +22,6 @@ export const matchUpdate = (match: Match) => {
 			id: crypto.randomUUID(),
 			command: UPDATE_COMMANDS.matchUpdate,
 			data: match,
-			type: "update",
 		})
 	}
 }

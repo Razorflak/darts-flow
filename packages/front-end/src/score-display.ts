@@ -2,7 +2,7 @@ import type { Match } from "@dartsScorer/models"
 import { getApiBaseUrl } from "./lib/requester/utils"
 import { getCurrentLeg, getLastThrowByTeam } from "@dartsScorer/match-utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
-import type { WsMessage } from "@dartsScorer/ws"
+import type { WsMessage } from "@dartsScorer/shared-ws"
 
 compatibilityUUID()
 
@@ -120,7 +120,6 @@ function onPageLoad() {
 		if (message.command === "ping") {
 			const response: WsMessage = {
 				command: "pong",
-				data: null,
 				id: crypto.randomUUID(),
 			}
 			socket.send(JSON.stringify(response))

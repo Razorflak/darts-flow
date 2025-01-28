@@ -3,6 +3,7 @@ import { getCurrentLeg } from "./leg.js"
 
 export const getLastThrowByTeam = (match: Match, team: Team) => {
 	const currentLeg = getCurrentLeg(match)
+	// @ts-ignore-error
 	return currentLeg.throws.findLast((_throw) => _throw.teamId === team.id)
 		?.score
 }
