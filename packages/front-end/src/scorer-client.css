@@ -1,8 +1,11 @@
 @font-face {
   font-family: "RobotoBold";
-  src: url("public/font/roboto/Roboto-Bold.ttf");
-  font-weight: normal;
-  font-style: normal;
+  src: url("./fonts/roboto/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-family: "RobotoBlack";
+  src: url("./fonts/roboto/Roboto-Regular.ttf");
 }
 
 body,
@@ -12,7 +15,7 @@ html {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   touch-action: manipulation;
-  font-family: RobotoBold;
+  font-family: RobotoBlack;
 }
 
 p {
@@ -24,12 +27,12 @@ div {
 }
 
 button {
-  font-family: RobotoBold;
+  font-family: RobotoBlack;
 }
 
 #mainContainer {
   position: relative;
-  background-color: grey;
+  background-color: #bbdef0;
   margin: 0;
   height: 100vh;
   width: 100%;
@@ -62,13 +65,15 @@ button {
 }
 
 .playerDiv {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   height: 100%;
-  width: 100%;
   margin: 1;
   border-width: 1px;
   border-style: solid;
   border-color: black;
+  justify-content: space-between;
 }
 
 .infoSecondaire {
@@ -201,6 +206,7 @@ button {
   display: flex;
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
+  color: black;
 }
 
 #paveNum {
@@ -214,15 +220,16 @@ button {
 }
 
 .activPlayer {
-  background-color: green;
+  background-color: #02111b;
 }
 
 .name {
   text-align: center;
-  font-size: 4vh;
-  line-height: 4vh;
+  font-size: 6vh;
+  line-height: 6vh;
   margin: 0;
   margin-bottom: 0px;
+  margin-top: 25px;
 }
 
 .score {
@@ -232,10 +239,13 @@ button {
 
 #btnClr {
   background-color: red;
+  color: #fcfcfc;
+  font-family: RobotoBold;
 }
 
 #btnValid {
   background-color: green;
+  font-family: RobotoBold;
 }
 
 .divBtnStart {
