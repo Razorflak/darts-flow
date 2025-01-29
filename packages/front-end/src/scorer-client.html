@@ -16,7 +16,7 @@
           <div class="infoSecondaire container-fluid ml-3">
             <p>Set:&nbsp;<span id="p1Set">0</span></p>
             <p>Manche:&nbsp;<span id="p1Manche">0</span></p>
-            <p>Score dernier lancé:&nbsp;<span id="p1LastThrow">0</span></p>
+            <p>Dernier score:&nbsp;<span id="p1LastThrow">0</span></p>
             <p>Nbr darts:&nbsp;<span id="p1NbrDarts">0</span></p>
           </div>
           <p>&nbsp;</p>
@@ -77,50 +77,40 @@
       </div>
       <!--Panneau saise nbr darts pour la fin de partie-->
       <div id="nbrDartsContaineur" class="container-fluid">
-        <div class="container-fluid" style="margin: auto">
-          <div class="row align-self-center">
-            <div class="col align-self-center">
-              <span style="font-size: 4em">Nombre de fléchettes</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-3">
-                <button
-                  type="button"
-                  class="btn btn-info mb-auto btn-block btn-lg"
-                  style="font-size: 7em"
-                  onclick="onValiderNbrDarts(1)"
-                >
-                  1
-                </button>
-              </div>
-            </div>
-            <div class="col">
-              <div class="input-group mb-3">
-                <button
-                  type="button"
-                  class="btn btn-info ml-auto btn-block btn-lg"
-                  style="font-size: 7em"
-                  onclick="onValiderNbrDarts(2)"
-                >
-                  2
-                </button>
-              </div>
-            </div>
-            <div class="col">
-              <div class="input-group mb-3">
-                <button
-                  type="button"
-                  class="btn btn-info ml-auto btn-block btn-lg"
-                  style="font-size: 7em"
-                  onclick="onValiderNbrDarts(3)"
-                >
-                  3
-                </button>
-              </div>
-            </div>
-          </div>
+        <div id="nbrDartsContent">
+          <span style="font-size: 4em">Nombre de fléchettes</span>
+          <button
+            type="button"
+            class=""
+            style="font-size: 7em"
+            onclick="onValiderNbrDarts(1)"
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class=""
+            style="font-size: 7em"
+            onclick="onValiderNbrDarts(2)"
+          >
+            2
+          </button>
+          <button
+            type="button"
+            class=""
+            style="font-size: 7em"
+            onclick="onValiderNbrDarts(3)"
+          >
+            3
+          </button>
+          <button
+            type="button"
+            class="btnCancelNbrDarts"
+            style="font-size: 7em"
+            onclick="onCancelNbrDarts()"
+          >
+            Annuler
+          </button>
         </div>
       </div>
     </div>

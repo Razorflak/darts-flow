@@ -63,6 +63,14 @@ button {
   left: 0px;
   background-color: white;
 }
+#nbrDartsContent {
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
+}
+.btnCancelNbrDarts {
+  margin-top: 30px;
+}
 
 .playerDiv {
   display: flex;
@@ -224,17 +232,28 @@ button {
 }
 
 .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  font-size: 6vh;
-  line-height: 6vh;
-  margin: 0;
-  margin-bottom: 0px;
-  margin-top: 25px;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  font-size: min(7vw, 400px);
+  font-weight: bold;
+  line-height: 1.1; /* Ajuste l'espacement entre les lignes */
+  max-height: calc(2 * 1.1em); /* Limite à 2 lignes */
+  white-space: normal; /* Permet le retour à la ligne */
+  word-wrap: break-word; /* Coupe les mots longs si nécessaire */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limite à 2 lignes */
+  -webkit-box-orient: vertical;
 }
 
 .score {
   text-align: center;
   margin: 0;
+  font-size: min(20vw, 100vw);
 }
 
 #btnClr {

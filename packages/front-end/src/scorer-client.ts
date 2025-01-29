@@ -41,7 +41,7 @@ function matchDataToDOM(match: Match) {
 	getHtmlElementById("p1Manche").innerHTML =
 		match.teams[0].legCountWon.toString()
 	getHtmlElementById("p1LastThrow").innerHTML =
-		getLastThrowByTeam(match, match.teams[0]) || "None"
+		getLastThrowByTeam(match, match.teams[0]) || "0"
 
 	getHtmlElementById("p2Name").innerHTML = match.teams[1].displayName
 	getHtmlElementById("p2Score").innerHTML =
@@ -50,7 +50,7 @@ function matchDataToDOM(match: Match) {
 	getHtmlElementById("p2Manche").innerHTML =
 		match.teams[1].legCountWon.toString()
 	getHtmlElementById("p2LastThrow").innerHTML =
-		getLastThrowByTeam(match, match.teams[1]) || "None"
+		getLastThrowByTeam(match, match.teams[1]) || "0"
 
 	getHtmlElementById("p1Div").classList.remove("activPlayer")
 	getHtmlElementById("p2Div").classList.remove("activPlayer")
@@ -171,6 +171,15 @@ function onValiderNbrDarts(nbrDarts: number) {
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
 window.onValiderNbrDarts = onValiderNbrDarts
 
+function onCancelNbrDarts() {
+	const elem = getHtmlElementById("nbrDartsContaineur")
+	elem.style.visibility = ""
+	elem.style.height = "0px"
+	onClr()
+}
+//@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
+window.onCancelNbrDarts = onCancelNbrDarts
+
 function onUndo() {
 	match = undoLastScore(match)
 	matchDataToDOM(match)
@@ -178,18 +187,3 @@ function onUndo() {
 }
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
 window.onUndo = onUndo
-
-// function openFullscreen(elem) {
-// 	if (elem.requestFullscreen) {
-// 		elem.requestFullscreen()
-// 	} else if (elem.mozRequestFullScreen) {
-// 		/* Firefox */
-// 		elem.mozRequestFullScreen()
-// 	} else if (elem.webkitRequestFullscreen) {
-// 		/* Chrome, Safari and Opera */
-// 		elem.webkitRequestFullscreen()
-// 	} else if (elem.msRequestFullscreen) {
-// 		/* IE/Edge */
-// 		elem.msRequestFullscreen()
-// 	}
-// }
