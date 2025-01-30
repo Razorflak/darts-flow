@@ -1,0 +1,48 @@
+@font-face {
+  font-family: "RobotoBlack";
+  src: url("./fonts/roboto/Roboto-Regular.ttf");
+}
+
+body {
+  min-width: 1920px;
+  min-height: 1080px;
+  max-width: 1920px;
+  max-height: 1080px;
+  margin: 0;
+  font-family: RobotoBlack;
+}
+
+body div {
+  position: absolute;
+  font-size: 55px;
+  transition: all 1s ease-in-out;
+  width: 100%;
+  color: white;
+  -webkit-text-stroke: 2px black;
+}
+
+#player1 {
+  bottom: 210px;
+  text-align: right;
+}
+
+#player2 {
+  bottom: 210px;
+  text-align: left;
+}
+
+.player1Final {
+  right: 1050px;
+}
+
+.player1Init {
+  right: 2000px;
+}
+
+.player2Final {
+  left: 1050px;
+}
+
+.player2Init {
+  left: 2000px;
+}

@@ -86,7 +86,7 @@
 
 .activ {
   width: 70px;
-  background: url(./common/img/fleche.svg) no-repeat center center;
+  background: url("./img/fleche.svg") no-repeat center center;
   background-size: 80% 80%;
   height: 100px;
 }
@@ -96,7 +96,7 @@
 }
 
 .starterLeg {
-  background: url(./common/img/point.svg) no-repeat center center;
+  background: url("/img/point.svg") no-repeat center center;
   background-size: 25% 25%;
   height: 100px;
 }
