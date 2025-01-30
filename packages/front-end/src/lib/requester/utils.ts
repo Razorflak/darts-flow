@@ -1,5 +1,6 @@
 export const getApiBaseUrl = (): string => {
-	const apiBaseUrl = "http://172.25.171.152:3000/api"
+	const apiBaseUrl =
+		import.meta.env.VITE_API_URL || "http://172.25.171.152:3000/api"
 	return apiBaseUrl
 }
 
