@@ -48,10 +48,7 @@ function onMatchUpdate(match: Match) {
 
 	const currentLeg = getCurrentLeg(match)
 	const lastThrow = currentLeg.throws.at(-1)
-	if (!lastThrow) {
-		throw new Error("no last throw")
-	}
-	const lastScore = lastThrow.score
+	const lastScore = lastThrow?.score || 0
 	const teamIndexStartedLeg = match.teams.findIndex(
 		(team) => team.id === currentLeg.startingTeamId,
 	)

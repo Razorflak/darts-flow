@@ -126,8 +126,8 @@ function getMatchStats(match: Match) {
 	const stats: StatBar[] = []
 	const avgStats: StatBar = {
 		name: "Moyenne",
-		team1: { value: getTeamAverage(match, team1Id) },
-		team2: { value: getTeamAverage(match, team2Id) },
+		team1: { value: +getTeamAverage(match, team1Id).toFixed(2) },
+		team2: { value: +getTeamAverage(match, team2Id).toFixed(2) },
 	}
 	stats.push(avgStats)
 
