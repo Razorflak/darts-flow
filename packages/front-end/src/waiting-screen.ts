@@ -3,6 +3,7 @@ import { getApiBaseUrl, getFrontBaseUrl } from "./lib/requester/utils"
 import { compatibilityUUID } from "./lib/utils/crypto"
 import { getHtmlElementById } from "./lib/utils/html"
 import type { WsMessage } from "@dartsScorer/shared-ws"
+import { createWebSocket } from "./lib/utils/ws"
 
 compatibilityUUID()
 
@@ -38,36 +39,27 @@ function onPageLoad() {
 	showWaitingSection()
 	const apiUrl = getApiBaseUrl()
 	const url = `${apiUrl}/ws?screen=waiting-screen`
-	const socket = new WebSocket(url)
-	console.log("open socket", url)
-	socket.onopen = (event) => {
+
+	const onOpen = (event: Event) => {
 		console.log("Socket opened", event)
 	}
-	socket.onmessage = (event) => {
-		console.log(event)
+	const onMessage = (event: MessageEvent) => {
 		const message: WsMessage = JSON.parse(event.data)
-		if (message.command === "ping") {
-			const response: WsMessage = {
-				command: "pong",
-				id: crypto.randomUUID(),
-			}
-			socket.send(JSON.stringify(response))
-		}
 		if (message.command === "setNextMatch") {
 			onSetMatch(message.data)
 		}
 	}
 
-	socket.onerror = (error) => {
+	const onError = (error: Event) => {
 		console.error("Erreur WebSocket:", error)
 	}
 
-	socket.onclose = (event) => {
+	const onClose = (event: CloseEvent) => {
 		console.log("Connexion WebSocket fermée:", event.reason)
 		// Réessayez si besoin
 	}
-
-	return socket
+	createWebSocket({ url: url, onOpen, onMessage, onError, onClose })
+	console.log("open socket", url)
 }
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
 window.onPageLoad = onPageLoad

@@ -3,6 +3,7 @@ import { getHtmlElementById } from "./lib/utils/html"
 import type { Match } from "@dartsScorer/models"
 import { compatibilityUUID } from "./lib/utils/crypto"
 import type { Client, WsMessage } from "@dartsScorer/shared-ws"
+import { createWebSocket } from "./lib/utils/ws"
 
 compatibilityUUID()
 
@@ -115,17 +116,17 @@ async function loadAllActiveGame() {
 function onPageLoad() {
 	const apiUrl = getApiBaseUrl()
 	const url = `${apiUrl}/ws?screen=score-display`
-	socket = new WebSocket(url)
-	socket.onopen = (event) => {
+
+	const onOpen = (event: Event, send: (data: string) => void) => {
 		console.log("Socket opened", event)
 		const subMatchMessage: WsMessage = {
 			command: "subConnectedClient",
 			data: null,
 			id: crypto.randomUUID(),
 		}
-		socket.send(JSON.stringify(subMatchMessage))
+		send(JSON.stringify(subMatchMessage))
 	}
-	socket.onmessage = (event) => {
+	const onMessage = (event: MessageEvent) => {
 		console.log("message", event)
 		const message: WsMessage = JSON.parse(event.data as string)
 		if (message.command === "connectedClientListUpdated") {
@@ -141,16 +142,15 @@ function onPageLoad() {
 		}
 	}
 
-	socket.onerror = (error) => {
+	const onError = (error: Event) => {
 		console.error("Erreur WebSocket:", error)
 	}
 
-	socket.onclose = (event) => {
+	const onClose = (event: CloseEvent) => {
 		console.log("Connexion WebSocket fermée:", event.reason)
 		// Réessayez si besoin
 	}
-
-	return socket
+	createWebSocket({ url: url, onOpen, onMessage, onError, onClose })
 }
 
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
