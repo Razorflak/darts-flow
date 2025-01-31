@@ -145,6 +145,10 @@ function onValider() {
 		elem.style.height = "60%"
 		return
 	}
+	if (nextScore < 0) {
+		//score invalid
+		return
+	}
 	onClr()
 	inputScore(match, currentScore)
 	matchDataToDOM(match)
