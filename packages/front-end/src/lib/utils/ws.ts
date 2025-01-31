@@ -4,7 +4,7 @@ type WebSocketOptions = {
 	url: string
 	reconnectInterval?: number
 	maxReconnectAttempts?: number
-	onMessage?: (event: MessageEvent, send?: (data: string) => void) => void
+	onMessage?: (event: MessageEvent, send: (data: string) => void) => void
 	onOpen?: (event: Event, send: (data: string) => void) => void
 	onClose?: (event: CloseEvent) => void
 	onError?: (event: Event) => void

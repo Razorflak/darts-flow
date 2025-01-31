@@ -13,7 +13,7 @@ const selectedIdInput = getHtmlElementById("selectedIp") as HTMLInputElement
 // Liste des clients connectés (Exemple de données, récupérées dynamiquement)
 let clients: Client[] = []
 let matches: Match[] = []
-let socket: WebSocket
+let sendWs: (data: string) => void
 
 // Fonction pour mettre à jour la liste des clients
 function updateClientList() {
@@ -61,7 +61,7 @@ function sendMatchToWaitingScreen(match: Match) {
 		data: match,
 	}
 	console.log("message send", wsMessage)
-	socket.send(JSON.stringify(wsMessage))
+	sendWs(JSON.stringify(wsMessage))
 }
 
 function attachButtonListeners(): void {
@@ -133,13 +133,6 @@ function onPageLoad() {
 			clients = message.data
 			updateClientList()
 		}
-		if (message.command === "ping") {
-			const response: WsMessage = {
-				command: "pong",
-				id: crypto.randomUUID(),
-			}
-			socket.send(JSON.stringify(response))
-		}
 	}
 
 	const onError = (error: Event) => {
@@ -148,9 +141,15 @@ function onPageLoad() {
 
 	const onClose = (event: CloseEvent) => {
 		console.log("Connexion WebSocket fermée:", event.reason)
-		// Réessayez si besoin
 	}
-	createWebSocket({ url: url, onOpen, onMessage, onError, onClose })
+	const wsActions = createWebSocket({
+		url: url,
+		onOpen,
+		onMessage,
+		onError,
+		onClose,
+	})
+	sendWs = wsActions.send
 }
 
 //@ts-expect-error Obligé de faire ça pour que la fonction soit reconnu dans le html
