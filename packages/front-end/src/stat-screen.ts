@@ -168,13 +168,13 @@ function getMatchStats(match: Match) {
 	stats.push(bestThrowStats)
 
 	const t1_60 = getScoreCountAboveOrEqualValue(match, team1Id, 60, 100)
-	const t2_60 = getScoreCountAboveOrEqualValue(match, team1Id, 60, 100)
+	const t2_60 = getScoreCountAboveOrEqualValue(match, team2Id, 60, 100)
 	const t1_100 = getScoreCountAboveOrEqualValue(match, team1Id, 100, 140)
-	const t2_100 = getScoreCountAboveOrEqualValue(match, team1Id, 100, 140)
+	const t2_100 = getScoreCountAboveOrEqualValue(match, team2Id, 100, 140)
 	const t1_140 = getScoreCountAboveOrEqualValue(match, team1Id, 140, 180)
-	const t2_140 = getScoreCountAboveOrEqualValue(match, team1Id, 140, 180)
+	const t2_140 = getScoreCountAboveOrEqualValue(match, team2Id, 140, 180)
 	const t1_180 = getScoreCountAboveOrEqualValue(match, team1Id, 180, 181)
-	const t2_180 = getScoreCountAboveOrEqualValue(match, team1Id, 180, 181)
+	const t2_180 = getScoreCountAboveOrEqualValue(match, team2Id, 180, 181)
 	const refMaxThrow = Math.max(
 		t1_60,
 		t1_100,

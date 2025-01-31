@@ -6,7 +6,7 @@ import {
 	SUB_COMMANDS,
 	type WsMessage,
 } from "@dartsScorer/shared-ws"
-import { addMatchUpdateSuscriber } from "./update-score.js"
+import { addMatchUpdateSuscriber, matchUpdate } from "./update-score.js"
 import { sendWsMessageById } from "./ws-store.js"
 
 export const addWsMessageListerner = (ws: WebSocket, id: string) => {
@@ -21,6 +21,7 @@ export const addWsMessageListerner = (ws: WebSocket, id: string) => {
 				break
 			case ADMIN_COMMANDS.setNextMatch:
 				sendWsMessageById(wsMessage.destinationId, wsMessage)
+				matchUpdate(wsMessage.data)
 				break
 			case ADMIN_COMMANDS.deleteMatch:
 				moveMatchFileToDeleteFolder(wsMessage.data)
