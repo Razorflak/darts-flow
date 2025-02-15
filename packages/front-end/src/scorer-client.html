@@ -23,7 +23,7 @@
           <button
             id="btnStartP1"
             class="btnStartManche"
-            onclick="onPlayerStart(1)"
+            onpointerdown="onPlayerStart(1)"
           >
             Start
           </button>
@@ -41,7 +41,7 @@
           <button
             id="btnStartP2"
             class="btnStartManche"
-            onclick="onPlayerStart(2)"
+            onpointerdown="onPlayerStart(2)"
           >
             Start
           </button>
@@ -50,26 +50,28 @@
       <div id="scoreContaineur">
         <div id="divScore">
           <div id="currentScore">&nbsp;</div>
-          <button id="bntUndo" onclick="onUndo()">↶</button>
+          <button id="bntUndo" onpointerdown="onUndo()">↶</button>
         </div>
         <div id="paveNum">
           <div class="colNumber">
-            <button class="numberPav" onclick="onAddScore('7')">7</button>
-            <button class="numberPav" onclick="onAddScore('4')">4</button>
-            <button class="numberPav" onclick="onAddScore('1')">1</button>
-            <button id="btnClr" class="numberPav" onclick="onClr()">C</button>
+            <button class="numberPav" onpointerdown="onAddScore('7')">7</button>
+            <button class="numberPav" onpointerdown="onAddScore('4')">4</button>
+            <button class="numberPav" onpointerdown="onAddScore('1')">1</button>
+            <button id="btnClr" class="numberPav" onpointerdown="onClr()">
+              C
+            </button>
           </div>
           <div class="colNumber">
-            <button class="numberPav" onclick="onAddScore('8')">8</button>
-            <button class="numberPav" onclick="onAddScore('5')">5</button>
-            <button class="numberPav" onclick="onAddScore('2')">2</button>
-            <button class="numberPav" onclick="onAddScore('0')">0</button>
+            <button class="numberPav" onpointerdown="onAddScore('8')">8</button>
+            <button class="numberPav" onpointerdown="onAddScore('5')">5</button>
+            <button class="numberPav" onpointerdown="onAddScore('2')">2</button>
+            <button class="numberPav" onpointerdown="onAddScore('0')">0</button>
           </div>
           <div class="colNumber">
-            <button class="numberPav" onclick="onAddScore('9')">9</button>
-            <button class="numberPav" onclick="onAddScore('6')">6</button>
-            <button class="numberPav" onclick="onAddScore('3')">3</button>
-            <button id="btnValid" class="numberPav" onclick="onValider()">
+            <button class="numberPav" onpointerdown="onAddScore('9')">9</button>
+            <button class="numberPav" onpointerdown="onAddScore('6')">6</button>
+            <button class="numberPav" onpointerdown="onAddScore('3')">3</button>
+            <button id="btnValid" class="numberPav" onpointerdown="onValider()">
               V
             </button>
           </div>
@@ -83,7 +85,7 @@
             type="button"
             class=""
             style="font-size: 7em"
-            onclick="onValiderNbrDarts(1)"
+            onpointerdown="onValiderNbrDarts(1)"
           >
             1
           </button>
@@ -91,7 +93,7 @@
             type="button"
             class=""
             style="font-size: 7em"
-            onclick="onValiderNbrDarts(2)"
+            onpointerdown="onValiderNbrDarts(2)"
           >
             2
           </button>
@@ -99,7 +101,7 @@
             type="button"
             class=""
             style="font-size: 7em"
-            onclick="onValiderNbrDarts(3)"
+            onpointerdown="onValiderNbrDarts(3)"
           >
             3
           </button>
@@ -107,7 +109,7 @@
             type="button"
             class="btnCancelNbrDarts"
             style="font-size: 7em"
-            onclick="onCancelNbrDarts()"
+            onpointerdown="onCancelNbrDarts()"
           >
             Annuler
           </button>
