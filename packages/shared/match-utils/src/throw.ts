@@ -11,3 +11,6 @@ export const getLastThrowByTeam = (match: Match, team: Team) => {
 export const getAllThrows = (match: Match): Throw[] => {
 	return match.sets.flatMap((set) => set.legs.flatMap((leg) => leg.throws))
 }
+
+export const getCurrentLegThrowsByTeam = (match: Match, teamId: string) =>
+	getCurrentLeg(match).throws.filter((t) => t.teamId === teamId)

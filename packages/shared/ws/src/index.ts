@@ -1,5 +1,6 @@
 import type { Match } from "@dartsScorer/models"
 import type { UUID } from "node:crypto"
+import type { WebSocket } from "ws"
 
 export const SUB_COMMANDS = {
 	subMatchUpdate: "subMatchUpdate",
