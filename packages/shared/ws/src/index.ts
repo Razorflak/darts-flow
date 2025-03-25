@@ -12,6 +12,10 @@ export const UPDATE_COMMANDS = {
 	connectedClientListUpdated: "connectedClientListUpdated",
 } as const
 
+export const STATE_COMMANDS = {
+	screenUpdate: "screenUpdate",
+} as const
+
 export const ADMIN_COMMANDS = {
 	setNextMatch: "setNextMatch",
 	deleteMatch: "deleteMatch",
@@ -29,6 +33,7 @@ type CommandDataMap = {
 	[SUB_COMMANDS.subConnectedClient]: null
 	[UPDATE_COMMANDS.connectedClientListUpdated]: Client[]
 	[UPDATE_COMMANDS.matchUpdate]: Match
+	[STATE_COMMANDS.screenUpdate]: string
 	[ADMIN_COMMANDS.setNextMatch]: Match
 	[ADMIN_COMMANDS.deleteMatch]: string
 	[COMMANDS.ok]: "OK"
@@ -40,6 +45,7 @@ type KEY_BASE_COMMAND =
 	| keyof typeof SUB_COMMANDS
 	| keyof typeof UPDATE_COMMANDS
 	| keyof typeof COMMANDS
+	| keyof typeof STATE_COMMANDS
 
 type WsBaseMessage = {
 	[K in KEY_BASE_COMMAND]: {
