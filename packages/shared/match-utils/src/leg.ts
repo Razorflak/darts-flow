@@ -1,6 +1,7 @@
 import type { Leg, Match } from "@dartsScorer/models"
 import { getOppositeTeamById, getTeamById } from "./team.js"
 import { getCurrentSet, handleSetOver, isSetOver } from "./set.js"
+import { randomUuid } from "@dartsScorer/crypto"
 
 export const getCurrentLeg = (match: Match): Leg => {
 	const leg = match.sets.at(-1)?.legs.at(-1)
@@ -41,7 +42,7 @@ export const handleLegOver = (match: Match): Match => {
 	}
 
 	getCurrentSet(match).legs.push({
-		id: crypto.randomUUID(),
+		id: randomUuid(),
 		startingTeamId: newStarter.id,
 		throws: [],
 	})

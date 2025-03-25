@@ -1,5 +1,5 @@
 {
-	"name": "@dartsScorer/match-utils",
+	"name": "@dartsScorer/crypto",
 	"version": "1.0.0",
 	"type": "module",
 	"description": "",
@@ -10,10 +10,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {
-		"@dartsScorer/crypto": "workspace:*",
-		"@dartsScorer/models": "workspace:*"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@dartsScorer/biome-config": "workspace:*",

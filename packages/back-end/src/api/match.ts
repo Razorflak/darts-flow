@@ -34,7 +34,8 @@ apiMatchRouter.post("/", (req: Request, res: Response) => {
 		JSON.stringify(match, null, 3),
 	)
 	matchUpdate(match)
-	res.sendStatus(200)
+	//res.sendStatus(500)
+	throw new Error("toto")
 })
 
 apiMatchRouter.put("/:id", (req: Request, res: Response) => {
@@ -72,11 +73,15 @@ apiMatchRouter.get("/:id?", (req: Request, res: Response) => {
 	if (!mostRecentFile) {
 		throw new Error("match folder is empty")
 	}
-	const matchString = gameId
-		? readFileSync(`${ACTIVE_FOLDER}/${gameId}.json`).toString()
-		: readFileSync(`${ACTIVE_FOLDER}/${mostRecentFile}`).toString()
-	const match: Match = JSON.parse(matchString)
-	res.send(match)
+	try {
+		const matchString = gameId
+			? readFileSync(`${ACTIVE_FOLDER}/${gameId}.json`).toString()
+			: readFileSync(`${ACTIVE_FOLDER}/${mostRecentFile}`).toString()
+		const match: Match = JSON.parse(matchString)
+		res.send(match)
+	} catch (error: unknown) {
+		res.status(404).send()
+	}
 })
 
 export default apiMatchRouter

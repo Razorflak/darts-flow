@@ -11,6 +11,7 @@
 	import { onMount } from "svelte";
 	import { compatibilityUUID } from "$lib/crypto";
 	import { getApiBaseUrl } from "$lib/requester/utils";
+	import { goto } from "$app/navigation";
 
 	let { data }: { data: Match } = $props();
 	let inputScore: string = $state("");
@@ -23,6 +24,14 @@
 	let match: Match = $state(data);
 	let shouldDisplayAllowChangeStarter = $derived(getCurrentLeg(match).throws.length === 0);
 	let isMatchOver = $derived(match.isOver);
+	$effect(() => {
+		console.log("Le match est fini!", isMatchOver);
+		if (isMatchOver) {
+			setTimeout(() => {
+				goto("/");
+			}, 3000);
+		}
+	});
 
 	const sendMatchData = (match: Match) => {
 		const params = JSON.stringify(match, null, 3);

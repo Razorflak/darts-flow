@@ -1,6 +1,7 @@
 import type { Leg, Lot, Match, Team } from "@dartsScorer/models"
 import { getCurrentLeg } from "./leg.js"
 import { getActiveTeam } from "./team.js"
+import { randomUuid } from "@dartsScorer/crypto"
 
 export const isMatchOver = (match: Match) => {
 	const team1WonMatch = match.setNeededToWin === match.teams[0].setCountWon
@@ -23,19 +24,19 @@ export const createMatch = (
 	setNeededToWin = 1,
 ): Match => {
 	const leg: Leg = {
-		id: crypto.randomUUID(),
+		id: randomUuid(),
 		throws: [],
 		startingTeamId: team1.id,
 	}
 
 	const set: Lot = {
-		id: crypto.randomUUID(),
+		id: randomUuid(),
 		startingTeamId: team1.id,
 		legs: [leg],
 	}
 
 	const match: Match = {
-		id: crypto.randomUUID(),
+		id: randomUuid(),
 		isOver: false,
 		competition,
 		sets: [set],

@@ -1,5 +1,5 @@
 import z from "zod";
-import { playerSchema } from "./player.js";
+import { getPlayerDisplayName, playerSchema } from "./player.js";
 
 export const teamSchema = z.object({
 	id: z.string(),
@@ -12,3 +12,6 @@ export const teamSchema = z.object({
 });
 
 export type Team = z.infer<typeof teamSchema>;
+
+export const getTeamDisplayName = (team: Team, separator = " / ") =>
+	team.players.map((p) => getPlayerDisplayName(p)).join(separator);

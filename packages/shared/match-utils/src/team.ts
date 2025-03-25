@@ -1,3 +1,4 @@
+import { randomUuid } from "@dartsScorer/crypto"
 import type { Match, Player, Team } from "@dartsScorer/models"
 
 export const getTeamById = (match: Match, id: string): Team => {
@@ -23,17 +24,15 @@ export const createTeam = (
 ): Team => {
 	const _players: Player[] = players.map((player) => {
 		return {
-			id: crypto.randomUUID(),
+			id: randomUuid(),
 			name: player.name,
 			fistName: player.firstName,
-			displayName: `${player.firstName} ${player.name ? player.name.at(0) : ""}`,
 		}
 	})
 	return {
 		players: _players,
-		displayName: _players.map((player) => player.displayName).join(", "),
 		isActive,
-		id: crypto.randomUUID(),
+		id: randomUuid(),
 		legCountWon: 0,
 		setCountWon: 0,
 		currentScore: initialScore,
