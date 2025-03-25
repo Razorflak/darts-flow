@@ -1,11 +1,6 @@
-export const getApiBaseUrl = (): string => {
-	const apiBaseUrl =
-		import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-	return apiBaseUrl;
-};
+import { env } from "$env/dynamic/public";
 
-export const getFrontBaseUrl = (): string => {
-	const apiBaseUrl =
-		import.meta.env.VITE_FRONT_URL || "http://172.25.171.152:5173";
+export const getApiBaseUrl = (): string => {
+	const apiBaseUrl = env.PUBLIC_API_BASE_URL || "http://localhost:3000/api";
 	return apiBaseUrl;
 };
