@@ -34,8 +34,6 @@ apiMatchRouter.post("/", (req: Request, res: Response) => {
 		JSON.stringify(match, null, 3),
 	)
 	matchUpdate(match)
-	//res.sendStatus(500)
-	throw new Error("toto")
 })
 
 apiMatchRouter.put("/:id", (req: Request, res: Response) => {

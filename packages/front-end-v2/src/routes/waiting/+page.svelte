@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, onMount } from "svelte";
+	import { onDestroy, onMount, tick } from "svelte";
 	import { wsMessage } from "$stores/wsStores.svelte";
 	import { ADMIN_COMMANDS } from "@dartsScorer/shared-ws";
 	import { getTeamDisplayName } from "@dartsScorer/models";
@@ -14,7 +14,11 @@
 
 	let unsubscribe: Unsubscriber | null;
 
-	onMount(() => {
+	onMount(async () => {
+		// C'est crade, mais c'est le seul moyen que j'ai trouvé pour que le state soit bien regarché quand on navigue sur cette écran
+		setTimeout(() => {
+			waiting = true;
+		}, 1);
 		unsubscribe = wsMessage.subscribe((message) => {
 			if (message?.command === ADMIN_COMMANDS.setNextMatch) {
 				const match = message.data;
@@ -27,19 +31,21 @@
 		});
 	});
 
-	onDestroy(() => {
+	onDestroy(async () => {
+		waiting = true;
+		await tick();
 		if (unsubscribe) {
 			unsubscribe();
 		}
 	});
 
 	function goToMatch() {
-		const matchURL = `/scorer-client.html?id=${matchId}`;
+		const matchURL = `/match/${matchId}`;
 		goto(matchURL);
 	}
 </script>
 
-<main class="flex min-h-screen items-center justify-center bg-gray-100">
+<section class="flex min-h-screen items-center justify-center bg-gray-100" data-sveltekit-reload>
 	{#if waiting}
 		<section class="space-y-4 text-center">
 			<div class="text-lg font-medium text-gray-700">En attente du prochain match</div>
@@ -60,7 +66,7 @@
 			</button>
 		</section>
 	{/if}
-</main>
+</section>
 
 <style>
 	.spinner {

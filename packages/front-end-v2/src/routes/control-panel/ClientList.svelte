@@ -5,8 +5,9 @@
 	import { onDestroy, onMount } from "svelte";
 	import type { Unsubscriber } from "svelte/store";
 
-	let unsubscriber: Unsubscriber | null;
+	let unsubscriber: Unsubscriber | null = null;
 	let clients: Client[] = $state([]);
+	let { selectedClient = $bindable<Client | null>() } = $props();
 
 	onMount(() => {
 		getWebSocket()?.send({
@@ -14,33 +15,49 @@
 			id: randomUuid(),
 			data: null
 		});
+
 		unsubscriber = wsMessage.subscribe((message) => {
 			if (message?.command === UPDATE_COMMANDS.connectedClientListUpdated) {
 				clients = message.data;
+				if (message.data.length === 1) {
+					selectedClient = message.data[0];
+				}
 			}
 		});
 	});
 
 	onDestroy(() => {
-		if (unsubscriber) {
-			unsubscriber();
-		}
+		unsubscriber?.();
 	});
+
+	const selectClient = (client: Client) => {
+		selectedClient = client;
+	};
 </script>
 
-<section class="mx-auto max-w-md rounded-xl bg-gray-900 p-4 text-white shadow-lg">
-	<h2 class="mb-4 text-center text-xl font-bold">Clients connectés</h2>
+<section class="mx-auto rounded-xl p-4">
+	<h2 class="mb-4 text-xl font-bold">Clients connectés</h2>
 	{#if clients.length > 0}
 		<ul class="space-y-2">
 			{#each clients as client}
-				<li class="flex items-center justify-between rounded-lg bg-gray-800 p-3 shadow-sm">
+				<button
+					class="flex cursor-pointer items-center justify-between rounded-lg p-3 shadow-sm"
+					class:selected={selectedClient?.id === client.id}
+					onpointerdown={() => selectClient(client)}
+				>
 					<span class="font-medium">{client.ip}</span>
-					<span class="text-sm text-gray-400">{client.id}</span>
+					<span class="ml-10 text-sm text-gray-400">{client.id}</span>
 					<span class="text-sm text-gray-400">{client.screen}</span>
-				</li>
+				</button>
 			{/each}
 		</ul>
 	{:else}
 		<p class="text-center text-gray-400">Aucun client connecté</p>
 	{/if}
 </section>
+
+<style>
+	.selected {
+		border: 2px solid #4f46e5;
+	}
+</style>

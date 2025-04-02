@@ -8,18 +8,12 @@
 		inputScore as matchInputScore,
 		undoLastScore
 	} from "@dartsScorer/match-utils";
-	import { onMount } from "svelte";
-	import { compatibilityUUID } from "$lib/crypto";
 	import { getApiBaseUrl } from "$lib/requester/utils";
 	import { goto } from "$app/navigation";
 
 	let { data }: { data: Match } = $props();
 	let inputScore: string = $state("");
 	let showDartsCountSelection = $state(false);
-
-	onMount(async () => {
-		compatibilityUUID();
-	});
 
 	let match: Match = $state(data);
 	let shouldDisplayAllowChangeStarter = $derived(getCurrentLeg(match).throws.length === 0);
@@ -28,7 +22,7 @@
 		console.log("Le match est fini!", isMatchOver);
 		if (isMatchOver) {
 			setTimeout(() => {
-				goto("/");
+				goto("/waiting");
 			}, 3000);
 		}
 	});
