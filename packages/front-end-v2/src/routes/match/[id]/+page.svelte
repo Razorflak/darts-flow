@@ -19,7 +19,6 @@
 	let shouldDisplayAllowChangeStarter = $derived(getCurrentLeg(match).throws.length === 0);
 	let isMatchOver = $derived(match.isOver);
 	$effect(() => {
-		console.log("Le match est fini!", isMatchOver);
 		if (isMatchOver) {
 			setTimeout(() => {
 				goto("/waiting");
@@ -29,7 +28,6 @@
 
 	const sendMatchData = (match: Match) => {
 		const params = JSON.stringify(match, null, 3);
-		console.log("matchId", match.id);
 		return fetch(`${getApiBaseUrl()}/match/${match.id}`, {
 			method: "PUT",
 			headers: {
@@ -40,7 +38,7 @@
 	};
 
 	const onMatchUpdate = (match: Match) => {
-		sendMatchData(match).then(() => console.log("updated"));
+		sendMatchData(match);
 	};
 
 	function addDigit(digit: number): void {

@@ -1,33 +1,41 @@
 <script lang="ts">
-	import { getWebSocket, wsMessage } from "$stores/wsStores.svelte";
+	import { getWebSocket, onWsConnect, wsMessage } from "$stores/wsStores.svelte";
 	import { randomUuid } from "@dartsScorer/crypto";
 	import { SUB_COMMANDS, UPDATE_COMMANDS, type Client } from "@dartsScorer/shared-ws";
 	import { onDestroy, onMount } from "svelte";
 	import type { Unsubscriber } from "svelte/store";
 
-	let unsubscriber: Unsubscriber | null = null;
+	let unsubscriberWsMessage: Unsubscriber | null = null;
+	let unsubscriberWsOnConnect: Unsubscriber | null = null;
 	let clients: Client[] = $state([]);
 	let { selectedClient = $bindable<Client | null>() } = $props();
 
-	onMount(() => {
+	const subTopics = () => {
 		getWebSocket()?.send({
 			command: SUB_COMMANDS.subConnectedClient,
 			id: randomUuid(),
 			data: null
 		});
+	};
 
-		unsubscriber = wsMessage.subscribe((message) => {
-			if (message?.command === UPDATE_COMMANDS.connectedClientListUpdated) {
-				clients = message.data;
-				if (message.data.length === 1) {
-					selectedClient = message.data[0];
-				}
+	onMount(() => {
+		subTopics();
+	});
+	unsubscriberWsMessage = wsMessage.subscribe((message) => {
+		if (message?.command === UPDATE_COMMANDS.connectedClientListUpdated) {
+			clients = message.data;
+			if (message.data.length === 1) {
+				selectedClient = message.data[0];
 			}
-		});
+		}
+	});
+	unsubscriberWsOnConnect = onWsConnect.subscribe(() => {
+		subTopics();
 	});
 
 	onDestroy(() => {
-		unsubscriber?.();
+		unsubscriberWsMessage();
+		unsubscriberWsOnConnect();
 	});
 
 	const selectClient = (client: Client) => {

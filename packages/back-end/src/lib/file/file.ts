@@ -1,4 +1,4 @@
-import { mkdirSync, readdirSync, renameSync, statSync } from "node:fs"
+import { readdirSync, statSync } from "node:fs"
 import path from "node:path"
 
 export const getMostRecentFile = (dir: string): string | null => {

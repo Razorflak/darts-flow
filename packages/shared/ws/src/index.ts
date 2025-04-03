@@ -1,14 +1,22 @@
-import type { Match } from "@dartsScorer/models"
+import type { Match, MatchInformation } from "@dartsScorer/models"
 import type { UUID } from "node:crypto"
 import type { WebSocket } from "ws"
 
 export const SUB_COMMANDS = {
 	subMatchUpdate: "subMatchUpdate",
 	subConnectedClient: "subConnectedClient",
+	subMatchListUpdate: "subMatchListUpdate",
+} as const
+
+export const UNSUB_COMMANDS = {
+	unsubMatchUpdate: "unsubMatchUpdate",
+	unsubConnectedClient: "unsubConnectedClient",
+	unsubMatchListUpdate: "subMatchListUpdate",
 } as const
 
 export const UPDATE_COMMANDS = {
 	matchUpdate: "matchUpdate",
+	matchListUpdate: "matchListUpdate",
 	connectedClientListUpdated: "connectedClientListUpdated",
 } as const
 
@@ -29,10 +37,15 @@ export const COMMANDS = {
 
 // Used to map the data property to a type
 type CommandDataMap = {
-	[SUB_COMMANDS.subMatchUpdate]: string | "all"
+	[SUB_COMMANDS.subMatchUpdate]: UUID | "all"
 	[SUB_COMMANDS.subConnectedClient]: null
+	[SUB_COMMANDS.subMatchListUpdate]: null
+	[UNSUB_COMMANDS.unsubMatchUpdate]: null
+	[UNSUB_COMMANDS.unsubConnectedClient]: null
+	[UNSUB_COMMANDS.unsubMatchListUpdate]: null
 	[UPDATE_COMMANDS.connectedClientListUpdated]: Client[]
 	[UPDATE_COMMANDS.matchUpdate]: Match
+	[UPDATE_COMMANDS.matchListUpdate]: MatchInformation[]
 	[STATE_COMMANDS.screenUpdate]: string
 	[ADMIN_COMMANDS.setNextMatch]: Match
 	[ADMIN_COMMANDS.deleteMatch]: string
@@ -43,6 +56,7 @@ type CommandDataMap = {
 
 type KEY_BASE_COMMAND =
 	| keyof typeof SUB_COMMANDS
+	| keyof typeof UNSUB_COMMANDS
 	| keyof typeof UPDATE_COMMANDS
 	| keyof typeof COMMANDS
 	| keyof typeof STATE_COMMANDS

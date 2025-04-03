@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, renameSync } from "node:fs"
 
 export const ACTIVE_FOLDER = "./matches/active"
 export const ARCHIVE_FOLDER = "./matches/archive"
-export const DELETE_FOLDER = "./matches/delete"
+export const DELETE_FOLDER = "./matches/deleted"
 
 export const moveMatchFileToArchiveFolder = (matchId: string) => {
 	if (!existsSync(ARCHIVE_FOLDER)) {
