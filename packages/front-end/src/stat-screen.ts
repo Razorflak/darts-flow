@@ -186,8 +186,6 @@ function getMatchStats(match: Match) {
 		t2_180,
 	)
 
-	console.log(refMaxThrow, "ref")
-
 	const throwAbove60Stats: StatBar = {
 		name: "60+",
 		team1: { value: getScoreCountAboveOrEqualValue(match, team1Id, 60, 100) },

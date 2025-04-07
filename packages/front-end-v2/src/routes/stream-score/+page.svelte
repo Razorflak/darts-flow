@@ -37,9 +37,9 @@
 </script>
 
 {#if match}
-	<main class="font-roboto max-w-xl bg-purple-950 text-white">
+	<main class="font-roboto max-w-2xl bg-purple-950 text-white">
 		<!-- En-tête -->
-		<div class="grid grid-cols-3 border-b border-gray-400 px-2 pb-1 text-lg">
+		<div class="grid grid-cols-3 border-b border-gray-400 px-2 pb-1 text-2xl">
 			<span class="col-span-2">{match.legNeededToWin} MANCHES GAGNANTES</span>
 			<div class="grid grid-cols-2 text-center">
 				<span>MANCHES</span>
@@ -50,19 +50,20 @@
 		<!-- Contenu dynamique -->
 		{#each match.teams as team, index}
 			<div
-				class="relative grid grid-cols-3 items-center px-2 py-1 {index === 1
+				class="relative grid grid-cols-3 items-center px-2 py-1 text-2xl {index === 1
 					? 'border-t border-red-600'
 					: ''}"
+				style="border-left: {team.isActive ? '4px solid #FFFFE0' : '4px solid transparent'};"
 			>
 				<div class="col-span-2 flex items-center">
 					<span class="mr-2 h-2 w-2 rounded-full {team.isActive && 'bg-red-600'}"></span>
-					<span style="white-space: pre-line" class="font-roboto text-xl font-bold"
+					<span style="white-space: pre-line" class="font-roboto font-bold"
 						>{getTeamDisplayName(team, "\n")}</span
 					>
 				</div>
 				<div class="grid grid-cols-2 items-center text-center text-white">
 					<span class="rounded-md px-2 py-1">{team.legCountWon}</span>
-					<span class="rounded-md px-2 py-1 text-xl font-bold">{team.currentScore}</span>
+					<span class="rounded-md px-2 py-1 font-bold">{team.currentScore}</span>
 				</div>
 				<div
 					class="{!team.isActive && getCurrentLegThrowsByTeam(match, team.id).length > 0
@@ -75,7 +76,7 @@
 		{/each}
 
 		<!-- Footer -->
-		<div class="mt-1 flex justify-between bg-black px-4 text-center text-lg">
+		<div class="flex justify-between bg-black px-4 text-center text-2xl">
 			<span>COUPE DE FRANCE</span>
 			<span>{match.competition} - {match.competitionStage}</span>
 		</div>
