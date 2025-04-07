@@ -55,6 +55,7 @@
 
 	function undo(): void {
 		if (match) match = undoLastScore(match);
+		onMatchUpdate(match);
 	}
 
 	const canChangeTeamStarter = (match: Match) => {
@@ -68,6 +69,9 @@
 		match.teams.forEach((element) => {
 			element.isActive = !element.isActive;
 		});
+
+		const leg = getCurrentLeg(match);
+		leg.startingTeamId = getActiveTeam(match).id;
 		onMatchUpdate(match);
 	};
 
