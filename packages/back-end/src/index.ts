@@ -3,10 +3,12 @@ import expressWs from "express-ws"
 import apiMatchRouter from "./api/match.js"
 import apiMatchArchiveRouter from "./api/match-archive.js"
 import { addWsToStore } from "./lib/action/ws-store.js"
+import { ensureMatchFoldersExistSync } from "./lib/action/index.js"
 
 const { app } = expressWs(express())
 
 const port = 3000
+ensureMatchFoldersExistSync()
 
 app.use("/api/match", apiMatchRouter)
 app.use("/api/match-archive", apiMatchArchiveRouter)

@@ -23,3 +23,14 @@ export const moveMatchFileToDeleteFolder = (matchId: string) => {
 		`${DELETE_FOLDER}/${matchId}.json`,
 	)
 }
+
+export function ensureMatchFoldersExistSync() {
+	const folders = [ACTIVE_FOLDER, ARCHIVE_FOLDER, DELETE_FOLDER]
+
+	for (const folder of folders) {
+		if (!existsSync(folder)) {
+			mkdirSync(folder, { recursive: true })
+			console.log(`📁 Dossier créé : ${folder}`)
+		}
+	}
+}

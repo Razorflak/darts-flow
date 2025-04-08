@@ -12,12 +12,16 @@ apiMatchArchiveRouter.use(express.json())
 apiMatchArchiveRouter.use(cors())
 
 apiMatchArchiveRouter.get("/matches", (req: Request, res: Response) => {
-	const matchFileList = readdirSync(ARCHIVE_FOLDER)
-	const games: Match[] = matchFileList.map((file) => {
-		const matchString = readFileSync(`${ARCHIVE_FOLDER}/${file}`).toString()
-		return JSON.parse(matchString)
-	})
-	res.send(games)
+	try {
+		const matchFileList = readdirSync(ARCHIVE_FOLDER)
+		const games: Match[] = matchFileList.map((file) => {
+			const matchString = readFileSync(`${ARCHIVE_FOLDER}/${file}`).toString()
+			return JSON.parse(matchString)
+		})
+		res.send(games)
+	} catch (e: unknown) {
+		res.send([])
+	}
 })
 
 apiMatchArchiveRouter.get("/:id?", (req: Request, res: Response) => {
