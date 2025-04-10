@@ -31,7 +31,7 @@ export const getTeamBestLeg = (match: Match, teamId: string): number => {
 			leg.throws.filter((t) => t.teamId === teamId).reduce((sum, t) => sum + t.darts, 0)
 		);
 
-	return dartsToWin.length ? Math.min(...dartsToWin) : 0;
+	return dartsToWin.length ? Math.min(...dartsToWin) : Infinity;
 };
 
 export const getTeamBestFinish = (match: Match, teamId: string): number => {
