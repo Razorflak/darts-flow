@@ -20,13 +20,20 @@
 
 <div class="flex w-40/100 border-collapse flex-col p-2">
 	<div class="flex w-full {reverse ? 'flex-row' : 'flex-row-reverse'} text-3xl">
-		<div class="w-full border p-4 text-center {team.isActive ? 'bg-white text-black' : ''}">
+		<div
+			class="flex w-full items-center justify-center border p-4 text-center {team.isActive
+				? 'bg-white text-black'
+				: ''}"
+		>
 			{team.currentScore}
 		</div>
-		<div class="w-full border p-4 text-center">
+		<div class="flex w-full items-center justify-center border p-4 text-center">
 			Manches: {team.legCountWon}
 		</div>
-		<div class="w-full border p-4 text-center">
+		<div
+			style="white-space: pre-line"
+			class="flex w-full items-center justify-center border p-4 text-center"
+		>
 			{getTeamDisplayName(team, "\n")}
 		</div>
 	</div>

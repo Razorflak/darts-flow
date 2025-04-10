@@ -47,7 +47,9 @@
 								? 'visible'
 								: 'invisible'}"
 						></div>
-						<span class="inline-flex items-center text-xl">{getTeamDisplayName(data.team)}</span>
+						<span style="white-space: pre-line" class="inline-flex items-center text-xl"
+							>{getTeamDisplayName(data.team, "\n")}</span
+						>
 						<div
 							class="relative right-2 mx-4 {data.teamId === leg.winningTeamId
 								? 'visible'
@@ -57,13 +59,13 @@
 						</div>
 					</div>
 					<div class="flex w-full flex-row">
-						<div class="flex flex-col justify-center border-r px-8 py-4 align-middle">
+						<div class="flex w-1/2 flex-col justify-center border-r px-8 py-4 align-middle">
 							<span class="w-full"> Moy.</span>
-							<span class="flex min-w-full text-2xl font-bold">{data.average.toFixed(2)}</span>
+							<span class="text-2xl font-bold">{data.average.toFixed(2)}</span>
 						</div>
-						<div class="flex flex-col justify-center px-8 py-4 text-center">
+						<div class="flex w-1/2 flex-col items-center justify-center px-8 py-4 text-center">
 							<span>Darts</span>
-							<span class="text-2xl font-bold">{data.dartsCount}</span>
+							<span class="text-center text-2xl font-bold">{data.dartsCount}</span>
 						</div>
 					</div>
 					<div class="flex flex-col border-t pb-1 text-center">

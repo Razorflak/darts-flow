@@ -52,7 +52,7 @@
 		</div>
 
 		{#if reverseLegs}
-			<div class="row mt-6 flex flex-row flex-wrap justify-center">
+			<div class="row mt-6 flex flex-row flex-wrap">
 				{#each reverseLegs as leg, index}
 					<LegStat {leg} {match} mancheNumber={reverseLegs.length - index} />
 				{/each}
