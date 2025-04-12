@@ -98,7 +98,7 @@
 
 	<label class="block">
 		Nombre de sets gagnants
-		<input type="number" bind:value={numSets} min="1" class="w-full rounded border p-2" />
+		<input type="number" bind:value={numSets} min="1" class="w-full rounded border p-2" disabled />
 	</label>
 
 	<label class="block">
