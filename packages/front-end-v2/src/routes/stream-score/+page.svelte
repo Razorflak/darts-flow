@@ -37,10 +37,10 @@
 </script>
 
 {#if match}
-	<main class="font-roboto max-w-2xl bg-purple-950 text-white">
+	<main class="font-roboto absolute bottom-0 w-full border-b-white bg-purple-950 text-white">
 		<!-- En-tête -->
-		<div class="grid grid-cols-3 border-b border-gray-400 px-2 pb-1 text-2xl">
-			<span class="col-span-2">{match.legNeededToWin} MANCHES GAGNANTES</span>
+		<div class="grid grid-cols-3 border-b border-gray-400 px-2 py-8 text-5xl">
+			<span class="col-span-2 pl-8">{match.legNeededToWin} MANCHES GAGNANTES</span>
 			<div class="grid grid-cols-2 text-center">
 				<span>MANCHES</span>
 				<span>POINTS</span>
@@ -50,14 +50,14 @@
 		<!-- Contenu dynamique -->
 		{#each match.teams as team, index}
 			<div
-				class="relative grid grid-cols-3 items-center px-2 py-1 text-2xl {index === 1
+				class="relative grid grid-cols-3 items-center px-8 py-4 text-8xl {index === 1
 					? 'border-t border-red-600'
 					: ''}"
-				style="border-left: {team.isActive ? '4px solid #FFFFE0' : '4px solid transparent'};"
+				style="border-left: {team.isActive ? '24px solid #FFFFE0' : '4px solid transparent'};"
 			>
 				<div class="col-span-2 flex items-center">
-					<span class="mr-2 h-2 w-2 rounded-full {team.isActive && 'bg-red-600'}"></span>
-					<span style="white-space: pre-line" class="font-roboto font-bold"
+					<span class="mr-2 h-12 w-12 rounded-full {team.isActive && 'bg-red-600'}"></span>
+					<span style="white-space: pre-line" class="font-roboto leading-normal font-bold"
 						>{getTeamDisplayName(team, "\n")}</span
 					>
 				</div>
@@ -76,7 +76,7 @@
 		{/each}
 
 		<!-- Footer -->
-		<div class="flex justify-between bg-black px-4 text-center text-2xl">
+		<div class="flex justify-between bg-black px-8 py-4 text-center text-6xl">
 			<span>COUPE DE FRANCE</span>
 			<span>{match.competition} - {match.competitionStage}</span>
 		</div>

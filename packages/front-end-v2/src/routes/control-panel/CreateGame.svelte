@@ -4,15 +4,18 @@
 
 	type Competition = { name: string; isDouble: boolean };
 	const competitions: Competition[] = [
-		{ name: "Simple masculin", isDouble: false },
-		{ name: "Simple Femmes", isDouble: false },
+		{ name: "Simple Masculins", isDouble: false },
+		{ name: "Simple Féminines", isDouble: false },
 		{ name: "Simple Juniors", isDouble: false },
-		{ name: "Simple Vétéran", isDouble: false },
-		{ name: "Double mixte", isDouble: true },
-		{ name: "Double féminin", isDouble: true }
+		{ name: "Simple Vétérans", isDouble: false },
+		{ name: "Doubles ", isDouble: true },
+		{ name: "Doubles Féminins", isDouble: true }
 	];
 	const stages = [
 		"Phase de poule",
+		"256e de finale",
+		"128e de finale",
+		"64e de finale",
 		"32e de finale",
 		"16e de finale",
 		"8e de finale",

@@ -25,7 +25,7 @@
 </script>
 
 {#if bars && match}
-	<main class=" flex h-screen w-full flex-col bg-gray-50/10 px-50">
+	<main class=" flex h-screen w-full flex-col px-50">
 		<div class="row flex w-full justify-between py-8 text-4xl text-white">
 			<span style="white-space: pre-line" class="textleft text-shadow w-full font-bold"
 				>{getTeamDisplayName(match.teams[0], "\n")}</span
