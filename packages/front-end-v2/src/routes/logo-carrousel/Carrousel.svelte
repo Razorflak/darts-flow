@@ -4,13 +4,16 @@
 	let images = $state(["tot"]);
 	if (row === "row1") {
 		const modules = import.meta.glob("/static/img/carousel/row1/*.{png,jpg,jpeg,webp}", {
-			as: "url",
+			query: "?url",
+			import: "default",
 			eager: true
 		});
+		console.log("JTA", modules);
 		images = Object.values(modules);
 	} else if (row === "row2") {
 		const modules = import.meta.glob("/static/img/carousel/row2/*.{png,jpg,jpeg,webp}", {
-			as: "url",
+			query: "?url",
+			import: "default",
 			eager: true
 		});
 		images = Object.values(modules);
@@ -19,7 +22,7 @@
 	const speed = $derived(images.length * 8);
 </script>
 
-<div class="mt-24 w-full overflow-hidden">
+<div class="w-full overflow-hidden py-8">
 	<div
 		class="animate-scroll flex w-max whitespace-nowrap"
 		style="animation-duration: {speed}s; animation-direction: {reverse ? 'normal' : 'reverse'}"
