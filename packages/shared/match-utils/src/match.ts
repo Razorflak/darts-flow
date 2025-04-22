@@ -59,3 +59,11 @@ export const changeActiveTeam = (match: Match): Match => {
 
 	return match
 }
+
+export const getMatchWinner = (match: Match): Team => {
+	const team = match.teams.find((t) => t.setCountWon === match.setNeededToWin)
+	if (!team) {
+		throw new Error("match not over")
+	}
+	return team
+}

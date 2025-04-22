@@ -5,6 +5,7 @@
 	type Competition = { name: string; isDouble: boolean };
 	const competitions: Competition[] = [
 		{ name: "Simple Masculins", isDouble: false },
+		{ name: "Simple Paradarts", isDouble: false },
 		{ name: "Simple Féminines", isDouble: false },
 		{ name: "Simple Juniors", isDouble: false },
 		{ name: "Simple Vétérans", isDouble: false },

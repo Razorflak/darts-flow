@@ -37,7 +37,7 @@
 </script>
 
 {#if match}
-	<main class="font-roboto absolute bottom-0 w-full border-b-white bg-purple-950 text-white">
+	<main class="font-roboto absolute bottom-0 w-85/100 border-b-white bg-purple-950 text-white">
 		<!-- En-tête -->
 		<div class="grid grid-cols-3 border-b border-gray-400 px-2 py-8 text-5xl">
 			<span class="col-span-2 pl-8">{match.legNeededToWin} MANCHES GAGNANTES</span>

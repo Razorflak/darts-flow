@@ -1,9 +1,8 @@
 <script lang="ts">
 	let { value, name }: { value: number; name: string } = $props();
 
-	const rounded = Math.round(value * 100) / 100;
-	const checkedValue = isNaN(rounded) ? 0 : rounded;
-	console.log(rounded, checkedValue, checkedValue.toString());
+	const rounded = $derived(Math.round(value * 100) / 100);
+	const checkedValue = $derived(isNaN(rounded) ? 0 : rounded);
 </script>
 
 <div class="flex w-full border-collapse flex-col border px-4">

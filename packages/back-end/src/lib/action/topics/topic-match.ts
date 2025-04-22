@@ -17,19 +17,24 @@ export const matchTopic = {
 
 		// When a new client subscribe to match update, we send him back the info from the mathc
 		const mostRecentFile = getMostRecentFile(ACTIVE_FOLDER)
-
-		const matchString =
-			matchId !== "all"
-				? readFileSync(`${ACTIVE_FOLDER}/${matchId}.json`).toString()
-				: readFileSync(`${ACTIVE_FOLDER}/${mostRecentFile}`).toString()
-		const match: Match = JSON.parse(matchString)
-
-		const message: WsMessage = {
-			id: crypto.randomUUID(),
-			command: UPDATE_COMMANDS.matchUpdate,
-			data: match,
+		if (!mostRecentFile) {
+			return null
 		}
-		sendWsMessageById(wsId, message)
+		try {
+			const matchString =
+				matchId !== "all"
+					? readFileSync(`${ACTIVE_FOLDER}/${matchId}.json`).toString()
+					: readFileSync(`${ACTIVE_FOLDER}/${mostRecentFile}`).toString()
+			const match: Match = JSON.parse(matchString)
+			const message: WsMessage = {
+				id: crypto.randomUUID(),
+				command: UPDATE_COMMANDS.matchUpdate,
+				data: match,
+			}
+			sendWsMessageById(wsId, message)
+		} catch (e: unknown) {
+			return null
+		}
 	},
 
 	unsubscribe: (clientId: string) => {

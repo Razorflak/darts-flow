@@ -43,8 +43,12 @@ apiMatchRouter.put("/:id", async (req: Request, res: Response) => {
 })
 
 apiMatchRouter.get("/matches", (_req: Request, res: Response) => {
-	const matches = getActiveMatches()
-	res.send(matches)
+	try {
+		const matches = getActiveMatches()
+		res.send(matches)
+	} catch (e: unknown) {
+		res.send(null)
+	}
 })
 
 apiMatchRouter.get("/:id?", (req: Request, res: Response) => {

@@ -20,11 +20,9 @@
 
 	onMount(async () => {
 		unsubscribeWsMessage = wsMessage.subscribe((message) => {
-			console.log("incoming message", message);
 			if (message?.command === UPDATE_COMMANDS.matchUpdate) {
 				match = message.data;
 				reverseLegs = match.sets[0].legs.reverse();
-				console.log(reverseLegs);
 			}
 		});
 		unsubscribeOnWsConnect = onWsConnect.subscribe(() => {

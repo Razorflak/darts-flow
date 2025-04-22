@@ -55,6 +55,7 @@
 
 	function undo(): void {
 		if (match) match = undoLastScore(match);
+		clearInput();
 		onMatchUpdate(match);
 	}
 
@@ -112,7 +113,7 @@
 	}
 </script>
 
-<div class="flex h-screen flex-col overflow-hidden bg-gray-900 p-4 text-white">
+<div class="flex h-dvh flex-col overflow-hidden bg-gray-900 p-4 text-white">
 	<!-- Informations du match -->
 	<div class="pb-4 text-center">
 		<h1 class="text-3xl font-bold">{match.competition}</h1>

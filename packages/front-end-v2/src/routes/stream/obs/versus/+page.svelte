@@ -36,17 +36,23 @@
 </script>
 
 {#if match}
-	<div
-		class="fixed bottom-0 z-50 flex h-[10vh] w-full items-center justify-center overflow-hidden border-t-4 border-white/10 bg-[rgb(0,0,145)] px-8 text-white shadow-[0_-5px_20px_rgba(0,0,0,0.5)]"
-	>
-		<div class="slide-in-left w-full text-right text-3xl font-bold whitespace-nowrap">
-			🎯 {getTeamDisplayName(match.teams[0])}
+	<div class="fixed bottom-0 w-full px-48 pb-16">
+		<div
+			class=" bottom-0 flex h-[10vh] w-full items-center justify-center overflow-hidden border-t-4 border-white/10 bg-[rgb(0,0,145)] px-8 text-white shadow-[0_-5px_20px_rgba(0,0,0,0.5)]"
+		>
+			<div class="slide-in-left w-full text-right text-4xl font-bold whitespace-nowrap">
+				🎯 {getTeamDisplayName(match.teams[0])}
+			</div>
+
+			<div class="m-40 text-2xl font-semibold opacity-80">VS</div>
+
+			<div class="slide-in-right w-full text-4xl font-bold whitespace-nowrap">
+				{getTeamDisplayName(match.teams[1])} 🎯
+			</div>
 		</div>
-
-		<div class="m-40 text-2xl font-semibold opacity-80">VS</div>
-
-		<div class="slide-in-right w-full text-3xl font-bold whitespace-nowrap">
-			{getTeamDisplayName(match.teams[1])} 🎯
+		<div class="flex flex-col bg-black text-2xl text-white">
+			<div class="flex justify-center">{match.competition}</div>
+			<div class="flex justify-center">{match.competitionStage}</div>
 		</div>
 	</div>
 {/if}
@@ -57,7 +63,7 @@
 			transform: translateX(-100%);
 			opacity: 0;
 		}
-		90% {
+		80% {
 			transform: translateX(-100%);
 			opacity: 0;
 		}
@@ -72,7 +78,7 @@
 			transform: translateX(100%);
 			opacity: 0;
 		}
-		90% {
+		80% {
 			transform: translateX(100%);
 			opacity: 0;
 		}
@@ -82,10 +88,10 @@
 		}
 	}
 	.slide-in-left {
-		animation: slide-in-left 3s ease-out forwards;
+		animation: slide-in-left 2s ease-out forwards;
 	}
 
 	.slide-in-right {
-		animation: slide-in-right 3s ease-out forwards;
+		animation: slide-in-right 2s ease-out forwards;
 	}
 </style>

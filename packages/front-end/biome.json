@@ -1,6 +1,0 @@
-{
-	"extends": ["@dartsScorer/biome-config/biome"],
-	"files": {
-		"ignore": ["dist", "node_modules"]
-	}
-}

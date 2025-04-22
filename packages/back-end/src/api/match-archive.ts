@@ -25,16 +25,20 @@ apiMatchArchiveRouter.get("/matches", (req: Request, res: Response) => {
 })
 
 apiMatchArchiveRouter.get("/:id?", (req: Request, res: Response) => {
-	const gameId = req.params.id === "null" ? null : req.params.id
-	const mostRecentFile = getMostRecentFile(ARCHIVE_FOLDER)
-	if (!mostRecentFile) {
-		throw new Error("match folder is empty")
+	try {
+		const gameId = req.params.id === "null" ? null : req.params.id
+		const mostRecentFile = getMostRecentFile(ARCHIVE_FOLDER)
+		if (!mostRecentFile) {
+			throw new Error("match folder is empty")
+		}
+		const matchString = gameId
+			? readFileSync(`${ARCHIVE_FOLDER}/${gameId}.json`).toString()
+			: readFileSync(`${ARCHIVE_FOLDER}/${mostRecentFile}`).toString()
+		const match: Match = JSON.parse(matchString)
+		res.send(match)
+	} catch (e: unknown) {
+		res.send(null)
 	}
-	const matchString = gameId
-		? readFileSync(`${ARCHIVE_FOLDER}/${gameId}.json`).toString()
-		: readFileSync(`${ARCHIVE_FOLDER}/${mostRecentFile}`).toString()
-	const match: Match = JSON.parse(matchString)
-	res.send(match)
 })
 
 export default apiMatchArchiveRouter
