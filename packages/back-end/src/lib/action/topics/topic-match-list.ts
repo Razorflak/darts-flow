@@ -1,6 +1,6 @@
-import { UPDATE_COMMANDS } from "@dartsScorer/shared-ws"
+import { UPDATE_COMMANDS } from "@dartsFlow/shared-ws"
 import { sendWsMessageById } from "../index.js"
-import type { Match } from "@dartsScorer/models"
+import type { Match } from "@dartsFlow/models"
 import { getAllMatchFileInformations } from "../../bd/match.js"
 
 type MatchListUpdateSuscriber = {

@@ -1,4 +1,4 @@
-import type { Match, Team, Throw } from "@dartsScorer/models"
+import type { Match, Team, Throw } from "@dartsFlow/models"
 import { getCurrentLeg } from "./leg.js"
 
 export const getLastThrowByTeam = (match: Match, team: Team) => {

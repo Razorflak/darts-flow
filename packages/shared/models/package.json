@@ -1,5 +1,5 @@
 {
-	"name": "@dartsScorer/models",
+	"name": "@dartsFlow/models",
 	"version": "1.0.0",
 	"type": "module",
 	"description": "",
@@ -16,7 +16,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@dartsScorer/biome-config": "workspace:*",
-		"@dartsScorer/typescript-config": "workspace:*"
+		"@dartsFlow/biome-config": "workspace:*",
+		"@dartsFlow/typescript-config": "workspace:*"
 	}
 }

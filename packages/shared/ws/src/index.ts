@@ -1,4 +1,4 @@
-import type { Match, MatchInformation } from "@dartsScorer/models"
+import type { Match, MatchInformation } from "@dartsFlow/models"
 import type { UUID } from "node:crypto"
 import type { WebSocket } from "ws"
 

@@ -5,7 +5,7 @@ import {
 	STATE_COMMANDS,
 	SUB_COMMANDS,
 	type WsMessage,
-} from "@dartsScorer/shared-ws"
+} from "@dartsFlow/shared-ws"
 import { sendWsMessageById, updateClientScreen } from "./ws-store.js"
 import { matchTopic } from "./topics/topic-match.js"
 import { clientListTopic } from "./topics/topic-connected-clients.js"

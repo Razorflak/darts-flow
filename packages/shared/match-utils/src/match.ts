@@ -1,7 +1,7 @@
-import type { Leg, Lot, Match, Team } from "@dartsScorer/models"
+import type { Leg, Lot, Match, Team } from "@dartsFlow/models"
 import { getCurrentLeg } from "./leg.js"
 import { getActiveTeam } from "./team.js"
-import { randomUuid } from "@dartsScorer/crypto"
+import { randomUuid } from "@dartsFlow/crypto"
 
 export const isMatchOver = (match: Match) => {
 	const team1WonMatch = match.setNeededToWin === match.teams[0].setCountWon

@@ -1,5 +1,5 @@
 {
-	"name": "@dartsScorer/shared-ws",
+	"name": "@dartsFlow/shared-ws",
 	"type": "module",
 	"version": "1.0.0",
 	"main": "src/index.ts",
@@ -14,9 +14,9 @@
 	"dependencies": {},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@dartsScorer/biome-config": "workspace:*",
-		"@dartsScorer/models": "workspace:*",
-		"@dartsScorer/typescript-config": "workspace:*",
-		"@dartsScorer/match-utils": "workspace:*"
+		"@dartsFlow/biome-config": "workspace:*",
+		"@dartsFlow/models": "workspace:*",
+		"@dartsFlow/typescript-config": "workspace:*",
+		"@dartsFlow/match-utils": "workspace:*"
 	}
 }

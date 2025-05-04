@@ -1,4 +1,4 @@
-import { UPDATE_COMMANDS, type Client } from "@dartsScorer/shared-ws"
+import { UPDATE_COMMANDS, type Client } from "@dartsFlow/shared-ws"
 import { getWsStore, sendWsMessageById } from "../index.js"
 
 type ConnectClientUpdateSuscriber = {

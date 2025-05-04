@@ -1,5 +1,5 @@
-import { randomUuid } from "@dartsScorer/crypto"
-import type { Match, Player, Team } from "@dartsScorer/models"
+import { randomUuid } from "@dartsFlow/crypto"
+import type { Match, Player, Team } from "@dartsFlow/models"
 
 export const getTeamById = (match: Match, id: string): Team => {
 	const team = match.teams.find((team) => team.id === id)

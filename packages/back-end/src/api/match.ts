@@ -1,7 +1,7 @@
 import express, { Router } from "express"
 import cors from "cors"
 import type { Request, Response } from "express"
-import type { Match } from "@dartsScorer/models"
+import type { Match } from "@dartsFlow/models"
 import {
 	matchListTopic,
 	matchTopic,

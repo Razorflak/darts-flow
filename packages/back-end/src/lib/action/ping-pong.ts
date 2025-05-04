@@ -1,7 +1,7 @@
 import type { WebSocket } from "ws"
 import { sendMessage } from "./index.js"
 import { randomUUID } from "node:crypto"
-import type { WsMessage } from "@dartsScorer/shared-ws"
+import type { WsMessage } from "@dartsFlow/shared-ws"
 
 const BASE_INTERVAL = 2000
 export const setPingPongGame = (ws: WebSocket, onGameOver: () => void) => {

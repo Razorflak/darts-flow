@@ -1,6 +1,6 @@
-import type { Match } from "@dartsScorer/models"
+import type { Match } from "@dartsFlow/models"
 import { ACTIVE_FOLDER, sendWsMessageById } from "../index.js"
-import { UPDATE_COMMANDS, type WsMessage } from "@dartsScorer/shared-ws"
+import { UPDATE_COMMANDS, type WsMessage } from "@dartsFlow/shared-ws"
 import { getMostRecentFile } from "../../file/file.js"
 import { readFileSync } from "node:fs"
 

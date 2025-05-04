@@ -1,4 +1,4 @@
-import type { Match } from "@dartsScorer/models"
+import type { Match } from "@dartsFlow/models"
 import { getCurrentLeg, handleLegOver, isLegOver } from "./leg.js"
 import { getActiveTeam, getInactiveTeam } from "./team.js"
 import { changeActiveTeam } from "./match.js"

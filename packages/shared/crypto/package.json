@@ -1,5 +1,5 @@
 {
-	"name": "@dartsScorer/crypto",
+	"name": "@dartsFlow/crypto",
 	"version": "1.0.0",
 	"type": "module",
 	"description": "",
@@ -13,7 +13,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@dartsScorer/biome-config": "workspace:*",
-		"@dartsScorer/typescript-config": "workspace:*"
+		"@dartsFlow/biome-config": "workspace:*",
+		"@dartsFlow/typescript-config": "workspace:*"
 	}
 }

@@ -2,7 +2,7 @@ import type { WebSocket } from "ws"
 import { addWsMessageListerner } from "./ws-message-router.js"
 import { randomUUID } from "node:crypto"
 import { setPingPongGame } from "./ping-pong.js"
-import type { Client, WsMessage } from "@dartsScorer/shared-ws"
+import type { Client, WsMessage } from "@dartsFlow/shared-ws"
 import { clientListTopic } from "./topics/topic-connected-clients.js"
 import { removeClientFromAllTopics } from "./topics/index.js"
 

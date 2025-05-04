@@ -1,5 +1,5 @@
 {
-	"name": "@dartsScorer/match-utils",
+	"name": "@dartsFlow/match-utils",
 	"version": "1.0.0",
 	"type": "module",
 	"description": "",
@@ -11,12 +11,12 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@dartsScorer/crypto": "workspace:*",
-		"@dartsScorer/models": "workspace:*"
+		"@dartsFlow/crypto": "workspace:*",
+		"@dartsFlow/models": "workspace:*"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@dartsScorer/biome-config": "workspace:*",
-		"@dartsScorer/typescript-config": "workspace:*"
+		"@dartsFlow/biome-config": "workspace:*",
+		"@dartsFlow/typescript-config": "workspace:*"
 	}
 }

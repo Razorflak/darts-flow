@@ -1,4 +1,4 @@
-import { matchStatus, type Match } from "@dartsScorer/models"
+import { matchStatus, type Match } from "@dartsFlow/models"
 import {
 	existsSync,
 	mkdirSync,
