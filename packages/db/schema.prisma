@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+  location  String?
+  tournaments Tournament[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name        String
+  startDate   DateTime?
+  endDate     DateTime?
+  phases      Phase[]
+  teams       TeamInTournament[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([eventId, name]) // Un nom de tournoi unique par événement
+}
+
+model Phase {
+  id           String   @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  name         String // Ex: "Poule A", "Huitièmes de finale"
+  type         PhaseType
+  order        Int      // Ordre de l'étape du tournoi (1 pour les poules, 2 pour l'élimination)
+  matches      Match[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([tournamentId, name]) // Un nom de phase unique par tournoi (optionnel, mais logique)
+  @@index([tournamentId, order]) // Index pour faciliter la récupération des phases par ordre
+}
+
+enum PhaseType {
+  ROUND_ROBIN
+  SINGLE_ELIMINATION
+  DOUBLE_ELIMINATION_UPPER_BRACKET
+  DOUBLE_ELIMINATION_LOWER_BRACKET
+  FINAL
+}
+
+model Team {
+  id             String           @id @default(cuid())
+  name           String?
+  players        Player[]
+  teamInTournaments TeamInTournament[]
+  matchesTeamA   Match[]          @relation("MatchTeamA")
+  matchesTeamB   Match[]          @relation("MatchTeamB")
+  wonMatches     Match[]          @relation("MatchWinner")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String
+  teamId    String?
+  team      Team?    @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TeamInTournament {
+  id           String   @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  teamId       String
+  team         Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  seed         Int?     // Pour le classement initial dans les poules ou les arbres
+  points       Int?     @default(0) // Points accumulés (pour les poules)
+  rank         Int?     // Classement final dans le tournoi
+  matchesPlayed Int      @default(0)
+  wins          Int      @default(0)
+  losses        Int      @default(0)
+  draws         Int?     @default(0) // Peut-être pertinent pour certaines règles
+  scoreFor      Int?     @default(0)
+  scoreAgainst  Int?     @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([tournamentId, teamId])
+  @@index([tournamentId])
+  @@index([teamId])
+}
+
+model Match {
+  id         String   @id @default(cuid())
+  phaseId    String
+  phase      Phase    @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+  round      Int?
+  matchNumber Int?
+  teamAId    String?  // Rendu optionnel
+  teamA      Team?    @relation("MatchTeamA", fields: [teamAId], references: [id], onDelete: SetNull)
+  teamBId    String?  // Rendu optionnel
+  teamB      Team?    @relation("MatchTeamB", fields: [teamBId], references: [id], onDelete: SetNull)
+  scoreTeamA Int?
+  scoreTeamB Int?
+  winnerId   String?
+  winner     Team?    @relation("MatchWinner", fields: [winnerId], references: [id], onDelete: SetNull)
+  startTime  DateTime?
+  endTime    DateTime?
+  location   String?
+  status     MatchStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([phaseId])
+  @@index([teamAId])
+  @@index([teamBId])
+  @@index([winnerId])
+}
+
+enum MatchStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
