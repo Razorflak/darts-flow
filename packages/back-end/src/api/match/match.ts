@@ -6,7 +6,7 @@ import {
 	matchListTopic,
 	matchTopic,
 	moveMatchFileToArchiveFolder,
-} from "../lib/action/index.js"
+} from "../../lib/action/index.js"
 import {
 	createMatch,
 	getActiveMatches,
@@ -14,7 +14,7 @@ import {
 	getMatch,
 	getMostRecentActiveMatch,
 	updateMatch,
-} from "../lib/bd/match.js"
+} from "../../lib/bd/match.js"
 
 const apiMatchRouter = Router()
 

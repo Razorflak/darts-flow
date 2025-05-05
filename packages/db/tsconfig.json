@@ -1,5 +1,5 @@
 {
-  "extends": "@dartsScorer/typescript-config/tsconfig.json",
+  "extends": "@dartsFlow/typescript-config/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/",                                   /* Specify an output folder for all emitted files. */
     "baseUrl": "./"

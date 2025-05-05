@@ -1,0 +1,63 @@
+model Match {
+  id         String   @id @default(cuid())
+  matchNumber Int?
+  teamAId    String?  // Rendu optionnel
+  teamA      Team?    @relation("MatchTeamA", fields: [teamAId], references: [id], onDelete: SetNull)
+  teamBId    String?  // Rendu optionnel
+  teamB      Team?    @relation("MatchTeamB", fields: [teamBId], references: [id], onDelete: SetNull)
+  scoreTeamA Int?
+  scoreTeamB Int?
+  winnerId   String?
+  winner     Team?    @relation("MatchWinner", fields: [winnerId], references: [id], onDelete: SetNull)
+  startTime  DateTime?
+  endTime    DateTime?
+  location   String?
+  status     MatchStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+
+  // relation
+  round MatchRound?
+
+
+  @@index([teamAId])
+  @@index([teamBId])
+  @@index([winnerId])
+}
+
+model Team {
+  id             String           @id @default(cuid())
+  name           String?
+  players        Player[]
+  teamInTournaments TeamTournament[]
+  matchesTeamA   Match[]          @relation("MatchTeamA")
+  matchesTeamB   Match[]          @relation("MatchTeamB")
+  wonMatches     Match[]          @relation("MatchWinner")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+
+  //relation
+  roundTeam RoundTeam[]
+
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String
+  teamId    String?
+  team      Team?    @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+enum MatchStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+

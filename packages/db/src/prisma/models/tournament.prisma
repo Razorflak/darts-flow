@@ -1,0 +1,102 @@
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+  location  String?
+  tournaments Tournament[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name        String
+  startDate   DateTime?
+  endDate     DateTime?
+  phases      Phase[]
+  teams       TeamTournament[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([eventId, name]) // Un nom de tournoi unique par événement
+}
+
+model TeamTournament {
+  id           String   @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  teamId       String
+  team         Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  seed         Int?     
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([tournamentId, teamId])
+  @@index([tournamentId])
+  @@index([teamId])
+}
+
+model Phase {
+  id                String          @id @default(uuid())
+  tournament        Tournament      @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  tournamentId      String
+  name              String
+  type              PhaseType       @default(GROUP_STAGE)
+  // phaseParameters   PhaseParameter
+  rounds            Round[]
+
+// Relation vers la phase précédente
+  previousPhaseId   String?         @unique
+  previousPhase     Phase?          @relation("PhaseToPreviousPhase", fields: [previousPhaseId], references: [id], onDelete: SetNull, map: "PhaseToPreviousPhase")
+  nextPhaseRelation Phase? @relation("PhaseToPreviousPhase")
+
+
+  // Relation vers la phase suivante
+  nextPhaseId       String?         @unique
+  nextPhase         Phase?          @relation("PhaseToNextPhase", fields: [nextPhaseId], references: [id], onDelete: SetNull, map: "PhaseToNextPhase")
+  PreviousPhaseRelation Phase? @relation("PhaseToNextPhase")
+
+}
+enum PhaseType {
+  GROUP_STAGE
+  SINGLE_ELIMINATION_BRACKET
+}
+
+
+model Round {
+  id          String        @id @default(uuid())
+  phase       Phase         @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+  phaseId     String
+  name        String?       // Ex: "Poule A", "Huitième de finale", "Tour 1"
+  roundNumber Int?
+
+  //relations
+  matches       MatchRound[]
+  roundTeam     RoundTeam[]
+}
+
+
+model MatchRound {
+  id        String   @id @default(cuid())
+  numRoundMatch Int
+  roundId   String
+  round     Round    @relation(fields: [roundId], references: [id])
+  matchId   String   @unique 
+  match     Match    @relation(fields: [matchId], references: [id])
+}
+
+model RoundTeam {
+  id        String   @id @default(cuid())
+
+  teamId String
+  team Team  @relation(fields: [teamId], references: [id])
+
+  roundId String
+  round Round @relation(fields: [roundId], references: [id])
+
+  @@unique([roundId, teamId])
+}

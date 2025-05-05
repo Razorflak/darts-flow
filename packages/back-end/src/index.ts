@@ -1,7 +1,7 @@
 import express from "express"
 import expressWs from "express-ws"
-import apiMatchRouter from "./api/match.js"
-import apiMatchArchiveRouter from "./api/match-archive.js"
+import apiMatchRouter from "./api/match/match.js"
+import apiMatchArchiveRouter from "./api/match/match-archive.js"
 import { addWsToStore } from "./lib/action/ws-store.js"
 import { ensureMatchFoldersExistSync } from "./lib/action/index.js"
 
