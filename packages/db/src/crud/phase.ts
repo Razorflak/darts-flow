@@ -1,5 +1,5 @@
-import { prisma } from "src/prisma-client.js";
-import type { Phase } from "../prisma/generated/zod/index.js";
+import type { Prisma, Phase } from "@prisma/client";
+import { prisma } from "../prisma-client.js";
 
 export const getPhases = async (): Promise<Phase[]> => {
 	return prisma.phase.findMany();
@@ -14,19 +14,19 @@ export const getPhaseById = async (id: string): Promise<Phase | null> => {
 
 export const createPhase = async (
 	tournamentId: string,
-	data: Omit<Phase, "id" | "tournamentId" | "createdAt">,
+	data: Prisma.PhaseUncheckedCreateInput,
 ): Promise<Phase> => {
 	return prisma.phase.create({
 		data: {
-			tournamentId,
 			...data,
+			tournamentId,
 		},
 	});
 };
 
 export const updatePhase = async (
 	id: string,
-	data: Omit<Phase, "id" | "tournamentId" | "createdAt">,
+	data: Prisma.PhaseUncheckedUpdateInput,
 ): Promise<Phase> => {
 	return prisma.phase.update({
 		where: { id },

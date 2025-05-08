@@ -1,5 +1,6 @@
-import { prisma } from "src/prisma-client.js";
+import { prisma } from "../prisma-client.js";
 import type { Round } from "../prisma/generated/zod/index.js";
+import type { Prisma } from "@prisma/client";
 
 export const getRounds = async (): Promise<Round[]> => {
 	return prisma.round.findMany();
@@ -14,19 +15,19 @@ export const getRoundById = async (id: string): Promise<Round | null> => {
 
 export const createRound = async (
 	phaseId: string,
-	data: Omit<Round, "id" | "phaseId">,
+	data: Prisma.RoundUncheckedCreateInput,
 ): Promise<Round> => {
 	return prisma.round.create({
 		data: {
-			phaseId,
 			...data,
+			phaseId,
 		},
 	});
 };
 
 export const updateRound = async (
 	id: string,
-	data: Omit<Round, "id" | "phaseId">,
+	data: Prisma.RoundUncheckedUpdateInput,
 ): Promise<Round> => {
 	return prisma.round.update({
 		where: { id },

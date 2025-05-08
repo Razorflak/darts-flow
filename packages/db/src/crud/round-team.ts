@@ -1,5 +1,6 @@
-import { prisma } from "src/prisma-client.js";
+import { prisma } from "../prisma-client.js";
 import type { RoundTeam } from "../prisma/generated/zod/index.js";
+import type { Prisma } from "@prisma/client";
 
 export const getRoundTeams = async (): Promise<RoundTeam[]> => {
 	return prisma.roundTeam.findMany();
@@ -28,9 +29,7 @@ export const createRoundTeam = async (
 
 export const updateRoundTeam = async (
 	id: string,
-	data: Partial<
-		Omit<RoundTeam, "id" | "roundId" | "teamId" | "createdAt" | "updatedAt">
-	>,
+	data: Prisma.RoundTeamUncheckedUpdateInput,
 ): Promise<RoundTeam> => {
 	return prisma.roundTeam.update({
 		where: { id },

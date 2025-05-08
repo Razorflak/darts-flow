@@ -59,15 +59,15 @@ export type PhaseTypeType = `${z.infer<typeof PhaseTypeSchema>}`
 export const MatchSchema = z.object({
   status: MatchStatusSchema,
   id: z.string().cuid(),
-  matchNumber: z.number().int().nullable(),
-  teamAId: z.string().nullable(),
-  teamBId: z.string().nullable(),
-  scoreTeamA: z.number().int().nullable(),
-  scoreTeamB: z.number().int().nullable(),
-  winnerId: z.string().nullable(),
-  startTime: z.coerce.date().nullable(),
-  endTime: z.coerce.date().nullable(),
-  location: z.string().nullable(),
+  matchNumber: z.number().int().nullish(),
+  teamAId: z.string().nullish(),
+  teamBId: z.string().nullish(),
+  scoreTeamA: z.number().int().nullish(),
+  scoreTeamB: z.number().int().nullish(),
+  winnerId: z.string().nullish(),
+  startTime: z.coerce.date().nullish(),
+  endTime: z.coerce.date().nullish(),
+  location: z.string().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -80,7 +80,7 @@ export type Match = z.infer<typeof MatchSchema>
 
 export const TeamSchema = z.object({
   id: z.string().cuid(),
-  name: z.string().nullable(),
+  name: z.string().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -94,7 +94,7 @@ export type Team = z.infer<typeof TeamSchema>
 export const PlayerSchema = z.object({
   id: z.string().cuid(),
   name: z.string(),
-  teamId: z.string().nullable(),
+  teamId: z.string().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -108,9 +108,9 @@ export type Player = z.infer<typeof PlayerSchema>
 export const EventSchema = z.object({
   id: z.string().cuid(),
   name: z.string(),
-  startDate: z.coerce.date().nullable(),
-  endDate: z.coerce.date().nullable(),
-  location: z.string().nullable(),
+  startDate: z.coerce.date().nullish(),
+  endDate: z.coerce.date().nullish(),
+  location: z.string().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -125,8 +125,8 @@ export const TournamentSchema = z.object({
   id: z.string().cuid(),
   eventId: z.string(),
   name: z.string(),
-  startDate: z.coerce.date().nullable(),
-  endDate: z.coerce.date().nullable(),
+  startDate: z.coerce.date().nullish(),
+  endDate: z.coerce.date().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -141,7 +141,7 @@ export const TeamTournamentSchema = z.object({
   id: z.string().cuid(),
   tournamentId: z.string(),
   teamId: z.string(),
-  seed: z.number().int().nullable(),
+  seed: z.number().int().nullish(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
@@ -157,8 +157,8 @@ export const PhaseSchema = z.object({
   id: z.string().uuid(),
   tournamentId: z.string(),
   name: z.string(),
-  previousPhaseId: z.string().nullable(),
-  nextPhaseId: z.string().nullable(),
+  previousPhaseId: z.string().nullish(),
+  nextPhaseId: z.string().nullish(),
 })
 
 export type Phase = z.infer<typeof PhaseSchema>
@@ -170,8 +170,8 @@ export type Phase = z.infer<typeof PhaseSchema>
 export const RoundSchema = z.object({
   id: z.string().uuid(),
   phaseId: z.string(),
-  name: z.string().nullable(),
-  roundNumber: z.number().int().nullable(),
+  name: z.string().nullish(),
+  roundNumber: z.number().int().nullish(),
 })
 
 export type Round = z.infer<typeof RoundSchema>

@@ -1,5 +1,6 @@
-import { prisma } from "src/prisma-client.js";
+import { prisma } from "../prisma-client.js";
 import type { TeamTournament } from "../prisma/generated/zod/index.js";
+import type { Prisma } from "@prisma/client";
 
 export const getTeamTournaments = async (): Promise<TeamTournament[]> => {
 	return prisma.teamTournament.findMany();
@@ -17,26 +18,20 @@ export const getTeamTournamentById = async (
 export const createTeamTournament = async (
 	tournamentId: string,
 	teamId: string,
-	data: Omit<
-		TeamTournament,
-		"id" | "tournamentId" | "teamId" | "createdAt" | "updatedAt"
-	>,
+	data: Prisma.TeamTournamentUncheckedCreateInput,
 ): Promise<TeamTournament> => {
 	return prisma.teamTournament.create({
 		data: {
+			...data,
 			tournamentId,
 			teamId,
-			...data,
 		},
 	});
 };
 
 export const updateTeamTournament = async (
 	id: string,
-	data: Omit<
-		TeamTournament,
-		"id" | "tournamentId" | "teamId" | "createdAt" | "updatedAt"
-	>,
+	data: Prisma.TeamTournamentUncheckedUpdateInput,
 ): Promise<TeamTournament> => {
 	return prisma.teamTournament.update({
 		where: { id },

@@ -6,13 +6,14 @@
 	"scripts": {
 		"test": "test",
 		"dev": "tsx watch src",
-        "typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit"
 	},
 	"author": "jta",
 	"license": "ISC",
 	"description": "",
 	"packageManager": "pnpm@9.0.6",
 	"dependencies": {
+		"@dartsFlow/db": "workspace:*",
 		"@dartsFlow/models": "workspace:*",
 		"cors": "^2.8.5",
 		"express": "^4.21.2",
@@ -23,16 +24,18 @@
 		"zod": "3.23.7"
 	},
 	"devDependencies": {
+		"supertest": "^7.1.0",
 		"@biomejs/biome": "^1.9.4",
 		"@dartsFlow/biome-config": "workspace:*",
-		"@dartsFlow/models": "workspace:*",
-		"@dartsFlow/typescript-config": "workspace:*",
-		"@dartsFlow/shared-ws": "workspace:*",
 		"@dartsFlow/match-utils": "workspace:*",
+		"@dartsFlow/models": "workspace:*",
+		"@dartsFlow/shared-ws": "workspace:*",
+		"@dartsFlow/typescript-config": "workspace:*",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.0",
 		"@types/express-ws": "^3.0.5",
 		"@types/node": "^22.10.5",
+		"@types/supertest": "^6.0.3",
 		"@types/ws": "^8.5.13"
 	}
 }

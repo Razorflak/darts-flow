@@ -48,7 +48,7 @@ export function sendCurrentScreen() {
 	const message: WsMessage = {
 		command: STATE_COMMANDS.screenUpdate,
 		data: page.url.toString(),
-		id: randomUuid()
+		id: randomUuid(),
 	};
 	sendMessage(message);
 }

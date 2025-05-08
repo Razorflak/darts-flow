@@ -18,15 +18,21 @@
 
 	onMount(async () => {
 		unsubscribeWsMessage = wsMessage.subscribe((message) => {
-			console.log("incoming message", message);
+			if (!message) {
+				return;
+			}
 			if (message?.command === UPDATE_COMMANDS.matchUpdate) {
 				match = message.data;
 			}
 		});
-		unsubscribeOnWsConnect = onWsConnect.subscribe(() => {
+		unsubscribeOnWsConnect = onWsConnect.subscribe((value) => {
+			// it's the first event, doesn't mean the socket is connected
+			if (value === 0) {
+				return;
+			}
 			subTopics();
 		});
-		subTopics();
+		// subTopics();
 	});
 
 	onDestroy(async () => {

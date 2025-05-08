@@ -1,5 +1,6 @@
-import { prisma } from "src/prisma-client.js";
+import { prisma } from "../prisma-client.js";
 import type { Tournament } from "../prisma/generated/zod/index.js";
+import type { Prisma } from "@prisma/client";
 
 export const getTournaments = async (): Promise<Tournament[]> => {
 	return prisma.tournament.findMany();
@@ -16,19 +17,19 @@ export const getTournamentById = async (
 
 export const createTournament = async (
 	eventId: string,
-	data: Omit<Tournament, "id" | "eventId" | "createdAt" | "updatedAt">,
+	data: Prisma.TournamentUncheckedCreateInput,
 ): Promise<Tournament> => {
 	return prisma.tournament.create({
 		data: {
-			eventId,
 			...data,
+			eventId,
 		},
 	});
 };
 
 export const updateTournament = async (
 	id: string,
-	data: Omit<Tournament, "id" | "eventId" | "createdAt" | "updatedAt">,
+	data: Prisma.TournamentUncheckedUpdateInput,
 ): Promise<Tournament> => {
 	return prisma.tournament.update({
 		where: { id },

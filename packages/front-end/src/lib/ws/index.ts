@@ -18,7 +18,7 @@ export function createWebSocket({
 	onMessage,
 	onOpen,
 	onClose,
-	onError
+	onError,
 }: WebSocketOptions) {
 	let ws: WebSocket | null = null;
 	let reconnectAttempts = 0;
@@ -28,6 +28,8 @@ export function createWebSocket({
 		if (ws && ws.readyState === WebSocket.OPEN) {
 			ws.send(data);
 		} else {
+			console.trace();
+			console.log(ws?.readyState);
 			console.warn("WebSocket is not open. Message not sent.");
 		}
 	};
@@ -43,7 +45,7 @@ export function createWebSocket({
 		isClosing = false;
 
 		ws.onopen = (event) => {
-			console.log("Connected to WebSocket");
+			console.log("Connected to WebSocket", event);
 			reconnectAttempts = 0;
 			onOpen?.(event, send);
 		};
@@ -53,7 +55,7 @@ export function createWebSocket({
 			if (message.command === "ping") {
 				const response: WsMessage = {
 					command: "pong",
-					id: randomUuid()
+					id: randomUuid(),
 				};
 				send(JSON.stringify(response));
 				return;
@@ -86,6 +88,6 @@ export function createWebSocket({
 				isClosing = true;
 				ws.close();
 			}
-		}
+		},
 	};
 }
