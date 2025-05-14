@@ -8,8 +8,7 @@ const request = supertest(app)
 describe("Event Routes", () => {
 	let createdEvent: Event
 	beforeAll(async () => {
-		// S'assurer que la base de données est propre avant les tests
-		// await prisma.event.deleteMany()
+		await prisma.event.deleteMany()
 	})
 
 	afterAll(async () => {

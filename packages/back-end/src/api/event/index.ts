@@ -1,6 +1,1 @@
-export * from "./event.js"
-export * from "./phase.js"
-export * from "./round.js"
-export * from "./round-team.js"
-export * from "./tournament.js"
-export * from "./team-tournament.js"
+export * from "./generic-router.js"

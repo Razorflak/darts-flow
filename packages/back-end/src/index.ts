@@ -4,27 +4,75 @@ import apiMatchRouter from "./api/match/match.js"
 import apiMatchArchiveRouter from "./api/match/match-archive.js"
 import { addWsToStore } from "./lib/action/ws-store.js"
 import { ensureMatchFoldersExistSync } from "./lib/action/index.js"
-import eventRouter from "./api/event/event.js"
-import tournamentRouter from "./api/event/tournament.js"
-import phaseRouter from "./api/event/phase.js"
-import roundRouter from "./api/event/round.js"
-import teamTournamentRouter from "./api/event/team-tournament.js"
-import roundTeamRouter from "./api/event/round-team.js"
+import { createDynamicRouter } from "./api/event/generic-router.js"
+import {
+	EventUncheckedCreateInputSchema,
+	EventUncheckedUpdateInputSchema,
+	PhaseUncheckedCreateInputSchema,
+	PhaseUncheckedUpdateInputSchema,
+	prisma,
+	RoundTeamUncheckedCreateInputSchema,
+	RoundTeamUncheckedUpdateInputSchema,
+	RoundUncheckedCreateInputSchema,
+	RoundUncheckedUpdateInputSchema,
+	TeamTournamentUncheckedCreateInputSchema,
+	TeamTournamentUncheckedUpdateInputSchema,
+	TournamentUncheckedCreateInputSchema,
+	TournamentUncheckedUpdateInputSchema,
+} from "@dartsFlow/db"
 
 export const { app } = expressWs(express())
 
 const port = 3000
 ensureMatchFoldersExistSync()
 
+// historique stream
 app.use("/api/match", apiMatchRouter)
 app.use("/api/match-archive", apiMatchArchiveRouter)
+//
 
-app.use("/api/event", eventRouter)
-app.use("/api/tournament", tournamentRouter)
-app.use("/api/phase", phaseRouter)
-app.use("/api/round", roundRouter)
-app.use("/api/team-tournament", teamTournamentRouter)
-app.use("/api/round-team", roundTeamRouter)
+app.use(
+	"/api/events",
+	createDynamicRouter(prisma.event, "event", {
+		updateSchema: EventUncheckedUpdateInputSchema,
+		createSchema: EventUncheckedCreateInputSchema,
+	}),
+)
+app.use(
+	"/api/tournaments",
+	createDynamicRouter(prisma.tournament, "tournament", {
+		updateSchema: TournamentUncheckedUpdateInputSchema,
+		createSchema: TournamentUncheckedCreateInputSchema,
+	}),
+)
+app.use(
+	"/api/phases",
+	createDynamicRouter(prisma.phase, "phase", {
+		createSchema: PhaseUncheckedCreateInputSchema,
+		updateSchema: PhaseUncheckedUpdateInputSchema,
+	}),
+)
+app.use(
+	"/api/rounds",
+	createDynamicRouter(prisma.round, "round", {
+		createSchema: RoundUncheckedCreateInputSchema,
+		updateSchema: RoundUncheckedUpdateInputSchema,
+	}),
+)
+app.use(
+	"/api/team-tournaments",
+	createDynamicRouter(prisma.teamTournament, "teamTournament", {
+		createSchema: TeamTournamentUncheckedCreateInputSchema,
+		updateSchema: TeamTournamentUncheckedUpdateInputSchema,
+	}),
+)
+app.use(
+	"/api/round-teams",
+	createDynamicRouter(prisma.roundTeam, "roundTeam", {
+		createSchema: RoundTeamUncheckedCreateInputSchema,
+		updateSchema: RoundTeamUncheckedUpdateInputSchema,
+	}),
+)
 
 app.ws("/api/ws", (ws, req, next) => {
 	const queryParams = req.query
