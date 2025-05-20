@@ -8,7 +8,6 @@
 			import: "default",
 			eager: true
 		});
-		console.log("JTA", modules);
 		images = Object.values(modules);
 	} else if (row === "row2") {
 		const modules = import.meta.glob("/static/img/carousel/row2/*.{png,jpg,jpeg,webp}", {

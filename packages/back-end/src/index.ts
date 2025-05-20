@@ -4,7 +4,7 @@ import apiMatchRouter from "./api/match/match.js"
 import apiMatchArchiveRouter from "./api/match/match-archive.js"
 import { addWsToStore } from "./lib/action/ws-store.js"
 import { ensureMatchFoldersExistSync } from "./lib/action/index.js"
-import { createDynamicRouter } from "./api/event/generic-router.js"
+import { createDynamicRouter } from "./api/router/generic-router.js"
 import {
 	EventUncheckedCreateInputSchema,
 	EventUncheckedUpdateInputSchema,
@@ -20,11 +20,13 @@ import {
 	TournamentUncheckedCreateInputSchema,
 	TournamentUncheckedUpdateInputSchema,
 } from "@dartsFlow/db"
+import { logger } from "@dartsFlow/opentelemetry"
 
 export const { app } = expressWs(express())
 
 const port = 3000
 ensureMatchFoldersExistSync()
+logger.info("app stated")
 
 // historique stream
 app.use("/api/match", apiMatchRouter)
@@ -38,6 +40,7 @@ app.use(
 		createSchema: EventUncheckedCreateInputSchema,
 	}),
 )
+
 app.use(
 	"/api/tournaments",
 	createDynamicRouter(prisma.tournament, "tournament", {

@@ -1,6 +1,8 @@
-import { makeCrud, prisma } from "@dartsFlow/db"
+import { makeCrud } from "@dartsFlow/db"
+import { logger } from "@dartsFlow/opentelemetry"
 import express, { type Request, type Response } from "express"
 import { z, type ZodSchema } from "zod"
+import { logRequestResponseMw } from "../../mw/payload-logger.js"
 
 // biome-ignore lint/suspicious/noExplicitAny: to avoid to rewrite the exeption again and again...
 type Any = any
@@ -21,6 +23,8 @@ export const createDynamicRouter = (
 	const router = express.Router()
 	router.use(express.json())
 
+	router.use(logRequestResponseMw)
+
 	const crudMethods = makeCrud(model)
 
 	router.get("/", async (_req: Request, res: Response) => {
@@ -28,7 +32,10 @@ export const createDynamicRouter = (
 			const events = await crudMethods.findMany()
 			res.json(events)
 		} catch (error) {
-			console.error(`Erreur lors de la récupération des ${modelName}:`, error)
+			logger.error(
+				`Erreur lors de la récupération des ${modelName}:`,
+				error as Error,
+			)
 			res.status(500).json({ error: "Impossible de récupérer les événements." })
 		}
 	})
@@ -45,9 +52,9 @@ export const createDynamicRouter = (
 			}
 			res.json(event)
 		} catch (error) {
-			console.error(
+			logger.error(
 				`Erreur lors de la récupération de ${modelName} avec l'ID ${id}:`,
-				error,
+				error as Error,
 			)
 			res.status(500).json({ error: `Impossible de récupérer ${modelName}.` })
 		}
@@ -75,9 +82,9 @@ export const createDynamicRouter = (
 			const updatedEvent = await crudMethods.update(id, parsedData)
 			res.json(updatedEvent)
 		} catch (error) {
-			console.error(
+			logger.error(
 				`Erreur lors de la mise à jour de ${modelName} avec l'ID ${id}:`,
-				error,
+				error as Error,
 			)
 			res
 				.status(500)
@@ -91,9 +98,9 @@ export const createDynamicRouter = (
 			await crudMethods.delete(id)
 			res.status(204).send()
 		} catch (error) {
-			console.error(
+			logger.error(
 				`Erreur lors de la suppression de ${modelName} avec l'ID ${id}:`,
-				error,
+				error as Error,
 			)
 			res.status(500).json({ error: `Impossible de supprimer ${modelName}` })
 		}

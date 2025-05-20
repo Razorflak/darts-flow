@@ -1,5 +1,5 @@
 {
-	"name": "@dartsFlow/front-end",
+	"name": "@dartsFlow/front-end-stream-tool",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -16,15 +16,12 @@
 		"test": "npm run test:unit -- --run"
 	},
 	"dependencies": {
-		"@dartsFlow/crypto": "workspace:*",
-		"@dartsFlow/match-utils": "workspace:*",
 		"@dartsFlow/models": "workspace:*",
-		"@dartsFlow/shared-ws": "workspace:*",
-		"dayjs": "^1.11.13",
-		"zod": "3.23.7"
+		"@dartsFlow/match-utils": "workspace:*",
+		"@dartsFlow/crypto": "workspace:*",
+		"@dartsFlow/shared-ws": "workspace:*"
 	},
 	"devDependencies": {
-		"@dartsFlow/db": "workspace:*",
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@sveltejs/adapter-node": "^5.2.11",
@@ -36,9 +33,6 @@
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
-		"flowbite": "^3.1.2",
-		"flowbite-svelte": "^1.3.1",
-		"flowbite-svelte-icons": "^2.1.1",
 		"globals": "^15.14.0",
 		"jsdom": "^25.0.1",
 		"prettier": "^3.4.2",
@@ -46,7 +40,7 @@
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
-		"tailwindcss": "^4.1.6",
+		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
 		"vite": "^6.0.0",
