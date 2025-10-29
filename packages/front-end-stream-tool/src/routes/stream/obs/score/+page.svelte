@@ -43,13 +43,13 @@
 </script>
 
 {#if match}
-	<main class="font-roboto absolute bottom-0 w-85/100 border-b-white bg-purple-950 text-white">
+	<main class="lexend absolute bottom-0 w-85/100 border-b-white bg-[#480048] text-white">
 		<!-- En-tête -->
 		<div class="grid grid-cols-3 border-b border-gray-400 px-2 py-8 text-5xl">
 			<span class="col-span-2 pl-8">{match.legNeededToWin} MANCHES GAGNANTES</span>
 			<div class="grid grid-cols-2 text-center">
 				<span>MANCHES</span>
-				<span>POINTS</span>
+				<span></span>
 			</div>
 		</div>
 
@@ -63,7 +63,7 @@
 			>
 				<div class="col-span-2 flex items-center">
 					<span class="mr-2 h-12 w-12 rounded-full {team.isActive && 'bg-red-600'}"></span>
-					<span style="white-space: pre-line" class="font-roboto leading-normal font-bold"
+					<span style="white-space: pre-line" class="lexend text-7xl leading-normal font-bold"
 						>{getTeamDisplayName(team, "\n")}</span
 					>
 				</div>
@@ -82,9 +82,9 @@
 		{/each}
 
 		<!-- Footer -->
-		<div class="flex justify-between bg-black px-8 py-4 text-center text-6xl">
-			<span>COUPE DE FRANCE</span>
-			<span>{match.competition} - {match.competitionStage}</span>
+		<div class="flex h-24 justify-between bg-black px-8 py-4 text-center text-6xl">
+			<span>WINAMAX FRENCH DARTS FESTIVAL</span>
+			<img src="/img/winamax_logo.png" alt="logoffd" />
 		</div>
 	</main>
 {/if}
@@ -107,5 +107,21 @@
 		100% {
 			transform: translate(0);
 		}
+	}
+
+	@font-face {
+		font-family: "Lexend";
+		src: url("/fonts/Lexend-Medium.ttf") format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	.lexend {
+		font-family: "Lexend", sans-serif;
+		text-shadow:
+			#000000 1px 1px,
+			#000000 -1px 1px,
+			#000000 -1px -1px,
+			#000000 1px -1px;
 	}
 </style>
