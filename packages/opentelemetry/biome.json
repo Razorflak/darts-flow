@@ -1,6 +1,0 @@
-{
-	"extends": ["@dartsFlow/biome-config/biome"],
-	"files": {
-		"ignore": ["dist", "node_modules"]
-	}
-}
