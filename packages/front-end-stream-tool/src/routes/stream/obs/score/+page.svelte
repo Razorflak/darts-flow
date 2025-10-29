@@ -5,7 +5,7 @@
 	import { getTeamDisplayName, type Match } from "@dartsFlow/models";
 	import type { Unsubscriber } from "svelte/store";
 	import { randomUuid } from "@dartsFlow/crypto";
-	import { getCurrentLegThrowsByTeam } from "@dartsFlow/match-utils";
+	import { isTeamStartedCurrentLeg, getCurrentLegThrowsByTeam } from "@dartsFlow/match-utils";
 
 	let match: Match | null = $state(null);
 
@@ -59,10 +59,13 @@
 				class="relative grid grid-cols-3 items-center px-8 py-4 text-8xl {index === 1
 					? 'border-t border-red-600'
 					: ''}"
-				style="border-left: {team.isActive ? '24px solid #FFFFE0' : '4px solid transparent'};"
+				style="border-left: {team.isActive ? '24px solid #FFFFE0' : '24px solid transparent'};"
 			>
 				<div class="col-span-2 flex items-center">
-					<span class="mr-2 h-12 w-12 rounded-full {team.isActive && 'bg-red-600'}"></span>
+					<span
+						class="mr-2 h-12 w-12 rounded-full {isTeamStartedCurrentLeg(match, team.id) &&
+							'bg-red-600'}"
+					></span>
 					<span style="white-space: pre-line" class="lexend text-7xl leading-normal font-bold"
 						>{getTeamDisplayName(team, "\n")}</span
 					>
@@ -118,10 +121,5 @@
 
 	.lexend {
 		font-family: "Lexend", sans-serif;
-		text-shadow:
-			#000000 1px 1px,
-			#000000 -1px 1px,
-			#000000 -1px -1px,
-			#000000 1px -1px;
 	}
 </style>
