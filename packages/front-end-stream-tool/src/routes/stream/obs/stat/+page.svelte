@@ -21,20 +21,18 @@
 		}, 1000);
 	});
 
-	const colors = { t1Colors: ["#007BFF", "#66B2FF"], t2Colors: ["#FF7B00", "#FFA84D"] };
+	const colors = { t1Colors: ["#480048", "#8A008A"], t2Colors: ["#D80000", "#FF6666"] };
 </script>
 
 {#if bars && match}
-	<main class=" flex h-screen w-full flex-col px-50">
+	<main class=" lexend flex h-screen w-full flex-col px-50">
 		<div class="row flex w-full justify-between py-8 text-4xl text-white">
 			<span style="white-space: pre-line" class="textleft text-shadow w-full font-bold"
 				>{getTeamDisplayName(match.teams[0], "\n")}</span
 			>
-			<span
-				style="white-space: pre-line"
-				class="text-shadow font-futura min-w-[220px] text-center text-3xl"
-				>{`${match.competitionStage} \n ${match.competition}`}</span
-			>
+			<div class="flex items-start justify-center overflow-visible align-middle">
+				<img class="max-h-full min-w-[150%]" src="/img/footer_banner.png" alt="logoffd" />
+			</div>
 			<span style="white-space: pre-line" class="text-shadow w-full text-right font-bold"
 				>{getTeamDisplayName(match.teams[1], "\n")}</span
 			>
@@ -85,17 +83,21 @@
 
 <style>
 	@font-face {
-		font-family: "Futura";
-		src: url("/fonts/futura medium bt.ttf") format("truetype");
+		font-family: "Lexend";
+		src: url("/fonts/Lexend-Medium.ttf") format("truetype");
 		font-weight: normal;
 		font-style: normal;
 	}
 	.text-shadow {
-		font-family: "Futura", sans-serif;
+		font-family: "Lexend", sans-serif;
 		text-shadow:
 			#000000 1px 1px,
 			#000000 -1px 1px,
 			#000000 -1px -1px,
 			#000000 1px -1px;
+	}
+
+	.lexend {
+		font-family: "Lexend", sans-serif;
 	}
 </style>

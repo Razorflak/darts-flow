@@ -64,7 +64,8 @@
 		const t2 = createTeam(isDouble ? team2 : [team2[0]], init1001 ? 1001 : 501, false);
 		const match = createMatch(t1, t2, numLegs, competition.name, stage);
 
-		const response = await fetch(`${getApiBaseUrl()}/match`, {
+		const url = `${getApiBaseUrl()}/match`;
+		const response = await fetch(url, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

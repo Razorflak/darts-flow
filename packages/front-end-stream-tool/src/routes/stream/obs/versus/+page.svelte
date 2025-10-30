@@ -36,23 +36,22 @@
 </script>
 
 {#if match}
-	<div class="fixed bottom-0 w-full px-48 pb-16">
+	<div class="lexend fixed bottom-0 w-full px-48 pb-16">
 		<div
-			class=" bottom-0 flex h-[10vh] w-full items-center justify-center overflow-hidden border-t-4 border-white/10 bg-[rgb(0,0,145)] px-8 text-white shadow-[0_-5px_20px_rgba(0,0,0,0.5)]"
+			class=" bottom-0 flex h-[10vh] w-full items-center justify-center overflow-hidden border-t-4 border-white/10 bg-[#480048] px-8 text-white shadow-[0_-5px_20px_rgba(0,0,0,0.5)]"
 		>
-			<div class="slide-in-left w-full text-right text-4xl font-bold whitespace-nowrap">
-				🎯 {getTeamDisplayName(match.teams[0])}
+			<div class="slide-in-left w-full text-right text-5xl font-bold whitespace-nowrap">
+				{getTeamDisplayName(match.teams[0])}
 			</div>
 
 			<div class="m-40 text-2xl font-semibold opacity-80">VS</div>
 
-			<div class="slide-in-right w-full text-4xl font-bold whitespace-nowrap">
-				{getTeamDisplayName(match.teams[1])} 🎯
+			<div class="slide-in-right w-full text-5xl font-bold whitespace-nowrap">
+				{getTeamDisplayName(match.teams[1])}
 			</div>
 		</div>
-		<div class="flex flex-col bg-black text-2xl text-white">
-			<div class="flex justify-center">{match.competition}</div>
-			<div class="flex justify-center">{match.competitionStage}</div>
+		<div class="flex h-24 justify-center bg-black px-3 py-5 text-center text-6xl">
+			<img class="h-full" src="/img/footer_banner.png" alt="logoffd" />
 		</div>
 	</div>
 {/if}
@@ -93,5 +92,16 @@
 
 	.slide-in-right {
 		animation: slide-in-right 2s ease-out forwards;
+	}
+
+	@font-face {
+		font-family: "Lexend";
+		src: url("/fonts/Lexend-Medium.ttf") format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	.lexend {
+		font-family: "Lexend", sans-serif;
 	}
 </style>

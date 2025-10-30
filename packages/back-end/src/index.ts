@@ -4,6 +4,7 @@ import apiMatchRouter from "./api/match/match.js";
 import apiMatchArchiveRouter from "./api/match/match-archive.js";
 import { addWsToStore } from "./lib/action/ws-store.js";
 import { ensureMatchFoldersExistSync } from "./lib/action/index.js";
+import cors from "cors";
 
 export const { app } = expressWs(express());
 
@@ -12,6 +13,8 @@ ensureMatchFoldersExistSync();
 
 app.use("/api/match", apiMatchRouter);
 app.use("/api/match-archive", apiMatchArchiveRouter);
+
+app.use(cors());
 
 app.ws("/api/ws", (ws, req, next) => {
   const queryParams = req.query;
