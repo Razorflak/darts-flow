@@ -85,9 +85,8 @@
 		{/each}
 
 		<!-- Footer -->
-		<div class="flex h-24 justify-between bg-black px-8 py-4 text-center text-6xl">
-			<span>WINAMAX FRENCH DARTS FESTIVAL</span>
-			<img src="/img/winamax_logo.png" alt="logoffd" />
+		<div class="flex h-24 justify-between bg-black px-8 py-6 text-center text-6xl">
+			<img class="h-full" src="/img/footer_banner.png" alt="logoffd" />
 		</div>
 	</main>
 {/if}

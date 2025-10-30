@@ -25,7 +25,10 @@
 		>
 			{team.legCountWon}
 		</p>
-		<h2 class="text-center font-bold" style="font-size: clamp(2rem, 5vw, 5rem);">
+		<h2
+			class="text-center font-bold whitespace-nowrap"
+			style="font-size: clamp(0.5rem, 4vw, 4rem);"
+		>
 			{team.players.map((p) => getPlayerDisplayName(p)).join("/")}
 		</h2>
 		<span
@@ -42,7 +45,7 @@
 		bind:this={bindHistory}
 	>
 		{#each getCurrentLegThrowsByTeam(match, team.id) as score}
-			<p class="text-center text-3xl">{score.score}</p>
+			<p class="text-center text-2xl">{score.score}</p>
 		{/each}
 	</div>
 </div>
