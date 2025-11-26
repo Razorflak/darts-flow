@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getStatBar, type StatBar } from "$lib/match-stat";
-	import { getApiBaseUrl } from "$lib/requester/utils";
+	import { getApiBaseUrlFront } from "$lib/requester/utils";
 	import { getTeamDisplayName, type Match } from "@dartsFlow/models";
 	import { onMount } from "svelte";
 
@@ -12,7 +12,9 @@
 
 	let init = $state(true);
 	onMount(async () => {
-		const fetchedMatch: Match = await (await fetch(`${getApiBaseUrl()}/match-archive/`)).json();
+		const fetchedMatch: Match = await (
+			await fetch(`${getApiBaseUrlFront()}/match-archive/`)
+		).json();
 		match = fetchedMatch;
 		bars = getStatBar(match);
 

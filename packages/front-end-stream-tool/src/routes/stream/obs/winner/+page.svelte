@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getApiBaseUrl } from "$lib/requester/utils";
+	import { getApiBaseUrlFront } from "$lib/requester/utils";
 	import { getTeamDisplayName, type Match, type Team } from "@dartsFlow/models";
 
 	import { getMatchWinner } from "@dartsFlow/match-utils";
@@ -9,7 +9,9 @@
 	let winnerTeam: Team | null = null;
 
 	onMount(async () => {
-		const fetchedMatch: Match = await (await fetch(`${getApiBaseUrl()}/match-archive/`)).json();
+		const fetchedMatch: Match = await (
+			await fetch(`${getApiBaseUrlFront()}/match-archive/`)
+		).json();
 		match = fetchedMatch;
 		winnerTeam = getMatchWinner(fetchedMatch);
 	});

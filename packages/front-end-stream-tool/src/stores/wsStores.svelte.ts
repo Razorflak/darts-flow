@@ -1,5 +1,5 @@
 import { page } from "$app/state";
-import { getApiBaseUrl } from "$lib/requester/utils";
+import { getApiBaseUrlFront } from "$lib/requester/utils";
 import { createWebSocket } from "$lib/ws";
 import { randomUuid } from "@dartsFlow/crypto";
 import { STATE_COMMANDS, type WsMessage } from "@dartsFlow/shared-ws";
@@ -13,7 +13,7 @@ let webSocket: ReturnType<typeof createWebSocket> | null = $state(null);
 export const getWebSocket = () => webSocket;
 
 export function initWebSocket() {
-	const apiUrl = getApiBaseUrl();
+	const apiUrl = getApiBaseUrlFront();
 	const url = `${apiUrl}/ws`;
 
 	const onMessage = (event: MessageEvent) => {
@@ -48,7 +48,7 @@ export function sendCurrentScreen() {
 	const message: WsMessage = {
 		command: STATE_COMMANDS.screenUpdate,
 		data: page.url.toString(),
-		id: randomUuid(),
+		id: randomUuid()
 	};
 	sendMessage(message);
 }

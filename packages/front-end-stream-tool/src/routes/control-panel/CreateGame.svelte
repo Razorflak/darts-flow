@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getApiBaseUrl } from "$lib/requester/utils";
+	import { getApiBaseUrlFront } from "$lib/requester/utils";
 	import { createMatch, createTeam } from "@dartsFlow/match-utils";
 
 	type Competition = { name: string; isDouble: boolean };
@@ -30,6 +30,7 @@
 	let numSets = $state(1);
 	let numLegs = $state(1);
 	let init1001 = $state(false);
+	let isCountUp = $state(false);
 
 	let team1 = $state([{ firstName: "", name: "" }]);
 	let team2 = $state([{ firstName: "", name: "" }]);
@@ -60,11 +61,12 @@
 			throw new Error("Competition not selected");
 		}
 		const isDouble = competition?.isDouble;
-		const t1 = createTeam(isDouble ? team1 : [team1[0]], init1001 ? 1001 : 501, true);
-		const t2 = createTeam(isDouble ? team2 : [team2[0]], init1001 ? 1001 : 501, false);
-		const match = createMatch(t1, t2, numLegs, competition.name, stage);
+		const initialScore = isCountUp ? 0 : init1001 ? 1001 : 501;
+		const t1 = createTeam(isDouble ? team1 : [team1[0]], initialScore, true);
+		const t2 = createTeam(isDouble ? team2 : [team2[0]], initialScore, false);
+		const match = createMatch(t1, t2, numLegs, competition.name, stage, undefined, isCountUp);
 
-		const url = `${getApiBaseUrl()}/match`;
+		const url = `${getApiBaseUrlFront()}/match`;
 		const response = await fetch(url, {
 			method: "POST",
 			headers: {
@@ -109,6 +111,10 @@
 	<label class="block">
 		Nombre de manches gagnantes
 		<input type="number" bind:value={numLegs} min="1" class="w-full rounded border p-2" />
+	</label>
+
+	<label class="block">
+		<input type="checkbox" bind:checked={isCountUp} /> CountUp ?
 	</label>
 
 	<label class="block">

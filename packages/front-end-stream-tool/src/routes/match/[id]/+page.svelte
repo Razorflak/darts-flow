@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Match } from "@dartsFlow/models";
+	import type { Match, Team } from "@dartsFlow/models";
 	import Player from "./Player.svelte";
 	import FinshDartCountSelection from "./FinshDartCountSelection.svelte";
 	import {
@@ -8,7 +8,7 @@
 		inputScore as matchInputScore,
 		undoLastScore
 	} from "@dartsFlow/match-utils";
-	import { getApiBaseUrl } from "$lib/requester/utils";
+	import { getApiBaseUrlFront } from "$lib/requester/utils";
 	import { goto } from "$app/navigation";
 
 	let { data }: { data: Match } = $props();
@@ -28,7 +28,7 @@
 
 	const sendMatchData = (match: Match) => {
 		const params = JSON.stringify(match, null, 3);
-		return fetch(`${getApiBaseUrl()}/match/${match.id}`, {
+		return fetch(`${getApiBaseUrlFront()}/match/${match.id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json"
@@ -80,12 +80,14 @@
 		if (!match) return;
 		const activeTeam = getActiveTeam(match);
 		const currentInputScore = +inputScore;
-		if (activeTeam.currentScore - currentInputScore < 0) {
-			return;
-		}
-		if (activeTeam.currentScore - currentInputScore === 0) {
-			showDartsCountSelection = true;
-			return;
+		if (!match.isCountUp) {
+			if (activeTeam.currentScore - currentInputScore < 0) {
+				return;
+			}
+			if (activeTeam.currentScore - currentInputScore === 0) {
+				showDartsCountSelection = true;
+				return;
+			}
 		}
 		matchInputScore(match, currentInputScore, 3);
 		clearInput();

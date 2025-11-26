@@ -48,7 +48,7 @@
 		<div class="grid grid-cols-3 border-b border-gray-400 px-2 py-8 text-5xl">
 			<span class="col-span-2 pl-8">{match.legNeededToWin} MANCHES GAGNANTES</span>
 			<div class="grid grid-cols-2 text-center">
-				{#if !match.isCountUp}<span>MANCHES</span>{/if}
+				<span>MANCHES</span>
 				<span></span>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 					>
 				</div>
 				<div class="grid grid-cols-2 items-center text-center text-white">
-					<span class="rounded-md px-2 py-1">{match.isCountUp ? "" : team.legCountWon}</span>
+					<span class="rounded-md px-2 py-1">{team.legCountWon}</span>
 					<span class="rounded-md px-2 py-1 font-bold">{team.currentScore}</span>
 				</div>
 				<div
