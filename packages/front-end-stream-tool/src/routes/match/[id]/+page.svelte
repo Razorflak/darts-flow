@@ -147,17 +147,19 @@
 	{/if}
 	<!-- Zone de saisie et boutons -->
 	<div class="flex flex-col items-center justify-end">
-		<div class="flex w-full items-center justify-center gap-2 p-4">
+		<div class="flex max-w-full items-center gap-2 p-4">
 			<input
 				type="text"
-				class="flex-1 rounded-md bg-gray-800 p-4 text-center text-2xl"
+				class="min-w-0 flex-1 rounded-md bg-gray-800 py-2 text-center text-2xl"
 				bind:value={inputScore}
 				readonly
 			/>
 			<button
-				class="flex h-full w-1/3 items-center justify-center rounded-md bg-red-500 p-2 text-3xl text-white"
-				onpointerdown={undo}>↶</button
+				class="flex h-full w-1/3 items-center justify-center rounded-md bg-red-500 p-2 text-2xl text-white"
+				onpointerdown={undo}
 			>
+				↶
+			</button>
 		</div>
 		<div class="flex w-full flex-wrap justify-center gap-2 text-3xl font-bold">
 			{#each Array(9)

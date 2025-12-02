@@ -5,6 +5,7 @@
 	import { getTeamDisplayName } from "@dartsFlow/models";
 	import { goto } from "$app/navigation";
 	import type { Unsubscriber } from "svelte/store";
+	import MatchList from "./MatchList.svelte";
 
 	let waiting = $state(true);
 	let player1 = $state("XXXXXXXXX");
@@ -45,7 +46,10 @@
 	}
 </script>
 
-<section class="flex min-h-screen items-center justify-center bg-gray-100" data-sveltekit-reload>
+<section
+	class="flex min-h-screen flex-col items-center justify-center bg-gray-100"
+	data-sveltekit-reload
+>
 	{#if waiting}
 		<section class="space-y-4 text-center">
 			<div class="text-lg font-medium text-gray-700">En attente du prochain match</div>
@@ -66,6 +70,7 @@
 			</button>
 		</section>
 	{/if}
+	<MatchList client={null} />
 </section>
 
 <style>
