@@ -35,30 +35,117 @@
 	});
 </script>
 
-{#if match}
-	<div class="h-screen w-screen bg-[#00FF00]">
-		<div class="lexend absolute bottom-0 w-full px-48 pb-16">
-			<div
-				class=" bottom-0 flex h-[120px] w-full items-center justify-center overflow-hidden border-t-4 border-white/10 bg-[#480048] px-8 text-white shadow-[0_-5px_20px_rgba(0,0,0,0.5)]"
-			>
-				<div class="slide-in-left w-full text-right text-5xl font-bold whitespace-nowrap">
-					{getTeamDisplayName(match.teams[0])}
-				</div>
+<div class="broadcast-page">
+	<main class="broadcast-frame" aria-label="Présentation du match">
+		{#if match}
+			<section class="versus-panel lexend">
+				<div class="versus-content">
+					<div class="slide-in-left team team-left">
+						{getTeamDisplayName(match.teams[0])}
+					</div>
 
-				<div class="m-40 text-2xl font-semibold opacity-80">VS</div>
+					<div class="versus-label">VS</div>
 
-				<div class="slide-in-right w-full text-5xl font-bold whitespace-nowrap">
-					{getTeamDisplayName(match.teams[1])}
+					<div class="slide-in-right team team-right">
+						{getTeamDisplayName(match.teams[1])}
+					</div>
 				</div>
-			</div>
-			<div class="flex h-24 justify-center bg-black px-3 py-5 text-center text-6xl">
-				<img class="h-full" src="/img/footer_banner.png" alt="logoffd" />
-			</div>
-		</div>
-	</div>
-{/if}
+				<footer class="versus-footer">
+					<img src="/img/footer_banner.png" alt="Winamax French Darts Festival" />
+				</footer>
+			</section>
+		{/if}
+	</main>
+</div>
 
 <style>
+	:global(html),
+	:global(body) {
+		margin: 0;
+		overflow: hidden;
+		background: #ff0000;
+	}
+
+	:global(body) {
+		min-width: 100vw;
+		min-height: 100vh;
+	}
+
+	.broadcast-page {
+		position: fixed;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		background: #ff0000;
+	}
+
+	.broadcast-frame {
+		position: relative;
+		width: min(100vw, calc(100vh * 16 / 9));
+		height: min(100vh, calc(100vw * 9 / 16));
+		overflow: hidden;
+		container-type: size;
+		background: #00ff00;
+	}
+
+	.versus-panel {
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		width: 80%;
+		transform: translateX(-50%);
+		color: white;
+		box-shadow: 0 -0.35cqw 1.2cqw rgb(0 0 0 / 50%);
+	}
+
+	.versus-content {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		align-items: center;
+		min-height: 10.8cqh;
+		overflow: hidden;
+		padding: 0.8cqw 1.7cqw;
+		border-top: 0.22cqw solid rgb(255 255 255 / 10%);
+		background: #480048;
+	}
+
+	.team {
+		overflow: hidden;
+		font-size: 2.25cqw;
+		font-weight: 700;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.team-left {
+		text-align: right;
+	}
+
+	.team-right {
+		text-align: left;
+	}
+
+	.versus-label {
+		margin: 0 4.5cqw;
+		font-size: 1.25cqw;
+		font-weight: 600;
+		opacity: 0.8;
+	}
+
+	.versus-footer {
+		display: flex;
+		height: 5.8cqh;
+		align-items: center;
+		justify-content: center;
+		padding: 0.65cqh 0.8cqw;
+		background: black;
+	}
+
+	.versus-footer img {
+		height: 100%;
+		object-fit: contain;
+	}
+
 	@keyframes slide-in-left {
 		0% {
 			transform: translateX(-100%);

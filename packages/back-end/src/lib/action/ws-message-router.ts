@@ -35,6 +35,9 @@ export const addWsMessageListerner = (ws: WebSocket, clientId: string) => {
 				matchListTopic.update(matchInfos)
 				break
 			}
+			case ADMIN_COMMANDS.navigateToPage:
+				sendWsMessageById(wsMessage.destinationId, wsMessage)
+				break
 			case STATE_COMMANDS.screenUpdate: {
 				updateClientScreen(clientId, wsMessage.data)
 				break

@@ -27,6 +27,7 @@ export const STATE_COMMANDS = {
 export const ADMIN_COMMANDS = {
 	setNextMatch: "setNextMatch",
 	deleteMatch: "deleteMatch",
+	navigateToPage: "navigateToPage",
 } as const
 
 export const COMMANDS = {
@@ -49,6 +50,7 @@ type CommandDataMap = {
 	[STATE_COMMANDS.screenUpdate]: string
 	[ADMIN_COMMANDS.setNextMatch]: Match
 	[ADMIN_COMMANDS.deleteMatch]: string
+	[ADMIN_COMMANDS.navigateToPage]: string
 	[COMMANDS.ok]: "OK"
 	[COMMANDS.ping]: undefined
 	[COMMANDS.pong]: undefined

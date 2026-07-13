@@ -26,77 +26,183 @@
 	const colors = { t1Colors: ["#480048", "#8A008A"], t2Colors: ["#D80000", "#FF6666"] };
 </script>
 
-{#if bars && match}
-	<div class="bg-wfdf absolute aspect-video h-screen">
-		<main class="lexend absolute right-0 flex h-screen w-75/100 flex-col px-20">
-			<div class="row flex w-full justify-between py-8 text-4xl text-white">
-				<span style="white-space: pre-line" class="textleft text-shadow w-full font-bold"
-					>{getTeamDisplayName(match.teams[0], "\n")}</span
-				>
-				<div class="flex items-start justify-center overflow-visible align-middle">
-					<img class="max-h-full min-w-[150%]" src="/img/footer_banner.png" alt="logoffd" />
-				</div>
-				<span style="white-space: pre-line" class="text-shadow w-full text-right font-bold"
-					>{getTeamDisplayName(match.teams[1], "\n")}</span
-				>
-			</div>
-			{#each bars as bar, index}
-				<div
-					class="relative flex h-20 w-full items-center justify-center pb-10 font-bold text-gray-800"
-				>
-					<!-- Player 1 -->
-					<div class="flex h-full w-full justify-end">
-						<div
-							class="flex h-full items-center justify-start text-sm text-white"
-							style="width: {init
-								? '0'
-								: bar.team1Percent};transition: width 1s ease var(--delay, {index *
-								timingOffSet}ms);background-color: {colors.t1Colors[index % 2]}"
-						>
-							<span class="text-shadow px-4 text-2xl">
-								{bar.team1StatValue}
-							</span>
-						</div>
-					</div>
-
-					<!-- Nom de la stat au centre -->
-					<span
-						class="z-10 mx-2 inline-flex h-full min-w-[220px] items-center justify-center bg-gray-700 text-center text-xl text-white"
-						>{bar.name.toUpperCase()}</span
+<div class="broadcast-page">
+	<main class="broadcast-frame" aria-label="Statistiques du match">
+		{#if bars && match}
+			<section class="stats-panel lexend">
+				<div class="stats-header">
+					<span style="white-space: pre-line" class="textleft text-shadow w-full font-bold"
+						>{getTeamDisplayName(match.teams[0], "\n")}</span
 					>
+					<div class="stats-logo">
+						<img src="/img/footer_banner.png" alt="Winamax French Darts Festival" />
+					</div>
+					<span style="white-space: pre-line" class="text-shadow w-full text-right font-bold"
+						>{getTeamDisplayName(match.teams[1], "\n")}</span
+					>
+				</div>
+				{#each bars as bar, index}
+					<div class="stat-row">
+						<!-- Player 1 -->
+						<div class="stat-side stat-side-left">
+							<div
+								class="stat-bar stat-bar-left"
+								style="width: {init
+									? '0'
+									: bar.team1Percent};transition: width 1s ease var(--delay, {index *
+									timingOffSet}ms);background-color: {colors.t1Colors[index % 2]}"
+							>
+								<span class="text-shadow stat-value">
+									{bar.team1StatValue}
+								</span>
+							</div>
+						</div>
 
-					<!-- Player 2 -->
-					<div class="h-full w-full">
-						<div
-							class="flex h-full items-center justify-end text-sm text-white"
-							style="width: {init
-								? '0'
-								: bar.team2Percent};transition: width 1s ease var(--delay, {index *
-								timingOffSet}ms);background-color: {colors.t2Colors[index % 2]}"
-						>
-							<span class="text-shadow px-4 text-2xl">
-								{bar.team2StatValue}
-							</span>
+						<!-- Nom de la stat au centre -->
+						<span class="stat-name">{bar.name.toUpperCase()}</span>
+
+						<!-- Player 2 -->
+						<div class="stat-side">
+							<div
+								class="stat-bar stat-bar-right"
+								style="width: {init
+									? '0'
+									: bar.team2Percent};transition: width 1s ease var(--delay, {index *
+									timingOffSet}ms);background-color: {colors.t2Colors[index % 2]}"
+							>
+								<span class="text-shadow stat-value">
+									{bar.team2StatValue}
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			{/each}
-		</main>
-	</div>
-{/if}
+				{/each}
+			</section>
+		{/if}
+	</main>
+</div>
 
 <style>
+	:global(html),
+	:global(body) {
+		margin: 0;
+		overflow: hidden;
+		background: #ff0000;
+	}
+
+	:global(body) {
+		min-width: 100vw;
+		min-height: 100vh;
+	}
+
+	.broadcast-page {
+		position: fixed;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		background: #ff0000;
+	}
+
+	.broadcast-frame {
+		position: relative;
+		width: min(100vw, calc(100vh * 16 / 9));
+		height: min(100vh, calc(100vw * 9 / 16));
+		overflow: hidden;
+		container-type: size;
+		background: #00ff00;
+	}
+
+	.stats-panel {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		display: flex;
+		width: 75%;
+		max-height: 90%;
+		transform: translate(-50%, -50%);
+		flex-direction: column;
+	}
+
+	.stats-header {
+		display: grid;
+		grid-template-columns: 1fr 18% 1fr;
+		align-items: center;
+		min-height: 8cqh;
+		padding: 0.8cqw 0;
+		font-size: 1.8cqw;
+		color: white;
+	}
+
+	.stats-logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 5.5cqh;
+		overflow: visible;
+	}
+
+	.stats-logo img {
+		width: 145%;
+		max-width: none;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.stat-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 11.5cqw minmax(0, 1fr);
+		align-items: center;
+		height: 5.8cqh;
+		padding-bottom: 1.6cqh;
+		font-weight: 700;
+	}
+
+	.stat-side {
+		height: 100%;
+	}
+
+	.stat-side-left {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.stat-bar {
+		display: flex;
+		height: 100%;
+		align-items: center;
+		color: white;
+	}
+
+	.stat-bar-left {
+		justify-content: flex-start;
+	}
+
+	.stat-bar-right {
+		justify-content: flex-end;
+	}
+
+	.stat-value {
+		padding: 0 0.8cqw;
+		font-size: 1.25cqw;
+	}
+
+	.stat-name {
+		z-index: 1;
+		display: inline-flex;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+		background: #374151;
+		font-size: 1.05cqw;
+		text-align: center;
+		color: white;
+	}
+
 	@font-face {
 		font-family: "Lexend";
 		src: url("/fonts/Lexend-Medium.ttf") format("truetype");
 		font-weight: normal;
 		font-style: normal;
-	}
-	.bg-wfdf {
-		background-image: url("/img/stat_background.jpeg");
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center;
 	}
 	.text-shadow {
 		font-family: "Lexend", sans-serif;

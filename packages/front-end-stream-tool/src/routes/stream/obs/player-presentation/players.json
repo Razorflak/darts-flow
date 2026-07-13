@@ -1,0 +1,73 @@
+{
+	"rankingUpdatedAt": "2026-07-13",
+	"players": [
+		{
+			"slug": "thibault-tricole",
+			"name": "Thibault Tricole",
+			"nickname": "The French Touch",
+			"birthDate": "1989-10-11",
+			"country": "France",
+			"flag": "/img/players/flags/france.svg",
+			"origin": "Auray, Bretagne, France",
+			"pdcRanking": 64,
+			"darts": "Winmau Signature — 23 g",
+			"honours": [
+				"Vice-champion du monde WDF — 2022",
+				"Premier Français au Mondial PDC — 2024",
+				"Premier Français vainqueur sur l’European Tour — 2025"
+			],
+			"portrait": "/img/players/thibault-tricole.png"
+		},
+		{
+			"slug": "michael-smith",
+			"name": "Michael Smith",
+			"nickname": "Bully Boy",
+			"birthDate": "1990-09-18",
+			"country": "Angleterre",
+			"flag": "/img/players/flags/england.svg",
+			"origin": "St Helens, Angleterre",
+			"pdcRanking": 32,
+			"darts": "Shot Achieve Steel Tip — 24 g",
+			"honours": [
+				"Champion du monde PDC — 2023",
+				"Vainqueur du Grand Slam — 2022",
+				"Numéro 1 mondial PDC — 2023"
+			],
+			"portrait": "/img/players/michael-smith.png"
+		},
+		{
+			"slug": "peter-wright",
+			"name": "Peter Wright",
+			"nickname": "Snakebite",
+			"birthDate": "1970-03-10",
+			"country": "Écosse",
+			"flag": "/img/players/flags/scotland.svg",
+			"origin": "Livingston, Écosse",
+			"pdcRanking": 34,
+			"darts": "Red Dragon Supa-Venom — 21 g",
+			"honours": [
+				"Champion du monde PDC — 2020 & 2022",
+				"Vainqueur du World Matchplay — 2021",
+				"Vainqueur de l’UK Open — 2017"
+			],
+			"portrait": "/img/players/peter-wright.png"
+		},
+		{
+			"slug": "kim-huybrechts",
+			"name": "Kim Huybrechts",
+			"nickname": "The Hurricane",
+			"birthDate": "1985-11-16",
+			"country": "Belgique",
+			"flag": "/img/players/flags/belgium.svg",
+			"origin": "Anvers, Belgique",
+			"pdcRanking": 55,
+			"darts": "Bull’s NL Signature — 24 g",
+			"honours": [
+				"Finaliste des Players Championship Finals — 2012",
+				"Finaliste de la World Cup of Darts — 2013",
+				"Demi-finaliste du Grand Slam — 2014"
+			],
+			"portrait": "/img/players/kim-huybrechts.png"
+		}
+	]
+}

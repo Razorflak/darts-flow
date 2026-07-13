@@ -71,37 +71,59 @@
 	}
 </script>
 
-<section class="mx-auto rounded-xl p-4 shadow-lg">
-	<h2 class="mb-4 text-xl font-bold">Liste des match en attente</h2>
+<section class="p-6">
+	<div class="mb-5 flex items-center justify-between gap-4">
+		<div>
+			<h2 class="text-xl font-bold">Matchs en attente</h2>
+			<p class="mt-1 text-sm text-slate-400">Envoyez un match vers l’écran sélectionné.</p>
+		</div>
+		<span class="rounded-full bg-slate-800 px-3 py-1 text-sm text-slate-300">
+			{matchInformations.length}
+		</span>
+	</div>
 	{#if matchInformations.length > 0}
 		{#if !client}
-			<p class="text-red-500">Aucun client sélectionné</p>
+			<p
+				class="mb-4 rounded-lg border border-amber-800 bg-amber-950/60 px-4 py-3 text-sm text-amber-200"
+			>
+				Sélectionnez d’abord un écran de diffusion.
+			</p>
 		{/if}
-		<ul class="space-y-2">
+		<ul class="space-y-3">
 			{#each matchInformations as matchInformation}
-				<li class="flex flex-row">
-					<span class="w-1/2">
+				<li
+					class="grid gap-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center"
+				>
+					<strong class="min-w-0 text-slate-100">
 						{getTeamDisplayName(matchInformation.match.teams[0])} / {getTeamDisplayName(
 							matchInformation.match.teams[1]
 						)}
-					</span>
-					<button
-						class="flex cursor-pointer items-center justify-between rounded-lg bg-blue-200 p-3 shadow-sm disabled:opacity-50"
-						onclick={() => setNextMatch(matchInformation.match)}
-						disabled={!client}
-					>
-						Match suivant
-					</button>
-					<button
-						class="mx-10 flex cursor-pointer items-center justify-between rounded-lg bg-red-500 p-3 shadow-sm disabled:opacity-50"
-						onclick={() => deleteMatch(matchInformation.match)}
-					>
-						Supprimer le match
-					</button>
+					</strong>
+					<div class="grid gap-2 sm:grid-cols-2">
+						<button
+							type="button"
+							class="cursor-pointer rounded-lg bg-sky-700 px-4 py-2.5 font-bold text-white transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-40"
+							onclick={() => setNextMatch(matchInformation.match)}
+							disabled={!client}
+						>
+							Diffuser
+						</button>
+						<button
+							type="button"
+							class="cursor-pointer rounded-lg border border-red-900 bg-red-950/60 px-4 py-2.5 font-bold text-red-200 transition hover:bg-red-900"
+							onclick={() => deleteMatch(matchInformation.match)}
+						>
+							Supprimer
+						</button>
+					</div>
 				</li>
 			{/each}
 		</ul>
 	{:else}
-		<p class="text-center text-gray-400">Aucun client connecté</p>
+		<p
+			class="rounded-xl border border-dashed border-slate-700 px-4 py-8 text-center text-slate-500"
+		>
+			Aucun match en attente
+		</p>
 	{/if}
 </section>
